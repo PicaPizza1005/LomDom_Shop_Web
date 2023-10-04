@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.demo.entity.User;
-import com.example.demo.repos.UserRepository;
+import com.example.demo.entities.User;
+import com.example.demo.repositories.UserRepository;
 
 public class AuthService {
      @Autowired

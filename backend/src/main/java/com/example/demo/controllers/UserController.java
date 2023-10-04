@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.ERole;
-import com.example.demo.entity.Role;
-import com.example.demo.entity.User;
+import com.example.demo.entities.ERole;
+import com.example.demo.entities.Role;
+import com.example.demo.entities.User;
 import com.example.demo.jwt.JwtTokenPovider;
 import com.example.demo.payload.request.LoginRequest;
 import com.example.demo.payload.request.SignUpRequest;
 import com.example.demo.payload.response.JwtResponse;
 import com.example.demo.payload.response.MessageResponse;
 import com.example.demo.security.CustomUserDetails;
-import com.example.demo.service.RoleService;
-import com.example.demo.service.UserService;
+import com.example.demo.services.RoleService;
+import com.example.demo.services.UserService;
 
 @CrossOrigin(origins = "*")
 @RestController
