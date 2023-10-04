@@ -1,5 +1,5 @@
 package com.example.demo.controllers;
-import com.example.demo.domains.Category;
+import com.example.demo.entities.Category;
 import com.example.demo.models.CategoryDTO;
 import com.example.demo.services.CategoryService;
 

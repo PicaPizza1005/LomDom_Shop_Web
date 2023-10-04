@@ -1,6 +1,6 @@
-package com.example.demo.domains;
-import com.example.demo.domains.Product;
-import com.example.demo.domains.User;
+package com.example.demo.entities;
+import com.example.demo.entities.User;
+import com.example.demo.entities.Product;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
