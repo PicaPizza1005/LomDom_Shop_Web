@@ -79,15 +79,18 @@ public class UserController {
         else{
             roles.forEach(role->{
                 switch(role){
-                    case "admin":
+                    case"admin":
                         Role adminRoles=roleService.findByRoleName(ERole.ROLE_ADMIN).orElseThrow(()->new RuntimeException("Role is not found"));
                         listRoles.add(adminRoles);
-                    case "moderator":
+                        break;
+                    case"moderator":
                         Role modRoles=roleService.findByRoleName(ERole.ROLE_MODERATOR).orElseThrow(()->new RuntimeException("Role is not found"));
                         listRoles.add(modRoles);
-                    case "user":
+                        break;
+                    case"user":
                         Role userRoles=roleService.findByRoleName(ERole.ROLE_USER).orElseThrow(()->new RuntimeException("Role is not found"));
                         listRoles.add(userRoles);
+                        break;
                     }
             });
         }
