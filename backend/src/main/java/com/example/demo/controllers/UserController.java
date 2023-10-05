@@ -55,7 +55,7 @@ public class UserController {
         if(userService.existsByEmail(signUpRequest.getEmail())){
             return ResponseEntity.badRequest().body(new MessageResponse("Email is already"));
         }
-        User user =new User();
+        User user = new User();
         user.setUsername(signUpRequest.getUsername());
         user.setPassword(encoder.encode(signUpRequest.getPassword()));
         user.setEmail(signUpRequest.getEmail());
@@ -95,7 +95,7 @@ public class UserController {
         userService.saveOrUpdate(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully"));
     }
-     @PostMapping("/signin")
+    @PostMapping("/signin")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())

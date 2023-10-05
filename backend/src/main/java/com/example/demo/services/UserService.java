@@ -12,7 +12,7 @@ import com.example.demo.repositories.UserRepository;
 @Service
 @Transactional
 public class UserService{
-     @Autowired
+    @Autowired
     private UserRepository userRepository;
     public boolean existsByEmail(String email) {
        return userRepository.existsByEmail(email);
