@@ -1,5 +1,8 @@
 package com.example.demo.entities;
 import com.example.demo.entities.User;
+
+import lombok.Data;
+
 import com.example.demo.entities.Product;
 
 import javax.persistence.Column;
@@ -13,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GenerationType;
 
 @Entity
+@Data
 public class CartItem {
     @Id
     @Column(nullable = false, updatable = false)
