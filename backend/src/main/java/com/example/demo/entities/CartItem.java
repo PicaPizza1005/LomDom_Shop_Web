@@ -1,10 +1,9 @@
 package com.example.demo.entities;
 import com.example.demo.entities.User;
-
-import lombok.Data;
-
 import com.example.demo.entities.Product;
 
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.FetchType;
-
 import javax.persistence.GenerationType;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class CartItem {
     @Id
     @Column(nullable = false, updatable = false)
@@ -24,7 +23,7 @@ public class CartItem {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private Long quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

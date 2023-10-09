@@ -44,7 +44,8 @@ public class CustomUserDetails implements UserDetails {
             user.getEmail(),
             user.getPhone(),
             user.isUserStatus(),
-             listAuthorities);
+            listAuthorities
+        );
     }
 
     @Override
