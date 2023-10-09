@@ -1,4 +1,5 @@
 package com.example.demo.controllers;
+
 import com.example.demo.entities.Category;
 import com.example.demo.models.CategoryDTO;
 import com.example.demo.services.CategoryService;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping(path = "api/v1/categories")
