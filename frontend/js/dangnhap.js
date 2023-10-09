@@ -179,6 +179,6 @@ const kiemTraEmail = (email) => {
       }),
     })
     // reload
-    window.location.href = "signin.html";
+    window.location.href = "signIn.html";
   }
   
