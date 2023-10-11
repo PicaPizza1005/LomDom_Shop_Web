@@ -71,5 +71,4 @@ public class CartItemService {
     public void delete(Long id) {
         cartItemRepository.deleteById(id);
     }
-
 }
