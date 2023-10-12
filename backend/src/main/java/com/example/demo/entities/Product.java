@@ -8,14 +8,5 @@ import javax.persistence.Id;
 
 @Entity
 public class Product {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false)
-    private String name;
-
-    @Column
-    private String description;
 }
