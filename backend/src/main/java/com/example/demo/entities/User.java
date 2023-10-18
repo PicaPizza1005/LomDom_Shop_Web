@@ -48,7 +48,7 @@ public class User {
     private boolean userStatus;
     @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name="User_Role",
-    joinColumns = @JoinColumn(name="userId"),
-    inverseJoinColumns = @JoinColumn(name="roleId"))
+    joinColumns = @JoinColumn(name="user_id"),
+    inverseJoinColumns = @JoinColumn(name="role_id"))
     private Set<Role> listRoles=new HashSet<>();
 }

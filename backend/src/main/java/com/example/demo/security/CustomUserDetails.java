@@ -13,10 +13,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 @AllArgsConstructor
 @Data
 public class CustomUserDetails implements UserDetails {
-     private Long userId;
+    private Long userId;
     private String username;
     @JsonIgnore
     private String password;
@@ -43,7 +44,8 @@ public class CustomUserDetails implements UserDetails {
             user.getEmail(),
             user.getPhone(),
             user.isUserStatus(),
-             listAuthorities);
+            listAuthorities
+        );
     }
 
     @Override

@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,10 +21,7 @@ public class Category {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column
-    private String description;
-
     @ManyToOne
-    @JoinColumn(name = "parent_id_category")
+    @JoinColumn(name = "parent_category_id")
     private Category parentCategory;
 }
