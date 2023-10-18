@@ -40,4 +40,8 @@ public class Product {
     
     @Column(nullable = false)
     private Long price;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

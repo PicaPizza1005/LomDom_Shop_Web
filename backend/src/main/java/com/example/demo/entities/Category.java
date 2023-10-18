@@ -17,13 +17,10 @@ public class Category {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
-
-    @Column
-    private String description;
+    @Column(nullable = false)
+    private String name_category;
 
     @ManyToOne
-    @JoinColumn(name = "parent_id_category")
+    @JoinColumn(name = "parent_category")
     private Category parentCategory;
 }
