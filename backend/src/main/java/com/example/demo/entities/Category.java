@@ -18,9 +18,9 @@ public class Category {
     private Long id;
 
     @Column(nullable = false)
-    private String name_category;
+    private String name;
 
     @ManyToOne
-    @JoinColumn(name = "parent_category")
+    @JoinColumn(name = "parent_category_id")
     private Category parentCategory;
 }

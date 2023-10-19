@@ -23,6 +23,10 @@ public class CategoryService {
     public Category findById(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Can't find category with id: " + id));
     }
+
+    public Category get(final Long id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Can't find category with id: " + id));
+    }
     
     public Long create(CategoryDTO categoryDTO) {
         Category category = modelMap.map(categoryDTO, Category.class);
