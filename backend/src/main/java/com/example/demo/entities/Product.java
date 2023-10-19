@@ -26,11 +26,13 @@ public class Product {
     @Column(name = "\"description\"")
     private String description;
 
-    @Column(nullable = false)
-    private Long size_id;
+    //phai them manytomany
+    @JoinColumn(name = "size_id")
+    private Size size;
 
-    @Column(nullable = false) 
-    private Long color_id;
+    @ManyToOne
+    @JoinColumn(name = "color_id")
+    private Color color;
 
     @Column(nullable = false)
     private String materials;
