@@ -33,4 +33,6 @@ public class ProductDTO {
     private String instruction;
     
     private Long price;
+
+    private Long category;
 }
