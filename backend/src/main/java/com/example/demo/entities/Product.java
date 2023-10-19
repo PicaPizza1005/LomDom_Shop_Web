@@ -1,11 +1,17 @@
 package com.example.demo.entities;
 
+import com.example.demo.entities.Size;
+import com.example.demo.entities.Color;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import lombok.Getter;
@@ -26,9 +32,13 @@ public class Product {
     @Column(name = "\"description\"")
     private String description;
 
-    //phai them manytomany
-    @JoinColumn(name = "size_id")
-    private Size size;
+    @ManyToMany
+    @JoinTable(
+        name = "product_size",
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "size_id")
+    )
+    private Set<Size> sizes;
 
     @ManyToOne
     @JoinColumn(name = "color_id")
