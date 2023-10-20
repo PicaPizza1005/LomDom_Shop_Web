@@ -1,6 +1,5 @@
 package com.example.demo.payload.request;
 
-
 import java.util.Date;
 import java.util.Set;
 public class SignUpRequest {
