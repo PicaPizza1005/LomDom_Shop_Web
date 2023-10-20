@@ -1,7 +1,5 @@
 package com.example.demo.entities;
 
-import com.example.demo.entities.Size;
-import com.example.demo.entities.Color;
 import java.util.Set;
 
 import javax.persistence.Column;
