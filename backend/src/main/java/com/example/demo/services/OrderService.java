@@ -30,9 +30,10 @@ public class OrderService {
         this.userService = userService;
     }
 
-    public List<Order> findAll() {
-        return orderRepository.findAll();
+    public List<Order> findAllByUsersId(Long userId) {
+        return orderRepository.findAllByUserId(userId);
     }
+    
 
     public Order get(final Long id) {
         return orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Can't find order with id: " + id));

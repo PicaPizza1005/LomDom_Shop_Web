@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 @Getter
 @Setter
 public class OrderStatus {
-
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

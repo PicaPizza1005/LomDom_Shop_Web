@@ -51,8 +51,8 @@ public class Order {
     private Set<OrderItem> orderItems;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
-    private User users;
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
     @Column(updatable = false)

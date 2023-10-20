@@ -62,7 +62,7 @@ public class UserService {
     public Long create(UserDTO userDTO) {
         final User user = new User();
         mapToEntity(userDTO, user);
-        return userRepository.save(user).getUserId();
+        return userRepository.save(user).getId();
     }
 
     public void delete(Long id) {

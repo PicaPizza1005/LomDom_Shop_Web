@@ -38,7 +38,7 @@ public class CustomUserDetails implements UserDetails {
             .map(roles->new SimpleGrantedAuthority(roles.getRolename().name()))
             .collect(Collectors.toList());
         return new CustomUserDetails(
-            user.getUserId(),
+            user.getId(),
             user.getUsername(),
             user.getPassword(), 
             user.getEmail(),
