@@ -17,7 +17,7 @@ public class OrderItemService {
     private final OrderRepository orderRepository;
 
     @Autowired
-    private ModelMapper modelMap;
+    private ModelMapper modelMapper;
 
     public OrderItemService(final OrderItemRepository orderItemRepository,final OrderRepository orderRepository) {
         this.orderItemRepository = orderItemRepository;
@@ -33,17 +33,21 @@ public class OrderItemService {
     }
 
     public Long create(final OrderItemDTO orderItemDTO) {
-        OrderItem orderItem = modelMap.map(orderItemDTO, OrderItem.class);
+        final OrderItem orderItem = mapToEntity(orderItemDTO);
         return orderItemRepository.save(orderItem).getId();
     }
     
     public void update(final Long id, final OrderItemDTO orderItemDTO) {
         final OrderItem orderItem = orderItemRepository.findById(id).orElseThrow(() -> new RuntimeException("Can't find orderItem with id: " + id + " to update"));
-        modelMap.map(orderItemDTO, orderItem);
+        orderItem.setOrder(orderRepository.findById(orderItemDTO.getOrder()).orElseThrow(() -> new RuntimeException("Can't find order with id: " + orderItemDTO.getOrder() + " to update")));
         orderItemRepository.save(orderItem);
     }
 
     public void delete(final Long id) {
         orderItemRepository.deleteById(id);
+    }
+
+    public OrderItem mapToEntity(final OrderItemDTO orderItemDTO) {
+        return modelMapper.map(orderItemDTO, OrderItem.class);
     }
 }

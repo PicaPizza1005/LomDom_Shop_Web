@@ -1,18 +1,15 @@
 package com.example.demo.services;
-import com.example.demo.entities.Product;
 import com.example.demo.repositories.CartItemRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.repositories.ProductRepository;
 import com.example.demo.security.AuthService;
 import com.example.demo.entities.CartItem;
-import com.example.demo.entities.User;
 import com.example.demo.models.CartItemDTO;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
@@ -25,7 +22,7 @@ public class CartItemService {
     private final ProductRepository productRepository;
     
     @Autowired
-    private ModelMapper modelMap;
+    private ModelMapper modelMapper;
 
     @Autowired
     private AuthService authService;
@@ -68,7 +65,7 @@ public class CartItemService {
 
     public CartItem update(Long id, CartItemDTO cartItemDTO) {
         CartItem cartItem = cartItemRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't find cartItem with id: " + id + " to update", null));
-        modelMap.map(cartItemDTO, cartItem);
+        cartItem.setQuantity(cartItemDTO.getQuantity());
         cartItemRepository.save(cartItem);
         return cartItem;
     }
@@ -76,4 +73,5 @@ public class CartItemService {
     public void delete(Long id) {
         cartItemRepository.deleteById(id);
     }
+
 }

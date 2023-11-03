@@ -12,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +33,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -45,10 +48,16 @@ public class User {
     private String phone;
 
     @Column
+    private String address;
+
+    @Column
     private boolean userStatus;
     @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name="User_Role",
     joinColumns = @JoinColumn(name="user_id"),
     inverseJoinColumns = @JoinColumn(name="role_id"))
     private Set<Role> listRoles=new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<CartItem> userCartItems;
 }

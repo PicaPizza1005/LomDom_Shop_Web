@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrderDTO {
+
     private Long id;
 
     private Long total;
@@ -17,5 +18,5 @@ public class OrderDTO {
 
     private Long status;
 
-    private Long users;
+    private Long user;
 }

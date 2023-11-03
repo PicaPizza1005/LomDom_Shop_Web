@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,20 +32,18 @@ public class Product {
     @Column(name = "\"description\"")
     private String description;
 
-    @ManyToMany
-    @JoinTable(
-        name = "product_size",
-        joinColumns = @JoinColumn(name = "product_id"),
-        inverseJoinColumns = @JoinColumn(name = "size_id")
-    )
-    private Set<Size> sizes;
-
     @ManyToOne
     @JoinColumn(name = "color_id")
     private Color color;
-
+    
     @Column(nullable = false)
     private String materials;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "Product_Size",
+        joinColumns = @JoinColumn(name = "product_id"), 
+        inverseJoinColumns = @JoinColumn(name = "size_id"))
+    private Set<Size> listSizes = new HashSet<>();
 
     @Column
     private String image;
