@@ -23,7 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 @RestController
-@RequestMapping(value = "/api/products", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/products", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductController {
     private final ProductService productService;
 
@@ -53,9 +53,8 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateProduct(@PathVariable final Long id, @RequestBody @Valid final ProductDTO productDTO) {
-        productService.update(id, productDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Product> updateProduct(@PathVariable final Long id, @RequestBody @Valid final ProductDTO productDTO) {
+        return ResponseEntity.ok(productService.update(id, productDTO));
     }
 
     @DeleteMapping("/{id}")

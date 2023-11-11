@@ -12,7 +12,7 @@ public class UserDTO {
     private String password;
     private String email;
     private String phone;
-    private Date created= new Date();
+    private Date created = new Date();
     private boolean userStatus;
     private Set<String> listRoles;
 }
