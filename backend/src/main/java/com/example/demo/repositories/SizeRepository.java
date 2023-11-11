@@ -7,4 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SizeRepository extends JpaRepository<Size, Long> {
     Set<Size> findBySizeIdIn(Set<Long> sizeIds);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f2758242310d26216d067910597854aca43e165e

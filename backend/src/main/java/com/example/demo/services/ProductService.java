@@ -55,6 +55,7 @@ public class ProductService {
         return productRepository.save(product).getId();
     }
     
+<<<<<<< HEAD
     public List<Product> search(final String query) {
         List<Product> products = productRepository.searchProducts(query);
         return products;
@@ -67,6 +68,15 @@ public class ProductService {
         productRepository.save(product);
         return product;
     }
+=======
+    public Product update(Long id, final ProductDTO productDTO) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot find product with id: " + id));
+        product = mapToEntity(productDTO, product);
+        productRepository.save(product);
+        return product;
+    }
+>>>>>>> f2758242310d26216d067910597854aca43e165e
     
     public void delete(final Long id) {
         productRepository.deleteById(id);
