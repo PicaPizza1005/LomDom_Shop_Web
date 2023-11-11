@@ -43,6 +43,11 @@ public class ProductService {
         return productRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    public List<Product> search(final String query) {
+        List<Product> products = productRepository.searchProducts(query);
+        return products;
+    }
+
     public Long create(final ProductDTO productDTO) {
         final Product product = new Product();
         mapToEntity(productDTO, product);
