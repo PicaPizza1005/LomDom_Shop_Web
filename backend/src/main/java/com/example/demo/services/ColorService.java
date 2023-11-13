@@ -8,8 +8,4 @@ import org.springframework.stereotype.Service;
 public class ColorService {
     @Autowired
     private ColorRepository colorRepository;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> f2758242310d26216d067910597854aca43e165e
