@@ -17,7 +17,7 @@ public class OrderStatusService {
     private OrderStatusRepository orderStatusRepository;
 
     @Autowired
-    private ModelMapper modelMap;
+    private ModelMapper modelMapper;
 
     public OrderStatusService() {
     }
@@ -31,13 +31,14 @@ public class OrderStatusService {
     }
 
     public Long create(final OrderStatusDTO orderStatusDTO) {
-        OrderStatus orderStatus = modelMap.map(orderStatusDTO, OrderStatus.class);
+        OrderStatus orderStatus = modelMapper.map(orderStatusDTO, OrderStatus.class);
         return orderStatusRepository.save(orderStatus).getId();
     }
 
     public void update(final Long id, final OrderStatusDTO orderStatusDTO) {
-        final OrderStatus orderStatus = orderStatusRepository.findById(id).orElseThrow(() -> new RuntimeException("Can't find orderStatus with id: " + id + " to update"));
-        modelMap.map(orderStatusDTO, orderStatus);
+        OrderStatus orderStatus = orderStatusRepository.findById(id).orElseThrow(() -> new RuntimeException("Can't find orderStatus with id: " + id + " to update"));
+        orderStatusDTO.setId(id);
+        modelMapper.map(orderStatusDTO, orderStatus);
         orderStatusRepository.save(orderStatus);
     }
 

@@ -5,14 +5,12 @@ import com.example.demo.repositories.OrderRepository;
 import com.example.demo.repositories.OrderStatusRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.security.AuthService;
-import com.example.demo.services.UserService;
 import com.example.demo.entities.Order;
 import com.example.demo.models.OrderDTO;
 import com.example.demo.entities.OrderItem;
 import com.example.demo.entities.OrderStatus;
 import com.example.demo.entities.User;
 import com.example.demo.entities.CartItem;
-import com.example.demo.services.CartItemService;
 
 
 import org.modelmapper.ModelMapper;
@@ -55,29 +53,27 @@ public class OrderService {
     }
 
     public List<Order> findAll() {
-        return orderRepository.findAllByUserId(authService.getCurrentUser().getId());
+        return orderRepository.findAllByUserId(authService.getCurrentUserId());
     }
 
     public Order get(Long id) {
-        return orderRepository.findById(id).orElse(null);
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
     
     public Long create(final OrderDTO orderDTO) {
-        final Order order = new Order();
-        mapToEntity(orderDTO, order);
+        final Order order = mapToEntity(orderDTO, new Order());
         return orderRepository.save(order).getId();
     }
 
     @Transactional
     public Order makeOrder() {
         Order order = new Order();
-        order.setAddress(authService.getCurrentUser().getAddress());
+        order.setAddress(authService.getCurrentUser().getAddress    ());
         order.setPhone(authService.getCurrentUser().getPhone());
         order.setUser(authService.getCurrentUser());
         Long totalPrice = 0L;
         order.setTotal(totalPrice);
-
-
         Order updateOrder = orderRepository.save(order);
 
         List<OrderItem> orderItems = new ArrayList<>();
@@ -115,17 +111,10 @@ public class OrderService {
 
 
     private Order mapToEntity(final OrderDTO orderDTO, Order order) {
+        orderDTO.setId(order.getId());
         order = modelMapper.map(orderDTO, Order.class);
-        if (orderDTO.getStatus() != null && (order.getStatus() == null || !order.getStatus().getId().equals(orderDTO.getStatus()))) {
-            final OrderStatus status = orderStatusRepository.findById(orderDTO.getStatus())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "status not found"));
-            order.setStatus(status);
-        }
-        if (orderDTO.getUser() != null && (order.getUser() == null || !order.getUser().getId().equals(orderDTO.getUser()))) {
-            final User users = userRepository.findById(orderDTO.getUser())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "users not found"));
-            order.setUser(users);
-        }
+        order.setStatus(orderStatusRepository.findById(orderDTO.getStatus()).orElseThrow(() -> new RuntimeException("Can't find orderStatus with id: " + orderDTO.getStatus() + " to update")));
+        order.setUser(userRepository.findById(orderDTO.getUser()).orElseThrow(() -> new RuntimeException("Can't find user with id: " + orderDTO.getUser() + " to update")));
         return order;
     }
 

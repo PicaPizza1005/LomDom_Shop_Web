@@ -20,7 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping(path = "api/v1/orders")
+@RequestMapping(path = "/api/v1/orders")
 public class OrderController {
 
     private final OrderService orderService;
