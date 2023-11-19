@@ -57,6 +57,9 @@ public class ProductService {
     
     public List<Product> search(final String query) {
         List<Product> products = productRepository.searchProducts(query);
+        if (products.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No products found with query: " + query);
+        }
         return products;
     }
 
