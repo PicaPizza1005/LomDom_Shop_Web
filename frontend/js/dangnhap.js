@@ -140,12 +140,12 @@ const kiemTraEmail = (email) => {
   function loidangky(id, message) {
     document.getElementById(id).innerHTML = message;
   }
-  const api = "http://localhost:8080";
+  const api = "http://localhost:8081";
   
   async function dangnhap(event) {
     console.log(123213213);
     event.preventDefault();
-    fetch(`http://localhost:8080/api/v1/auth/signin`, {
+    fetch(`http://localhost:8081/api/v1/auth/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -166,7 +166,7 @@ const kiemTraEmail = (email) => {
   }
   async function dangky() {
     
-    const res = await fetch(`http://localhost:8080/api/v1/auth/signup`, {
+    const res = await fetch(`http://localhost:8081/api/v1/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
