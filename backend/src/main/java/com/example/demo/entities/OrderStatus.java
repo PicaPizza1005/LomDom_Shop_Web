@@ -22,5 +22,4 @@ public class OrderStatus {
 
     @Column(name = "\"description\"")
     private String description;
-
 }

@@ -1,3 +1,202 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Nov 19, 2023 at 04:12 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `web_2023`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_item`
+--
+
+CREATE TABLE `cart_item` (
+  `id` bigint(20) NOT NULL,
+  `quantity` bigint(20) NOT NULL,
+  `product_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart_item`
+--
+
+INSERT INTO `cart_item` (`id`, `quantity`, `product_id`, `user_id`) VALUES
+(3, 4, 100, 1),
+(4, 5, 5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `parent_category_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `parent_category_id`) VALUES
+(1, 'Áo Sơ Mi', 77),
+(2, 'Áo Sơ Mi', 99),
+(3, 'Quần', 77),
+(4, 'Quần', 99),
+(5, 'Áo Nỉ', 77),
+(6, 'Áo Nỉ', 99),
+(7, 'Áo Thun', 77),
+(8, 'Áo Thun', 99),
+(9, 'Đầm, Váy', 99),
+(10, 'Áo Phao', 77),
+(11, 'Áo Phao', 99),
+(12, 'Áo Len', 77),
+(13, 'Áo Len', 99),
+(14, 'Đồ Lót', 77),
+(15, 'Đồ Lót', 99),
+(16, 'Áo Thun Trẻ Em (Nam)', 100),
+(17, 'Áo Thun Trẻ Em (Nữ)', 100),
+(18, 'Đầm Trẻ Em', 100),
+(19, 'Quần Trẻ Em ', 100),
+(20, 'Áo Khoác (Nam)', 100),
+(21, 'Áo Khoác (Nữ)', 100),
+(22, 'Áo Nỉ', 100),
+(23, 'Áo Khoác', 77),
+(24, 'Áo Khoác', 99),
+(77, 'Nam', NULL),
+(99, 'Nữ', NULL),
+(100, 'Trẻ Em', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `color`
+--
+
+CREATE TABLE `color` (
+  `id` bigint(20) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `color`
+--
+
+INSERT INTO `color` (`id`, `image`, `name`) VALUES
+(1, 'https://www.icolorpalette.com/download/solidcolorimage/212322_solid_color_background_icolorpalette.png', 'black'),
+(2, 'https://www.icolorpalette.com/download/solidcolorimage/f4f5f0_solid_color_background_icolorpalette.png', 'bright white'),
+(3, 'https://www.tridentpowders.com/cdn/shop/products/Pantone-348-C_2500x.png?v=1608137950', 'green'),
+(4, 'https://www.icolorpalette.com/download/solidcolorimage/4e3629_solid_color_background_icolorpalette.png', 'brown'),
+(5, 'https://www.icolorpalette.com/download/solidcolorimage/cb333b_solid_color_background_icolorpalette.png', 'red'),
+(6, 'https://www.icolorpalette.com/download/solidcolorimage/62b5e5_solid_color_background_icolorpalette.png', 'blue'),
+(7, 'https://www.icolorpalette.com/download/solidcolorimage/fe5000_solid_color_background_icolorpalette.png', 'orange'),
+(8, 'https://images.myperfectcolor.com/repositories/images/colors/pantone-pms-102-c-paint-color-match-2.jpg', 'yellow'),
+(9, 'https://www.icolorpalette.com/download/solidcolorimage/a20067_solid_color_background_icolorpalette.png', 'purple'),
+(10, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSMcOtXVWkwd5kkEvyIXrVMyEaYDdkvew8U9Xl4a3bIQ&s', 'pink'),
+(11, 'https://www.icolorpalette.com/download/solidcolorimage/c1c6c8_solid_color_background_icolorpalette.png', 'gray');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order`
+--
+
+CREATE TABLE `order` (
+  `id` bigint(20) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `created_at` datetime(6) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `total` bigint(20) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `status_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`id`, `address`, `created_at`, `phone`, `total`, `updated_at`, `status_id`, `user_id`) VALUES
+(1, 'Thanh Hoa', '2023-11-14 16:05:24.000000', NULL, 1000, '2023-11-14 16:05:24.000000', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_item`
+--
+
+CREATE TABLE `order_item` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `price` bigint(20) DEFAULT NULL,
+  `quantity` int(11) NOT NULL,
+  `order_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_status`
+--
+
+CREATE TABLE `order_status` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_status`
+--
+
+INSERT INTO `order_status` (`id`, `description`, `name`) VALUES
+(1, '', 'Giao dịch thành công'),
+(2, '', 'Giao dịch thất bại');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE `product` (
+  `id` bigint(20) NOT NULL,
+  `description` text DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `instruction` text NOT NULL,
+  `materials` text NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `price` bigint(20) NOT NULL,
+  `category_id` bigint(20) DEFAULT NULL,
+  `color_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product`
+--
+
 INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`, `name`, `price`, `category_id`, `color_id`) VALUES
 (2, 'Áo nỉ cổ tròn, dài tay. Phối dây khác màu tạo họa tiết hình cô gái ở phía trước. Bo viền bằng vải gân.', 'https://static.zara.net/photos///2023/I/0/1/p/0085/629/800/2/w/750/0085629800_6_1_1.jpg?ts=1695649108942', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n61% vải cotton\r\n39% vải pôliexte\r\nVẢI PHỤ\r\n97% vải cotton\r\n3% elastane', 'ÁO NỈ THÊU DÂY TẠO HÌNH CÔ GÁI', 999000, 6, 1),
 (3, '- Chất liệu vải rayon-cotton mềm mại.\r\n- Phù hợp mặc thường xuyên.\r\n- Chiếc áo sơ mi cổ trụ đa năng này dễ dàng mặc vào hoặc cởi ra.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/446999/item/goods_00_446999.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ.', '53% Modal, 47% Bông.', 'Áo Sơ Mi Vải Cotton Modal Cổ Trụ Ngắn Tay', 588000, 1, 2),
@@ -149,4 +348,826 @@ INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`,
 (148, 'Áo nỉ bằng vải cotton hiệu ứng bạc màu. Cổ tròn, dài tay, vai may thấp. Gấu không may viền.', 'https://static.zara.net/photos///2023/I/0/1/p/8417/801/629/2/w/750/8417801629_6_1_1.jpg?ts=1692718546035', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n100% vải cotton\r\nVẢI PHỤ\r\n97% vải cotton\r\n3% elastane', 'ÁO NỈ VẢI NHUNG LÔNG HIỆU ỨNG BẠC MÀU', 729000, 6, 9),
 (149, 'Quần short bermuda vải cotton, dáng regular fit. Có hai túi phía trước và hai túi may viền phía sau. Cài khóa kéo và khuy phía trước.', 'https://static.zara.net/photos///2023/I/0/2/p/8727/306/710/2/w/750/8727306710_6_1_1.jpg?ts=1689087339137', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n98% vải cotton\r\n2% elastane', 'QUẦN SHORT CHINO VẢI COTTON', 999000, 3, 4),
 (150, 'Quần short bermuda dáng regular fit, chất liệu vải cotton co giãn. Có hai túi phía trước và hai túi may viền phía sau. Cài khóa kéo và khuy phía trước.', 'https://static.zara.net/photos///2023/I/0/2/p/9252/355/445/2/w/750/9252355445_6_1_1.jpg?ts=1689087329717', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n98% vải cotton\r\n2% elastane', 'QUẦN SHORT BERMUDA DÁNG CHINO VẢI DỆT', 999000, 3, 2),
-(151, 'Áo nỉ dài tay, có mũ trùm đầu. Bo viền bằng vải gân. Có một túi kangaroo ở phía trước. Đính nhãn trang trí ở gấu. Họa tiết NBA.', 'https://static.zara.net/photos///2023/I/0/3/p/9805/762/084/2/w/750/9805762084_6_1_1.jpg?ts=1696254861642', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nKIỂU BODY\r\n60% vải cotton\r\n40% vải pôliexte\r\nVẢI PHỤ\r\n98% vải cotton\r\n2% elastane\r\nLỚP LÓT\r\n60% vải cotton\r\n40% vải pôliexte', 'ÁO NỈ NBA', 849000, 22, 1);
+(151, 'Áo nỉ dài tay, có mũ trùm đầu. Bo viền bằng vải gân. Có một túi kangaroo ở phía trước. Đính nhãn trang trí ở gấu. Họa tiết NBA.', 'https://static.zara.net/photos///2023/I/0/3/p/9805/762/084/2/w/750/9805762084_6_1_1.jpg?ts=1696254861642', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nKIỂU BODY\r\n60% vải cotton\r\n40% vải pôliexte\r\nVẢI PHỤ\r\n98% vải cotton\r\n2% elastane\r\nLỚP LÓT\r\n60% vải cotton\r\n40% vải pôliexte', 'ÁO NỈ NBA', 849000, 22, 1),
+(152, '- Khóa kéo trước cùng màu với vải giúp tạo kiểu dễ dàng hơn.\r\n- Vải với độ co giãn đáng kinh ngạc giúp vận động dễ dàng.\r\n- Mềm mại và thoải mái.\r\n- Với công nghệ DRY.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/450693/item/goods_03_450693.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô', 'Thân: Lớp Lót Mũ Trùm: 48% Bông, 47% Polyeste, 5% Elastan/ Bo: 80% Bông, 20% Polyeste/ Vải Túi: Lớp Ngoài: 100% Polyeste/ Lớp Trong: 48% Bông, 47% Polyeste, 5% Elastan.', 'Áo Khoác Nỉ Siêu Co Giãn Dry Có Mũ Kéo Khóa Dài Tay', 489000, 6, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_size`
+--
+
+CREATE TABLE `product_size` (
+  `product_id` bigint(20) NOT NULL,
+  `size_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_size`
+--
+
+INSERT INTO `product_size` (`product_id`, `size_id`) VALUES
+(2, 2),
+(2, 3),
+(2, 4),
+(3, 2),
+(3, 3),
+(3, 4),
+(3, 5),
+(4, 21),
+(4, 22),
+(4, 23),
+(4, 24),
+(5, 1),
+(5, 2),
+(5, 3),
+(5, 4),
+(6, 2),
+(6, 3),
+(6, 4),
+(7, 1),
+(7, 2),
+(8, 1),
+(8, 2),
+(8, 4),
+(9, 2),
+(9, 3),
+(9, 4),
+(9, 5),
+(9, 6),
+(10, 1),
+(10, 2),
+(10, 6),
+(11, 1),
+(11, 3),
+(11, 4),
+(12, 1),
+(13, 2),
+(13, 4),
+(13, 5),
+(14, 2),
+(14, 3),
+(15, 1),
+(15, 2),
+(15, 3),
+(15, 4),
+(16, 11),
+(16, 12),
+(16, 13),
+(16, 14),
+(16, 15),
+(17, 11),
+(17, 12),
+(17, 13),
+(17, 14),
+(17, 15),
+(18, 2),
+(18, 3),
+(18, 4),
+(18, 5),
+(18, 6),
+(19, 12),
+(19, 13),
+(19, 14),
+(19, 15),
+(20, 21),
+(20, 22),
+(20, 24),
+(20, 25),
+(21, 23),
+(22, 21),
+(22, 22),
+(22, 23),
+(22, 24),
+(22, 25),
+(23, 21),
+(23, 22),
+(23, 23),
+(24, 21),
+(24, 23),
+(24, 24),
+(24, 25),
+(24, 26),
+(25, 21),
+(25, 22),
+(25, 23),
+(25, 24),
+(26, 21),
+(26, 22),
+(26, 23),
+(26, 24),
+(26, 25),
+(27, 21),
+(27, 22),
+(27, 23),
+(27, 24),
+(27, 25),
+(28, 21),
+(28, 22),
+(28, 23),
+(28, 24),
+(28, 25),
+(29, 21),
+(29, 22),
+(29, 23),
+(29, 24),
+(29, 25),
+(30, 2),
+(30, 3),
+(31, 1),
+(31, 3),
+(31, 4),
+(32, 1),
+(32, 2),
+(32, 3),
+(32, 4),
+(33, 1),
+(33, 2),
+(33, 3),
+(33, 5),
+(34, 1),
+(34, 2),
+(34, 3),
+(34, 4),
+(34, 5),
+(34, 6),
+(35, 3),
+(35, 4),
+(36, 3),
+(36, 4),
+(36, 5),
+(37, 1),
+(37, 2),
+(37, 3),
+(37, 4),
+(38, 2),
+(38, 3),
+(38, 5),
+(39, 3),
+(39, 5),
+(39, 6),
+(40, 1),
+(40, 2),
+(40, 3),
+(40, 4),
+(40, 5),
+(40, 6),
+(41, 2),
+(41, 3),
+(41, 4),
+(42, 2),
+(43, 1),
+(43, 2),
+(43, 3),
+(43, 4),
+(43, 5),
+(44, 11),
+(44, 12),
+(44, 14),
+(44, 17),
+(45, 3),
+(45, 4),
+(45, 5),
+(46, 1),
+(46, 2),
+(47, 1),
+(47, 2),
+(47, 3),
+(47, 4),
+(47, 5),
+(48, 2),
+(48, 3),
+(48, 4),
+(49, 2),
+(49, 3),
+(49, 4),
+(50, 12),
+(50, 13),
+(50, 15),
+(51, 1),
+(51, 2),
+(51, 3),
+(51, 4),
+(51, 5),
+(51, 6),
+(51, 7),
+(52, 1),
+(52, 2),
+(53, 1),
+(53, 2),
+(53, 4),
+(53, 5),
+(54, 14),
+(54, 15),
+(54, 16),
+(55, 1),
+(55, 4),
+(56, 2),
+(56, 3),
+(56, 5),
+(57, 3),
+(57, 6),
+(58, 6),
+(59, 5),
+(60, 2),
+(60, 3),
+(60, 4),
+(60, 5),
+(61, 2),
+(61, 3),
+(61, 4),
+(62, 2),
+(62, 3),
+(62, 4),
+(63, 2),
+(63, 4),
+(64, 4),
+(64, 7),
+(65, 1),
+(65, 2),
+(65, 3),
+(65, 4),
+(65, 5),
+(65, 6),
+(66, 1),
+(66, 2),
+(66, 3),
+(66, 4),
+(67, 2),
+(67, 3),
+(68, 1),
+(68, 3),
+(68, 4),
+(68, 6),
+(69, 2),
+(69, 3),
+(70, 2),
+(70, 3),
+(70, 4),
+(71, 3),
+(71, 4),
+(72, 21),
+(72, 22),
+(72, 23),
+(72, 24),
+(73, 21),
+(73, 22),
+(73, 23),
+(73, 24),
+(73, 25),
+(74, 2),
+(74, 3),
+(74, 4),
+(74, 5),
+(75, 1),
+(75, 2),
+(75, 3),
+(75, 4),
+(75, 5),
+(76, 1),
+(76, 2),
+(76, 3),
+(76, 4),
+(76, 5),
+(76, 6),
+(77, 1),
+(77, 2),
+(77, 3),
+(78, 22),
+(78, 23),
+(78, 24),
+(79, 3),
+(79, 4),
+(80, 3),
+(80, 5),
+(80, 6),
+(81, 2),
+(81, 3),
+(82, 4),
+(83, 2),
+(83, 3),
+(83, 4),
+(84, 1),
+(84, 2),
+(84, 3),
+(84, 4),
+(84, 5),
+(85, 1),
+(85, 3),
+(85, 4),
+(86, 1),
+(86, 2),
+(86, 3),
+(87, 2),
+(87, 3),
+(87, 5),
+(88, 4),
+(89, 21),
+(89, 22),
+(89, 23),
+(89, 24),
+(89, 25),
+(90, 21),
+(90, 22),
+(90, 24),
+(90, 25),
+(90, 26),
+(91, 1),
+(91, 3),
+(91, 5),
+(91, 6),
+(92, 2),
+(92, 4),
+(93, 1),
+(93, 2),
+(93, 3),
+(93, 4),
+(93, 5),
+(94, 2),
+(94, 3),
+(94, 4),
+(94, 5),
+(94, 6),
+(95, 4),
+(95, 6),
+(96, 6),
+(97, 2),
+(97, 3),
+(97, 4),
+(97, 5),
+(98, 3),
+(98, 4),
+(99, 4),
+(100, 2),
+(100, 3),
+(101, 2),
+(101, 3),
+(102, 4),
+(103, 2),
+(103, 3),
+(103, 4),
+(103, 5),
+(103, 6),
+(104, 2),
+(104, 4),
+(105, 2),
+(105, 3),
+(105, 4),
+(105, 5),
+(106, 3),
+(106, 4),
+(106, 5),
+(107, 22),
+(107, 23),
+(107, 25),
+(107, 26),
+(108, 21),
+(108, 22),
+(108, 23),
+(108, 24),
+(109, 22),
+(109, 23),
+(109, 24),
+(109, 25),
+(110, 2),
+(110, 3),
+(111, 4),
+(111, 5),
+(112, 1),
+(112, 2),
+(112, 3),
+(113, 22),
+(113, 23),
+(113, 25),
+(114, 22),
+(114, 24),
+(114, 26),
+(115, 23),
+(115, 25),
+(116, 23),
+(116, 25),
+(117, 2),
+(117, 3),
+(117, 5),
+(118, 2),
+(118, 3),
+(118, 4),
+(118, 5),
+(119, 2),
+(119, 3),
+(120, 2),
+(120, 3),
+(120, 4),
+(121, 2),
+(121, 3),
+(122, 3),
+(122, 4),
+(122, 5),
+(123, 22),
+(123, 23),
+(123, 24),
+(124, 22),
+(124, 23),
+(124, 24),
+(124, 25),
+(124, 26),
+(125, 2),
+(125, 4),
+(126, 2),
+(126, 4),
+(127, 3),
+(127, 4),
+(128, 22),
+(128, 23),
+(128, 24),
+(128, 26),
+(129, 3),
+(129, 4),
+(129, 5),
+(130, 2),
+(130, 3),
+(131, 2),
+(131, 3),
+(131, 4),
+(131, 5),
+(132, 23),
+(132, 24),
+(132, 25),
+(133, 2),
+(133, 3),
+(134, 23),
+(134, 24),
+(134, 25),
+(134, 26),
+(135, 3),
+(136, 2),
+(136, 3),
+(136, 4),
+(136, 5),
+(137, 3),
+(137, 5),
+(138, 2),
+(138, 3),
+(138, 4),
+(139, 21),
+(139, 22),
+(139, 24),
+(140, 2),
+(140, 3),
+(140, 4),
+(141, 1),
+(141, 2),
+(142, 2),
+(142, 3),
+(142, 5),
+(142, 6),
+(143, 23),
+(143, 24),
+(143, 25),
+(143, 26),
+(144, 2),
+(144, 3),
+(144, 5),
+(145, 1),
+(145, 3),
+(145, 4),
+(145, 5),
+(146, 2),
+(146, 3),
+(147, 1),
+(147, 2),
+(147, 3),
+(147, 4),
+(148, 2),
+(148, 4),
+(149, 2),
+(149, 3),
+(149, 4),
+(149, 5),
+(150, 3),
+(150, 4),
+(151, 22),
+(151, 23),
+(151, 24),
+(151, 26),
+(152, 21),
+(152, 22),
+(152, 23),
+(152, 24);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
+--
+
+CREATE TABLE `role` (
+  `role_id` bigint(20) NOT NULL,
+  `rolename` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`role_id`, `rolename`) VALUES
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_MODERATOR'),
+(3, 'ROLE_USER');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `size`
+--
+
+CREATE TABLE `size` (
+  `size_id` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `size`
+--
+
+INSERT INTO `size` (`size_id`, `name`) VALUES
+(1, 'XS'),
+(2, 'S'),
+(3, 'M'),
+(4, 'L'),
+(5, 'XL'),
+(6, '2XL'),
+(7, '3XL'),
+(11, '27inch'),
+(12, '28inch'),
+(13, '29inch'),
+(14, '30inch'),
+(15, '31inch'),
+(16, '32inch'),
+(17, '33inch'),
+(18, '34inch'),
+(19, '35inch'),
+(21, '4-5Y'),
+(22, '6-7Y'),
+(23, '8-9Y'),
+(24, '10-11Y'),
+(25, '12-13Y'),
+(26, '14Y');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL,
+  `created` datetime(6) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `user_status` bit(1) DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `created`, `email`, `password`, `phone`, `user_status`, `username`, `address`) VALUES
+(1, '2023-10-24 00:00:00.000000', 'trung@gmail.com', '$2a$10$5M7HgGn2Q1qbu1FkIJvJ1eo8MfMK5mhPO6MsbthON6KIcVYNR4WGm', '0326496229', b'1', 'admin', NULL),
+(2, '2023-11-13 00:00:00.000000', 'anhtrung@gmail.com', '$2a$10$N5tarJPcirbuVSXPGKhkn.sXRLG/oCybIKlMbGac/n93pG6vw5jCm', '0326496229', b'1', 'trung', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_role`
+--
+
+CREATE TABLE `user_role` (
+  `user_id` bigint(20) NOT NULL,
+  `role_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 1),
+(2, 2),
+(2, 3);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cart_item`
+--
+ALTER TABLE `cart_item`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKjcyd5wv4igqnw413rgxbfu4nv` (`product_id`),
+  ADD KEY `FKjnaj4sjyqjkr4ivemf9gb25w` (`user_id`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKs2ride9gvilxy2tcuv7witnxc` (`parent_category_id`);
+
+--
+-- Indexes for table `color`
+--
+ALTER TABLE `color`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKr5l1vt9npeu6cx6jekmpaf0ii` (`status_id`),
+  ADD KEY `FKcpl0mjoeqhxvgeeeq5piwpd3i` (`user_id`);
+
+--
+-- Indexes for table `order_item`
+--
+ALTER TABLE `order_item`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKs234mi6jususbx4b37k44cipy` (`order_id`),
+  ADD KEY `FK551losx9j75ss5d6bfsqvijna` (`product_id`);
+
+--
+-- Indexes for table `order_status`
+--
+ALTER TABLE `order_status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK1mtsbur82frn64de7balymq9s` (`category_id`),
+  ADD KEY `FK7j8aci4xn0sahyhxk0fvqql6e` (`color_id`);
+
+--
+-- Indexes for table `product_size`
+--
+ALTER TABLE `product_size`
+  ADD PRIMARY KEY (`product_id`,`size_id`),
+  ADD KEY `FKnlkh5xcjuopsnoimdvmumioia` (`size_id`);
+
+--
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`role_id`);
+
+--
+-- Indexes for table `size`
+--
+ALTER TABLE `size`
+  ADD PRIMARY KEY (`size_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_sb8bbouer5wak8vyiiy4pf2bx` (`username`),
+  ADD UNIQUE KEY `UK_ob8kqyqqgmefl0aco34akdtpe` (`email`);
+
+--
+-- Indexes for table `user_role`
+--
+ALTER TABLE `user_role`
+  ADD PRIMARY KEY (`user_id`,`role_id`),
+  ADD KEY `FKa68196081fvovjhkek5m97n3y` (`role_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `cart_item`
+--
+ALTER TABLE `cart_item`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+
+--
+-- AUTO_INCREMENT for table `color`
+--
+ALTER TABLE `color`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `order`
+--
+ALTER TABLE `order`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `order_item`
+--
+ALTER TABLE `order_item`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_status`
+--
+ALTER TABLE `order_status`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
+
+--
+-- AUTO_INCREMENT for table `role`
+--
+ALTER TABLE `role`
+  MODIFY `role_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `size`
+--
+ALTER TABLE `size`
+  MODIFY `size_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `cart_item`
+--
+ALTER TABLE `cart_item`
+  ADD CONSTRAINT `FKjcyd5wv4igqnw413rgxbfu4nv` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `FKjnaj4sjyqjkr4ivemf9gb25w` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `category`
+--
+ALTER TABLE `category`
+  ADD CONSTRAINT `FKs2ride9gvilxy2tcuv7witnxc` FOREIGN KEY (`parent_category_id`) REFERENCES `category` (`id`);
+
+--
+-- Constraints for table `order`
+--
+ALTER TABLE `order`
+  ADD CONSTRAINT `FKcpl0mjoeqhxvgeeeq5piwpd3i` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `FKr5l1vt9npeu6cx6jekmpaf0ii` FOREIGN KEY (`status_id`) REFERENCES `order_status` (`id`);
+
+--
+-- Constraints for table `order_item`
+--
+ALTER TABLE `order_item`
+  ADD CONSTRAINT `FK551losx9j75ss5d6bfsqvijna` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `FKs234mi6jususbx4b37k44cipy` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`);
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `FK1mtsbur82frn64de7balymq9s` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  ADD CONSTRAINT `FK7j8aci4xn0sahyhxk0fvqql6e` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`);
+
+--
+-- Constraints for table `product_size`
+--
+ALTER TABLE `product_size`
+  ADD CONSTRAINT `FK8i3jm2ctt0lsyeik2wt76yvv0` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `FKnlkh5xcjuopsnoimdvmumioia` FOREIGN KEY (`size_id`) REFERENCES `size` (`size_id`);
+
+--
+-- Constraints for table `user_role`
+--
+ALTER TABLE `user_role`
+  ADD CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

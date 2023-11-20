@@ -17,8 +17,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "\"order\"")
 @Getter
 @Setter
 public class Order {
