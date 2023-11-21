@@ -21,4 +21,5 @@ public class OrderItemDTO {
 
     private Long order;
 
+    private Long size;
 }

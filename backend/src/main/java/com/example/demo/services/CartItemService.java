@@ -2,8 +2,10 @@ package com.example.demo.services;
 import com.example.demo.repositories.CartItemRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.repositories.ProductRepository;
+import com.example.demo.repositories.SizeRepository;
 import com.example.demo.security.AuthService;
 import com.example.demo.entities.CartItem;
+import com.example.demo.entities.Size;
 import com.example.demo.models.CartItemDTO;
 
 import org.modelmapper.ModelMapper;
@@ -30,7 +32,10 @@ public class CartItemService {
     @Autowired
     private ProductService productService;
 
-    public CartItemService(final CartItemRepository cartItemRepository, final UserRepository userRepository, final ProductRepository productRepository) {
+    @Autowired
+    private SizeService sizeService;
+
+    public CartItemService(final CartItemRepository cartItemRepository, final UserRepository userRepository, final ProductRepository productRepository, final SizeRepository sizeRepository) {
         this.cartItemRepository = cartItemRepository;
         this.userRepository = userRepository;
         this.productRepository = productRepository;
@@ -56,6 +61,7 @@ public class CartItemService {
             cartItem.setQuantity(cartItemDTO.getQuantity());
             cartItem.setUser(authService.getCurrentUser());
             cartItem.setProduct(productService.get(cartItemDTO.getProductId()));
+            cartItem.setSize(sizeService.get(cartItemDTO.getSize()));
         } else {
             cartItem.setQuantity(cartItem.getQuantity() + 1);
         }

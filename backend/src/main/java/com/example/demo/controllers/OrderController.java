@@ -39,16 +39,10 @@ public class OrderController {
         return ResponseEntity.ok(orderService.get(id));
     }
 
-    @PostMapping
+    @PostMapping("")
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createOrder(@RequestBody OrderDTO orderDTO) {
-        return new ResponseEntity<>(orderService.create(orderDTO), HttpStatus.CREATED);
-    }
-
-    @PostMapping("/create")
-    @ApiResponse(responseCode = "201")
-    public Order createOrder() {
-        return orderService.makeOrder();
+    public ResponseEntity<Long> createOrderFromCart(@RequestBody OrderDTO orderDTO) {
+        return new ResponseEntity<>(orderService.createOrderFromCart(orderDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

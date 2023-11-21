@@ -48,9 +48,6 @@ public class User {
     private String phone;
 
     @Column
-    private String address;
-
-    @Column
     private boolean userStatus;
     @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name="User_Role",

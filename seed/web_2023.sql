@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2023 at 04:12 PM
+-- Generation Time: Nov 20, 2023 at 09:47 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -31,16 +31,17 @@ CREATE TABLE `cart_item` (
   `id` bigint(20) NOT NULL,
   `quantity` bigint(20) NOT NULL,
   `product_id` bigint(20) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL
+  `user_id` bigint(20) DEFAULT NULL,
+  `size_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cart_item`
 --
 
-INSERT INTO `cart_item` (`id`, `quantity`, `product_id`, `user_id`) VALUES
-(3, 4, 100, 1),
-(4, 5, 5, 1);
+INSERT INTO `cart_item` (`id`, `quantity`, `product_id`, `user_id`, `size_id`) VALUES
+(3, 4, 100, 1, 0),
+(4, 5, 5, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -150,9 +151,10 @@ CREATE TABLE `order_item` (
   `id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL,
   `price` bigint(20) DEFAULT NULL,
-  `quantity` int(11) NOT NULL,
+  `quantity` int(1) NOT NULL,
   `order_id` bigint(20) NOT NULL,
-  `product_id` bigint(20) DEFAULT NULL
+  `product_id` bigint(20) DEFAULT NULL,
+  `size_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -200,7 +202,7 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`, `name`, `price`, `category_id`, `color_id`) VALUES
 (2, 'Áo nỉ cổ tròn, dài tay. Phối dây khác màu tạo họa tiết hình cô gái ở phía trước. Bo viền bằng vải gân.', 'https://static.zara.net/photos///2023/I/0/1/p/0085/629/800/2/w/750/0085629800_6_1_1.jpg?ts=1695649108942', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n61% vải cotton\r\n39% vải pôliexte\r\nVẢI PHỤ\r\n97% vải cotton\r\n3% elastane', 'ÁO NỈ THÊU DÂY TẠO HÌNH CÔ GÁI', 999000, 6, 1),
 (3, '- Chất liệu vải rayon-cotton mềm mại.\r\n- Phù hợp mặc thường xuyên.\r\n- Chiếc áo sơ mi cổ trụ đa năng này dễ dàng mặc vào hoặc cởi ra.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/446999/item/goods_00_446999.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ.', '53% Modal, 47% Bông.', 'Áo Sơ Mi Vải Cotton Modal Cổ Trụ Ngắn Tay', 588000, 1, 2),
-(4, '- Khóa kéo trước cùng màu với vải giúp tạo kiểu dễ dàng hơn.\r\n- Vải với độ co giãn đáng kinh ngạc giúp vận động dễ dàng.\r\n- Mềm mại và thoải mái.\r\n- Với công nghệ DRY.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/450693/item/goods_03_450693.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô', 'Thân: Lớp Lót Mũ Trùm: 48% Bông, 47% Polyeste, 5% Elastan/ Bo: 80% Bông, 20% Polyeste/ Vải Túi: Lớp Ngoài: 100% Polyeste/ Lớp Trong: 48% Bông, 47% Polyeste, 5% Elastan.', 'Áo Khoác Nỉ Siêu Co Giãn Dry Có Mũ Kéo Khóa Dài Tay', 489000, 5, 11),
+(4, '- Khóa kéo trước cùng màu với vải giúp tạo kiểu dễ dàng hơn.\r\n- Vải với độ co giãn đáng kinh ngạc giúp vận động dễ dàng.\r\n- Mềm mại và thoải mái.\r\n- Với công nghệ DRY.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/450693/item/goods_03_450693.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô', 'Thân: Lớp Lót Mũ Trùm: 48% Bông, 47% Polyeste, 5% Elastan/ Bo: 80% Bông, 20% Polyeste/ Vải Túi: Lớp Ngoài: 100% Polyeste/ Lớp Trong: 48% Bông, 47% Polyeste, 5% Elastan.', 'Áo Khoác Nỉ Siêu Co Giãn Dry Có Mũ Kéo Khóa Dài Tay', 489000, 5, 1),
 (5, '- Chất liệu mềm mượt mát lạnh khi chạm vào và Độ co giãn tuyệt vời mang đến sự thoải mái mọi lúc.\r\n- vải mắt lưới thoáng khí.\r\n- Được làm bằng vải siêu co giãn.\r\n- Công nghệ DRY khô nhanh.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/454318/item/vngoods_09_454318.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô', '86% Nylon, 14% Elastan', 'AIRism Áo Ba Lỗ Vải Mắt Lưới Khử Mùi', 244000, 7, 1),
 (6, '- Miếng đệm chống trượt giúp cố định những chiếc tất này.\r\n- Công nghệ BLUE CYCLE JEANS giúp giảm lượng nước* sử dụng trong quá trình sản xuất. Mức độ tiết kiệm nước sẽ có sự chênh lệch giữa các sản phẩm.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/450617/item/goods_67_450617.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, không giặt khô.', 'Thân: 89% Bông, 6% Polyeste, 5% Elastan/ Đồ Phụ Tùng: 53% Bông, 37% Nylon, 10% Elastan.', 'Quần Jean Bầu Siêu Co Giãn', 980000, 4, 6),
 (7, '- Từ phản hồi của khách hàng, chúng tôi đã phân loại các kích thước áo ngực để cải thiện độ vừa vặn.\r\n- Cấu trúc 3 chiều nguyên bản của UNIQLO phù hợp với mọi dáng người.\r\n- Đường viền cổ phẳng.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/450440/item/goods_09_450440.jpg?width=750', 'Giặt tay nước lạnh, Không giặt khô', 'Thân: 85% Nylon, 15% Elastan/ Cúp Áo ( Lớp Lót Trong ): 100% Polyeste', 'Áo Ngực Không Gọng (3D Hold)', 489000, 15, 1),
@@ -216,7 +218,7 @@ INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`,
 (17, '- Dáng suông rộng, phom suông dễ mặc, độ rộng vừa phải.\r\n- Được làm bằng vải denim cotton, đồng phát triển với Kaihara.\r\n- Đường may xắn gấu theo phong cách Work-wear và thiết kết túi trước đặt trên đường chéo.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/459690/item/vngoods_64_459690.jpg?width=750', 'Giặt máy nước lạnh, không giặt khô, không sấy khô.', 'Thân: 100% Bông/ Vải Túi: 65% Polyeste, 35% Bông.', 'Quần Jeans Ống Rộng', 980000, 3, 6),
 (18, '- Cải tiến với đường may bản nhỏ hơn từ phần eo đến đầu gối giúp bạn có một cái nhìn thanh lịch.\r\n- Chất liệu denim siêu co giãn kết hợp cho bạn cảm giác mềm mại từ chất liệu vải nỉ.\r\n- Giờ đây bạn sẽ thoải mái hơn với lớp lót mềm mịn.\r\n- Hoàn hảo để thư giãn tại nhà hoặc mặc đi chơi.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/455476/item/vngoods_09_455476.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, không giặt khô, không sấy khô.', 'Thân: 70% Bông, 20% Polyeste, 9% Lyocell, 1% Elastan/ Vải Túi: 65% Polyeste, 35% Bông.', 'EZY Quần Jean Siêu Co Giãn', 980000, 3, 1),
 (19, '- Vải thun cotton. \r\n- Đường cắt hơi rộng, vừa vặn thoải mái. \r\n- Giặt trước và nhuộm quần áo để tạo nên phong cách ‘UNIQLO U’ tinh túy.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/459693/sub/vngoods_459693_sub8.jpg?width=750', 'Giặt máy nước lạnh, không giặt khô, không sấy khô.', 'Thân: 100% Bông/ Vải Túi: 65% Polyeste, 35% Bông [34 BROWN, 36 BROWN] Thân: 100% Bông/ Vải Túi: 100% Bông.', 'Quần Jeans Dáng Relax Fit', 980000, 3, 1),
-(20, '- Chất liệu cotton bên ngoài cho vẻ ngoài giản dị.\r\n- Lớp lót polyester êm ái.\r\n- Chất liệu vải siêu co giãn mang lại cảm giác thoải mái và dễ dàng vận động.\r\n- Kết cấu sắc nét hoàn hảo nhưng vẫn mềm mại.\r\n- Với công nghệ DRY nhanh khô.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/460084/sub/vngoods_460084_sub7.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô', 'Thân: Lớp Lót Mũ Trùm: 48% Polyeste, 46% Bông, 6% Elastan/ Bo: 78% Bông, 22% Polyeste/ Vải Túi: Lớp Ngoài: 100% Polyeste/ Vải Túi: Lớp Trong: 48% Polyeste, 46% Bông, 6% Elastan.', 'Áo Khoác Nỉ Có Mũ Dry Siêu Co Giãn Kéo Khóa Dài Tay', 489000, 20, 11),
+(20, '- Chất liệu cotton bên ngoài cho vẻ ngoài giản dị.\r\n- Lớp lót polyester êm ái.\r\n- Chất liệu vải siêu co giãn mang lại cảm giác thoải mái và dễ dàng vận động.\r\n- Kết cấu sắc nét hoàn hảo nhưng vẫn mềm mại.\r\n- Với công nghệ DRY nhanh khô.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/460084/sub/vngoods_460084_sub7.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô', 'Thân: Lớp Lót Mũ Trùm: 48% Polyeste, 46% Bông, 6% Elastan/ Bo: 78% Bông, 22% Polyeste/ Vải Túi: Lớp Ngoài: 100% Polyeste/ Vải Túi: Lớp Trong: 48% Polyeste, 46% Bông, 6% Elastan.', 'Áo Khoác Nỉ Có Mũ Dry Siêu Co Giãn Kéo Khóa Dài Tay', 489000, 20, 1),
 (21, '- Vải siêu co giãn giúp cử động dễ dàng và tạo cảm giác mềm mại.\r\n- Dáng suông rũ phần vai.\r\n- Một chiếc áo nỉ cổ điển cho phong cách linh hoạt.\r\n- Viền và cổ tay có gân.\r\n- Thiết kế theo chủ đề thể thao đại học tạo điểm nhấn cho trang phục.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/450694/item/goods_15_450694.jpg?width=750', 'Giặt máy nước lạnh, Không giặt khô', 'Thân: 96% Bông, 4% Elastan/ Bo: 74% Bông, 26% Polyeste.', 'Áo Nỉ Siêu Co Giãn Dài Tay', 399000, 22, 5),
 (22, '- 100% cotton siêu co giãn mềm mại trên da và cho phép cử động dễ dàng.\r\n- Siêu mềm mại và thoải mái.\r\n- Đường may phía sau cổ áo có băng dính, tránh bị cọ xát để tạo sự thoải mái.\r\n- Đường cắt được cải tiến để dễ dàng di chuyển.\r\n- Thiết kế rũ phần vai.\r\n- Thiết kế cổ điển.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/460086/item/vngoods_02_460086.jpg?width=750', 'Giặt máy nước lạnh, Không giặt khô, Không sấy khô', 'Thân: 96% Bông, 4% Elastan/ Bo: 74% Bông, 26% Polyeste.', 'Áo Nỉ Siêu Co Giãn Dài Tay', 489000, 22, 2),
 (23, '- 100% cotton siêu co giãn mềm mại trên da và cho phép cử động dễ dàng.\r\n- Siêu mềm mại và thoải mái.\r\n- Đường may phía sau cổ áo có băng dính, tránh bị cọ xát để tạo sự thoải mái.\r\n- Đường cắt được cải tiến để dễ dàng di chuyển.\r\n- Thiết kế rũ phần vai.\r\n- Thiết kế cổ điển.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/460087/item/vngoods_13_460087.jpg?width=750', 'Giặt máy nước lạnh, Không giặt khô, Không sấy khô.', 'Thân: 96% Bông, 4% Elastan/ Bo: 74% Bông, 26% Polyeste.', 'Áo Nỉ Siêu Co Giãn Dài Tay', 489000, 22, 5),
@@ -261,10 +263,10 @@ INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`,
 (62, '- Đường cắt thon gọn đẹp mắt dưới ngực.\r\n- Tay áo phồng xếp li.\r\n- Có khóa kéo ở phía sau.\r\n- Có túi ở hai bên.\r\n', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/462600/sub/vngoods_462600_sub9.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, giặt khô, không sấy khô.', 'Thân: 100% Visco/ Váy Lót: 100% Polyeste.', 'Đầm Tay Phồng', 1275000, 9, 2),
 (63, '- Kiểu dáng vừa vặn đáng yêu.\r\n- Được làm từ vải dệt kim cotton-rayon có gân. Sợi nylon để tăng độ bền.\r\n- Thiết kế không tay tinh tế.\r\n- Dễ dàng mix and match để tạo nên phong cách linh hoạt. * Định hình sản phẩm sau khi giặt.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/462605/sub/vngoods_462605_sub9.jpg?width=750', 'Giặt tay nước lạnh, giặt khô, không sấy khô.', '48% Bông, 40% Modal, 12% Nylon.', 'Đầm Len Vải Pha Cotton Không Tay', 784000, 9, 5),
 (64, '- Được làm từ 100% sợi cotton siêu dài với họa tiết trang nhã.\r\n- Được cập nhật với kiểu dáng vừa vặn, thoải mái theo xu hướng.\r\n- Cổ cài cúc dễ dàng mặc.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/462662/item/vngoods_57_462662.jpg?width=750', 'Giặt máy nước lạnh, không giặt khô, không sấy khô.', '100% Cotton.', 'Áo Sơ Mi Extra Fine Cotton Ngắn Tay', 489000, 1, 3),
-(65, '- Vải slub nhẹ giản dị.\r\n- Thiết kế xếp tầng xinh xắn tạo điểm nhấn cho phong cách của bạn.\r\n- Dây đeo vai có thể điều chỉnh.\r\n- Có túi tiện dụng.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/462711/item/goods_07_462711.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô', 'Vải Chính: 62% Polyeste, 29% Cupro, 9% Elastan/ Lớp Lót: 72% Nylon, 28% Elastan/ Cúp Áo ( Lớp Lót Trong ): 100% Polyeste', 'AIRism Áo Bra Hai Dây', 489000, 15, 11),
+(65, '- Vải slub nhẹ giản dị.\r\n- Thiết kế xếp tầng xinh xắn tạo điểm nhấn cho phong cách của bạn.\r\n- Dây đeo vai có thể điều chỉnh.\r\n- Có túi tiện dụng.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/462711/item/goods_07_462711.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô', 'Vải Chính: 62% Polyeste, 29% Cupro, 9% Elastan/ Lớp Lót: 72% Nylon, 28% Elastan/ Cúp Áo ( Lớp Lót Trong ): 100% Polyeste', 'AIRism Áo Bra Hai Dây', 489000, 15, 1),
 (66, '- Thiết kế theo phong cách thể thao với đường nét được cải tiến ở phần cánh tay.\r\n- Để đáp lại phản hồi của khách hàng, độ dài áo đã được cải tiến.\r\n- Cấu trúc bên trong của cúp tích hợp đã được điều chỉnh để phù hợp hơn.\r\n- Cúp áo ngực tích hợp có thể mặc riêng hoặc kết hợp như chiễ áo ngực thông thường.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/462713/item/goods_09_462713.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô', 'Vải Chính: 97% Bông, 3% Elastan/ Lớp Lót: 95% Bông, 5% Elastan/ Cúp Áo ( Lớp Lót Trong ): 100% Polyeste', 'Áo Bra Lửng Không Tay', 489000, 15, 1),
 (67, '- Chất liệu nhung 100% cotton dày, mềm, bóng.\r\n- Đường cắt thoải mái nhưng bóng mượt.\r\n- Chiều dài được cải tiến dài hơn.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/462740/item/vngoods_67_462740.jpg?width=750', 'Giặt tay nước lạnh, giặt khô, không sấy khô.', 'Vải Chính: 100% Bông/ Lớp Lót: 100% Polyeste ( 40% Sử Dụng Sợi Polyeste Tái Chế )/ Vải Túi: 100% Polyeste ( 40% Sử Dụng Sợi Polyeste Tái Chế )', 'Áo Khoác Vải Nhung', 1962000, 24, 6),
-(68, '- Chất vải rũ satin nhăn ở mặt sau.\r\n- Các chi tiết xếp ly tạo nên một độ phồng nhất định.\r\n- Độ rũ của vải giúp bạn trông tuyệt vời khi sơ vin hoặc khoác ngoài.\r\n- Tạo điểm nhấn bằng các đường xẻ bên.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/462746/item/vngoods_09_462746.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, giặt khô, không sấy khô.', '100% Polyeste ( 100% Sử Dụng Sợi Polyeste Tái Chế ).', 'Áo Kiểu In Họa Tiết Tay Phồng', 784000, 2, 11),
+(68, '- Chất vải rũ satin nhăn ở mặt sau.\r\n- Các chi tiết xếp ly tạo nên một độ phồng nhất định.\r\n- Độ rũ của vải giúp bạn trông tuyệt vời khi sơ vin hoặc khoác ngoài.\r\n- Tạo điểm nhấn bằng các đường xẻ bên.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/462746/item/vngoods_09_462746.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, giặt khô, không sấy khô.', '100% Polyeste ( 100% Sử Dụng Sợi Polyeste Tái Chế ).', 'Áo Kiểu In Họa Tiết Tay Phồng', 784000, 2, 1),
 (69, '- Vải dạ mềm mại.\r\n- Lớp lót bông ở phía sau.\r\n- Vừa vặn theo kiểu cổ điển.\r\n- Các nút bấm giấu kín ngoại trừ ở cổ áo và cổ tay áo.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/462761/item/vngoods_32_462761.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, giặt khô, không sấy khô.', 'Thân: 50% Bông, 30% Acrylic, 20% Visco/ Đồ Phụ Tùng: 65% Polyeste, 35% Bông.', 'Áo Sơ Mi Vải Dạ Dài Tay', 784000, 2, 4),
 (70, '- Hỗn hợp tơ nhân tạo-polyester mềm mại.\r\n- Kiểu dáng oversize.\r\n- Lớp vỏ bọc của nút cài tinh tế.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/462763/item/vngoods_09_462763.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, giặt khô, không sấy khô.', '77% Modal, 23% Polyeste.', 'Áo Sơ Mi Vải Rũ Dài Tay', 784000, 2, 1),
 (71, '- Với công nghệ DRY, Cool Touch, tính năng kiểm soát mùi và khử mùi tiện nghi.\r\n- Chất thun co giãn thoải mái.\r\n- Thiết kế mở phía trước.\r\n- Cạp thấp giúp không lộ khi mặc.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/462948/item/goods_09_462948.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô', 'Thân: 88% Polyeste, 12% Elastan ( 54% Sử Dụng Sợi Polyeste Tái Chế )/ Eo: 90% Nylon, 10% Elastan', 'QUẦN LÓT BOXER AIRism', 244000, 14, 1),
@@ -273,20 +275,20 @@ INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`,
 (74, '- Chất liệu vải \'AIRism\' mịn màng với công nghệ DRY khô nhanh.\r\n- Cool Touch, tính năng khử mùi, co giãn tuyệt vời mang lại cảm giác thoải mái trong mọi thời tiết.\r\n- Thiết kế mở phía trước.\r\n- Cạp vừa cổ điển vừa vặn an toàn.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/463055/item/goods_09_463055.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô', 'Thân: 88% Polyeste, 12% Elastan ( 54% Sử Dụng Sợi Polyeste Tái Chế )/ Eo: 90% Nylon, 10% Elastan', 'QUẦN LÓT BOXER AIRism', 244000, 14, 1),
 (75, '- Được làm bằng vải co giãn.\r\n- Với công nghệ DRY nhanh khô.\r\n- Chất vải mềm mịn, kiểu dáng cao cấp, dễ phối đồ.\r\n- Thắt lưng co giãn để tạo sự thoải mái lâu dài.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463060/item/vngoods_09_463060.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, không giặt khô, không sấy khô.', 'Thân: 80% Polyeste, 15% Visco, 5% Elastan ( 80% Sử Dụng Sợi Polyeste Tái Chế )/ Bo: 82% Bông, 18% Polyeste/ Vải Túi: Lớp Ngoài: 100% Bông/ Vải Túi: Lớp Trong: 80% Polyeste, 15% Visco, 5% Elastan ( 80% Sử Dụng Sợi Polyeste Tái Chế )', 'Quần Nỉ Dry Thể Thao', 686000, 4, 1),
 (76, '- Chất liệu vải mịn. Cảm giác mịn màng của lông cừu.\r\n- Với độ co dãn đặc biệt giúp bạn dễ dàng vận động.\r\n- Chất vải mỏng dễ tạo kiểu.\r\n- Kiểu dáng đa năng, vừa vặn.\r\n- Thiết kế nửa khóa kéo thể thao.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463067/item/vngoods_30_463067.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, không giặt khô, không sấy khô.', '91% Polyeste, 9% Elastan.', 'Áo Thun Giả Lông Cừu Co Giãn Kéo Khóa', 489000, 7, 2),
-(77, '- Chất thun co giãn 2 chiều giúp bạn thoải mái vận động.\r\n- Thắt lưng đàn hồi ẩn, phẳng cho kiểu dáng đẹp mắt.\r\n- Kiểu dáng suông, ôm dần nhẹ nhàng từ đầu gối.\r\n- Những chiếc quần tôn dáng này không quá ôm vào đùi và bắp chân.\r\n- Với các vòng thắt lưng.\r\n- Họa tiết kẻ caro.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463180/item/vngoods_08_463180.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, giặt khô, không sấy khô.', 'Thân: 67% Polyeste, 29% Visco, 4% Elastan ( 62% Sử Dụng Sợi Polyeste Tái Chế )/ Vải Túi: 100% Polyeste ( 60% Sử Dụng Sợi Polyeste Tái Chế ).', 'Quần Smart Pants Dài Đến Mắt Cá (Glen Checked)', 784000, 4, 11),
+(77, '- Chất thun co giãn 2 chiều giúp bạn thoải mái vận động.\r\n- Thắt lưng đàn hồi ẩn, phẳng cho kiểu dáng đẹp mắt.\r\n- Kiểu dáng suông, ôm dần nhẹ nhàng từ đầu gối.\r\n- Những chiếc quần tôn dáng này không quá ôm vào đùi và bắp chân.\r\n- Với các vòng thắt lưng.\r\n- Họa tiết kẻ caro.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463180/item/vngoods_08_463180.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, giặt khô, không sấy khô.', 'Thân: 67% Polyeste, 29% Visco, 4% Elastan ( 62% Sử Dụng Sợi Polyeste Tái Chế )/ Vải Túi: 100% Polyeste ( 60% Sử Dụng Sợi Polyeste Tái Chế ).', 'Quần Smart Pants Dài Đến Mắt Cá (Glen Checked)', 784000, 4, 1),
 (78, '- Vải siêu co giãn giúp cử động dễ dàng.\r\n- Kết cấu mềm mại cho sự thoải mái tuyệt vời.\r\n- Để điều chỉnh độ vừa vặn, hãy kéo dây thắt lưng đàn hồi qua lỗ được may sẵn và cố định nút ở vị trí mong muốn.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463499/item/vngoods_69_463499.jpg?width=750', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463499/item/vngoods_69_463499.jpg?width=750', 'Thân: 96% Bông, 4% Elastan/ Bo: 74% Bông, 26% Polyeste/ Vải Túi: 100% Bông.', 'Quần Nỉ In Họa Tiết Siêu Co Giãn', 489000, 19, 6),
 (79, '- Chất liệu cotton mềm mịn, chống vón cục.\r\n- Với tính năng khử mùi.\r\n- Kiểu tam giác ôm gọn.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/463501/item/goods_18_463501.jpg?width=750', 'Giặt máy nước lạnh, Không giặt khô, Không sấy khô', 'Thân: 93% Bông, 7% Elastan/ Eo: 80% Polyeste, 14% Elastan, 6% Nylon', 'Quần Lót', 146000, 14, 5),
-(80, '- Cấu trúc dệt kim đặc biệt ngăn các cạnh bị sờn.\r\n- Co giãn 2 chiều tuyệt vời cho cảm giác êm ái và thoải mái tuyệt vời.\r\n- Thiết kế hoàn toàn liền mạch.\r\n- Quần lót boxer có độ vừa vặn đặc biệt cho cảm giác vừa vặn.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/456710/item/goods_03_456710.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô', '72% Nylon, 28% Elastan', 'AIRism Quần Lót Boxer Briefs Không Đường May', 244000, 14, 11),
+(80, '- Cấu trúc dệt kim đặc biệt ngăn các cạnh bị sờn.\r\n- Co giãn 2 chiều tuyệt vời cho cảm giác êm ái và thoải mái tuyệt vời.\r\n- Thiết kế hoàn toàn liền mạch.\r\n- Quần lót boxer có độ vừa vặn đặc biệt cho cảm giác vừa vặn.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/456710/item/goods_03_456710.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô', '72% Nylon, 28% Elastan', 'AIRism Quần Lót Boxer Briefs Không Đường May', 244000, 14, 1),
 (81, '- Đan nổi .\r\n- Kiểu dáng hình hộp, thoải mái.\r\n- Chiều dài ngắn.\r\n- Kết cấu mềm mại và thoáng mát đặc biệt.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463682/item/vngoods_32_463682.jpg?width=750', 'Giặt tay nước lạnh, giặt khô, không sấy khô.', '100% Len Casomia.', 'Áo Len Cashmere Cổ Tròn Dáng Ngắn Dài Tay', 2453000, 13, 4),
 (82, '- Chất liệu vải mềm mại kết hợp giữa cảm giác mát mẻ của vải linen và cảm giác mịn màng của tơ nhân tạo, tạo nên kết cấu tự nhiên, tinh xảo.\r\n- Thiết kế cổ mở thoáng mát.\r\n- Kiểu dáng hình hộp với viền dài hơn ở phía sau.\r\n- In sọc giản dị.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/458284/item/vngoods_55_458284.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, giặt khô, không sấy khô.', '45% Visco, 33% Lanh, 22% Bông.', 'Áo Sơ Mi Linen Pha Cổ Mở Ngắn Tay', 588000, 2, 3),
 (83, '- Chất liệu vải jersey mềm mại với cảm giác chải kỹ.\r\n- Kiểu dáng thoải mái, thanh lịch.\r\n- Đầm dài tới đầu gối với thiết kế cổ cao đặc trưng.\r\n- Đường cắt vừa vặn với vai trễ và tay áo rộng.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/464301/item/vngoods_35_464301.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, giặt khô, không sấy khô.', 'Thân: 52% Polyeste, 48% Bông/ Bo: 68% Bông, 32% Polyeste/ Vải Túi: 100% Bông.', 'Đầm Vải Brushed Jersey Cổ Lọ', 784000, 9, 4),
 (84, 'Những thiết kế lấy cảm hứng từ hình ảnh Snoopy và những người bạn đang chơi bóng chày trong bộ truyện tranh Peanuts nổi tiếng. Bộ sưu tập khắc họa những hình ảnh quen thuộc của Snoopy và những người bạn, gồm có cả Charlie Brown, quản lý đội bóng kiêm vị trí ném bóng, với niềm đam mê dành cho bóng chày.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/464505/item/vngoods_53_464505.jpg?width=750', 'Giặt máy nước lạnh, không giặt khô, sấy khô ở nhiệt độ thấp.', 'Thân: 100% Bông/ Bo: 78% Bông, 22% Polyeste.', 'PEANUTS Áo Nỉ Dài Tay', 784000, 5, 3),
-(85, 'Những thiết kế lấy cảm hứng từ hình ảnh Snoopy và những người bạn đang chơi bóng chày trong bộ truyện tranh Peanuts nổi tiếng. Bộ sưu tập khắc họa những hình ảnh quen thuộc của Snoopy và những người bạn, gồm có cả Charlie Brown, quản lý đội bóng kiêm vị trí ném bóng, với niềm đam mê dành cho bóng chày.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/464509/item/vngoods_03_464509.jpg?width=750', 'Giặt máy nước lạnh, không giặt khô, sấy khô ở nhiệt độ thấp.', 'Thân: 100% Bông/ Bo: 78% Bông, 22% Polyeste.', 'PEANUTS Áo Nỉ Dài Tay\r\n', 784000, 5, 11),
+(85, 'Những thiết kế lấy cảm hứng từ hình ảnh Snoopy và những người bạn đang chơi bóng chày trong bộ truyện tranh Peanuts nổi tiếng. Bộ sưu tập khắc họa những hình ảnh quen thuộc của Snoopy và những người bạn, gồm có cả Charlie Brown, quản lý đội bóng kiêm vị trí ném bóng, với niềm đam mê dành cho bóng chày.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/464509/item/vngoods_03_464509.jpg?width=750', 'Giặt máy nước lạnh, không giặt khô, sấy khô ở nhiệt độ thấp.', 'Thân: 100% Bông/ Bo: 78% Bông, 22% Polyeste.', 'PEANUTS Áo Nỉ Dài Tay\r\n', 784000, 5, 1),
 (86, 'Áo Sơ Mi Vải Brushed Mềm Kẻ Caro Dài Tay', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/464680/item/vngoods_16_464680.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, giặt khô, không sấy khô.', '67% Bông, 19% Acrylic, 14% Visco.', 'Áo Sơ Mi Vải Brushed Mềm Kẻ Caro Dài Tay', 588000, 2, 5),
 (87, '- Chất jeans 100% cotton mềm mịn.\r\n- Thiết kế 5 túi cổ điển với kiểu dáng cạp vừa.\r\n- Dáng rộng ở hông với đường cắt rộng từ phần đùi nhưng ôm dần về phía mắt cá chân.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/464683/item/vngoods_63_464683.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, không giặt khô, không sấy khô.', 'Thân: 100% Bông/ Vải Túi: 65% Polyeste, 35% Bông.', 'Quần Jeans Dáng Rộng Ống Ôm Dần', 980000, 4, 6),
 (88, '- Mềm mại, thoáng mát và không gây ngứa\r\n- Sợi soufflé mềm mại của chúng tôi tạo cảm giác nhẹ như không khí.\r\n- Thiết kế cổ cao cải tiến.\r\n- Viền cao thấp bất đối xứng.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/464860/item/vngoods_32_464860.jpg?width=750', 'Giặt tay nước lạnh, giặt khô, không sấy khô.', '41% Acrylic, 31% Nylon, 26% Bông, 2% Elastan.', 'Áo Len Vải Souffle Nhẹ Cổ Cao Dài Tay', 784000, 13, 4),
 (89, '- Chất liệu cotton cho vẻ ngoài giản dị.\r\n- Chất liệu vải siêu co giãn mang lại cảm giác thoải mái và dễ dàng vận động.\r\n-Vải mềm mại nhưng sắc nét hoàn hảo.\r\n- Với công nghệ DRY nhanh khô.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/454378/item/vngoods_71_454378.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô.', 'Thân: Lớp Lót Mũ Trùm: 48% Polyeste, 46% Bông, 6% Elastan/ Bo: 78% Bông, 22% Polyeste/ Vải Túi: Lớp Ngoài: 100% Polyeste/ Vải Túi: Lớp Trong: 48% Polyeste, 46% Bông, 6% Elastan.', 'Áo Khoác Dry Nỉ Siêu Co Giãn Có Mũ Kéo Khóa Dài Tay', 489000, 21, 9),
-(90, '- Chất liệu cotton bên ngoài cho vẻ ngoài giản dị.\r\n- Chất liệu vải siêu co giãn mang đến cảm giác thoải mái và dễ dàng vận động.\r\n- Kết cấu sắc nét hoàn hảo nhưng vẫn mềm mại.\r\n- Với công nghệ DRY nhanh khô.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463500/sub/vngoods_463500_sub7.jpg?width=750', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463500/sub/vngoods_463500_sub7.jpg?width=750', 'Thân: 48% Polyeste, 46% Bông, 6% Elastan/ Bo: 78% Bông, 22% Polyeste/ Vải Túi: Lớp Ngoài: 100% Polyeste/ Vải Túi: Lớp Trong: 48% Polyeste, 46% Bông, 6% Elastan/ Băng: 100% Polyeste.', 'Quần Nỉ Dry Siêu Co Giãn', 489000, 19, 11),
+(90, '- Chất liệu cotton bên ngoài cho vẻ ngoài giản dị.\r\n- Chất liệu vải siêu co giãn mang đến cảm giác thoải mái và dễ dàng vận động.\r\n- Kết cấu sắc nét hoàn hảo nhưng vẫn mềm mại.\r\n- Với công nghệ DRY nhanh khô.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463500/sub/vngoods_463500_sub7.jpg?width=750', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463500/sub/vngoods_463500_sub7.jpg?width=750', 'Thân: 48% Polyeste, 46% Bông, 6% Elastan/ Bo: 78% Bông, 22% Polyeste/ Vải Túi: Lớp Ngoài: 100% Polyeste/ Vải Túi: Lớp Trong: 48% Polyeste, 46% Bông, 6% Elastan/ Băng: 100% Polyeste.', 'Quần Nỉ Dry Siêu Co Giãn', 489000, 19, 1),
 (91, '- Chất liệu vải dệt kim mịn với màu sắc bắt mắt và kiểu dáng trang nhã.\r\n- Độ dày vừa phải dễ dàng kết hợp với các trang phục khác.\r\n- Chất liệu vải mịn, chống vón cục.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/460324/item/vngoods_24_460324.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô, Không sấy khô.', 'Thân: 100% Bông/ Bo: 82% Bông, 18% Polyeste/ Lớp Lót Mũ Trùm: 61% Bông, 39% Polyeste', 'Áo Nỉ Có Mũ Kéo Khóa Dài Tay', 784000, 5, 7),
 (92, '- Được cải tiến với bề mặt nhám để có vẻ ngoài tinh tế.\r\n- Độ co giãn được cải thiện khiến sản phẩm trở nên lý tưởng khi bạn chơi thể thao.\r\n- Kiểu dáng được cải tiến cho phép di chuyển dễ dàng.\r\n- Đường may phía sau đầu gối để vừa vặn hơn khi gập chân.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/460325/item/vngoods_66_460325.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, không giặt khô, không sấy khô.', 'Thân: 74% Polyeste, 20% Bông, 6% Elastan ( 45% Sử Dụng Sợi Polyeste Tái Chế )/ Lớp Lót Mũ Trùm: Vải Túi: 100% Polyeste.', 'Áo Khoác Nỉ Co Giãn Dry Có Mũ Kéo Khóa Dài Tay', 784000, 5, 6),
 (93, 'Đây chính là những thiết kế với đa dạng họa tiết từ các tác phẩm nổi tiếng nhất của Ghibli, hợp tác cùng nghệ sĩ Thái Lan Kanyada. Thông qua bộ sưu tập này, chúng tôi mong rằng tất cả mọi người có thể cảm nhận được năng lượng tuyệt vời của Studio Ghibli.', 'https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/465884/item/vngoods_55_465884.jpg?width=750', 'Giặt máy nước lạnh, không giặt khô, sấy khô ở nhiệt độ thấp.', 'Thân: 100% Bông/ Bo: 78% Bông, 22% Polyeste.', 'Studio Ghibli Áo Nỉ Dài Tay', 784000, 5, 3),
@@ -298,8 +300,8 @@ INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`,
 (99, 'Quần short bermuda cạp co giãn, điều chỉnh bằng dây rút. Xếp li phía trước. Có hai túi ở phía trước và hai túi may viền ở phía sau. Gấu lật.', 'https://static.zara.net/photos///2023/I/0/2/p/0706/269/914/2/w/750/0706269914_6_1_1.jpg?ts=1695218308029', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n54% vải thun vitcô\r\n43% vải pôliexte\r\n3% elastane', 'QUẦN SHORT BERMUDA THIẾT KẾ THOẢI MÁI', 629000, 3, 3),
 (100, 'Áo nỉ oversize. Cổ tròn, cộc tay. Toàn thân chần chỉ nổi khác màu.', 'https://static.zara.net/photos///2023/I/0/2/p/0761/312/712/2/w/750/0761312712_6_1_1.jpg?ts=1689257030366', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n86% vải cotton\r\n14% vải pôliexte', 'ÁO NỈ CHẦN CHỈ NỔI KHÁC MÀU', 1299000, 7, 4),
 (101, 'Áo nỉ oversize. Cổ tròn, cộc tay. Toàn thân chần chỉ nổi khác màu.', 'https://static.zara.net/photos///2023/I/0/2/p/0761/312/712/2/w/750/0761312712_6_1_1.jpg?ts=1689257030366', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n86% vải cotton\r\n14% vải pôliexte', 'ÁO NỈ CHẦN CHỈ NỔI KHÁC MÀU', 1299000, 7, 4),
-(102, 'Quần short bermuda dáng jogger ngắn, vải cotton compact, bên trong lót vải bông. Cạp co giãn, điều chỉnh bằng dây rút. Có túi hai bên và một túi đáp phía sau. Một bên ống quần in logo Everlast®.', 'https://static.zara.net/photos///2023/I/0/2/p/0761/329/803/2/w/750/0761329803_6_1_1.jpg?ts=1693294166171', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n50% vải cotton\r\n50% vải pôliexte', 'QUẦN SHORT BERMUDA DÁNG JOGGER EVERLAST®', 1299000, 3, 11),
-(103, 'Áo nỉ hoodie vải cotton, mặt bên trong có lông xù. Cổ may liền mũ trùm đầu điều chỉnh được, dài tay. Có một túi kangaroo phía trước. Bo viền bằng vải gân.', 'https://static.zara.net/photos///2023/I/0/2/p/0761/350/807/2/w/750/0761350807_6_1_1.jpg?ts=1688039025314', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n63% vải cotton\r\n37% vải pôliexte\r\nCHI TIẾT\r\n99% vải cotton\r\n1% elastane\r\nLỚP LÓT\r\n63% vải cotton\r\n37% vải pôliexte\r\n', 'ÁO NỈ CÓ MŨ TRÙM ĐẦU', 1199000, 5, 11),
+(102, 'Quần short bermuda dáng jogger ngắn, vải cotton compact, bên trong lót vải bông. Cạp co giãn, điều chỉnh bằng dây rút. Có túi hai bên và một túi đáp phía sau. Một bên ống quần in logo Everlast®.', 'https://static.zara.net/photos///2023/I/0/2/p/0761/329/803/2/w/750/0761329803_6_1_1.jpg?ts=1693294166171', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n50% vải cotton\r\n50% vải pôliexte', 'QUẦN SHORT BERMUDA DÁNG JOGGER EVERLAST®', 1299000, 3, 1),
+(103, 'Áo nỉ hoodie vải cotton, mặt bên trong có lông xù. Cổ may liền mũ trùm đầu điều chỉnh được, dài tay. Có một túi kangaroo phía trước. Bo viền bằng vải gân.', 'https://static.zara.net/photos///2023/I/0/2/p/0761/350/807/2/w/750/0761350807_6_1_1.jpg?ts=1688039025314', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n63% vải cotton\r\n37% vải pôliexte\r\nCHI TIẾT\r\n99% vải cotton\r\n1% elastane\r\nLỚP LÓT\r\n63% vải cotton\r\n37% vải pôliexte\r\n', 'ÁO NỈ CÓ MŨ TRÙM ĐẦU', 1199000, 5, 1),
 (104, 'Quần short thể thao vải kỹ thuật nhẹ và co giãn.\r\n- Cạp co giãn, điều chỉnh bằng dây rút.\r\n- Có một túi cài khóa kéo ép nhiệt phía sau.', 'https://static.zara.net/photos///2023/I/0/2/p/0765/304/641/2/w/750/0765304641_6_1_1.jpg?ts=1688032628554', 'Chỉ giặt quần áo khi cần thiết, đôi khi chỉ cần phơi quần áo tại nơi thoáng khí là đủ. Quá trình giặt làm hao mòn dần các loại vải. Bằng cách giảm số lần giặt, chúng ta sẽ kéo dài tuổi thọ của quần áo và giảm lượng nước và năng lượng tiêu thụ trong các quá trình chăm sóc.', 'LỚP NGOÀI\r\n85% vải poliamit\r\n15% elastane\r\nLỚP LÓT\r\n92% vải pôliexte\r\n8% elastane', 'QUẦN SHORT THỂ THAO', 729000, 3, 7),
 (105, 'Áo nỉ hoodie có mũ trùm đầu, dài tay, bo cổ tay bằng vải gân. Kiểu bạc màu. Gấu cắt lệch. Dáng crop.\r\n\r\n', 'https://static.zara.net/photos///2023/I/0/2/p/0962/328/044/2/w/750/0962328044_6_1_1.jpg?ts=1688638570867', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n65% vải cotton\r\n35% vải pôliexte\r\nVẢI PHỤ\r\n98% vải cotton\r\n2% elastane\r\nLỚP LÓT\r\n65% vải cotton\r\n35% vải pôliexte', 'ÁO NỈ KIỂU BẠC MÀU CÓ MŨ', 1299000, 5, 6);
 INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`, `name`, `price`, `category_id`, `color_id`) VALUES
@@ -309,7 +311,7 @@ INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`,
 (109, 'Áo nỉ cổ tròn, dài tay. Bo viền bằng vải gân.', 'https://static.zara.net/photos///2023/I/0/3/p/1165/772/681/2/w/750/1165772681_6_1_1.jpg?ts=1691490685803', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n100% vải cotton\r\nVẢI PHỤ\r\n97% vải cotton\r\n3% elastane', 'ÁO NỈ ARTY', 529000, 22, 5),
 (110, 'Quần short bermuda dáng slim fit. Cạp co giãn, điều chỉnh bằng dây rút. Có 5 túi. Kiểu bạc màu. Gấu lật.', 'https://static.zara.net/photos///2023/V/0/2/p/1187/444/407/2/w/750/1187444407_6_1_1.jpg?ts=1679299869278', 'Để kéo dài tuổi thọ cho quần áo denim của bạn, hãy luôn lộn trái chúng từ trong ra ngoài và giặt chúng ở nhiệt độ thấp. Cách làm như vậy giúp bảo quản màu sắc và cấu trúc vải, đồng thời giúp làm giảm lượng năng lượng tiêu thụ.', 'LỚP NGOÀI\r\n80% vải cotton\r\n18% vải pôliexte\r\n1% vải thun vitcô\r\n1% elastane', 'QUẦN SHORT BERMUDA VẢI DENIM MỀM', 529000, 3, 6),
 (111, 'Quần short bermuda dáng relaxed fit. Có 5 túi. Kiểu bạc màu, trang trí các chi tiết rách trên ống quần. Gấu cắt lệch. Cài phía trước bằng khuy cài.', 'https://static.zara.net/photos///2023/I/0/2/p/1538/332/800/2/w/750/1538332800_6_1_1.jpg?ts=1689591845380', 'Phơi ở nơi thông thoáng và chải quần áo là cách tự nhiên để chăm sóc quần áo mỏng manh của bạn. Nếu cần thiết phải giặt khô, hãy cố gắng tìm những tiệm giặt ủi sử dụng các công nghệ thân thiện với môi trường.', 'LỚP NGOÀI\r\n100% vải cotton', 'QUẦN SHORT BERMUDA VẢI DENIM RÁCH', 1299000, 3, 1),
-(112, 'Quần ống côn, cạp lỡ bo thun co giãn phía sau. Có hai túi phía trước và hai túi giả may viền phía sau. Gấu xẻ hai bên. Cài phía trước bằng khóa kéo, khuy ẩn và móc kim loại.', 'https://static.zara.net/photos///2023/I/0/1/p/1478/230/809/2/w/750/1478230809_6_1_1.jpg?ts=1695655521026', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n63% vải pôliexte\r\n34% vải thun vitcô\r\n3% elastane', 'QUẦN CẠP JOGGER', 899000, 4, 11),
+(112, 'Quần ống côn, cạp lỡ bo thun co giãn phía sau. Có hai túi phía trước và hai túi giả may viền phía sau. Gấu xẻ hai bên. Cài phía trước bằng khóa kéo, khuy ẩn và móc kim loại.', 'https://static.zara.net/photos///2023/I/0/1/p/1478/230/809/2/w/750/1478230809_6_1_1.jpg?ts=1695655521026', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n63% vải pôliexte\r\n34% vải thun vitcô\r\n3% elastane', 'QUẦN CẠP JOGGER', 899000, 4, 1),
 (113, 'Áo nỉ dài tay, có mũ trùm đầu. Bo viền bằng len gân. Có một túi kangaroo ở phía trước. Đáp họa tiết chữ phủ lông mịn.', 'https://static.zara.net/photos///2023/I/0/3/p/1880/783/700/2/w/750/1880783700_6_1_1.jpg?ts=1695368441340', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n76% vải cotton\r\n24% vải pôliexte\r\nVẢI PHỤ\r\n58% vải cotton\r\n39% vải pôliexte\r\n3% elastane\r\nLỚP LÓT\r\n76% vải cotton\r\n24% vải pôliexte', 'ÁO NỈ CÓ MŨ NEW JERSEY', 629000, 22, 4),
 (114, 'Jumpsuit denim cổ ve lật, dài tay. Cài khuy bấm phía trước. Có nhiều túi phía trước, túi có nắp hai bên ống quần và hai túi phía sau.', 'https://static.zara.net/photos///2023/I/0/3/p/2187/709/400/2/w/750/2187709400_6_1_1.jpg?ts=1692345942636', 'Để kéo dài tuổi thọ cho quần áo denim của bạn, hãy luôn lộn trái chúng từ trong ra ngoài và giặt chúng ở nhiệt độ thấp. Cách làm như vậy giúp bảo quản màu sắc và cấu trúc vải, đồng thời giúp làm giảm lượng năng lượng tiêu thụ.', 'LỚP NGOÀI\r\n100% vải cotton', 'JUMPSUIT WORKER VẢI DENIM', 999000, 18, 6),
 (115, 'Áo nỉ có mũ trùm đầu, dài tay, bo cổ tay. Thêu trang trí phía trước và in họa tiết sau lưng.', 'https://static.zara.net/photos///2023/I/0/3/p/2224/672/081/2/w/750/2224672081_6_1_1.jpg?ts=1694001086095', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n57% vải pôliexte\r\n43% vải cotton\r\nVẢI PHỤ\r\n65% vải cotton\r\n33% vải pôliexte\r\n2% elastane\r\nLỚP LÓT\r\n57% vải pôliexte\r\n43% vải cotton', 'ÁO NỈ THÊU', 629000, 22, 1),
@@ -324,7 +326,7 @@ INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`,
 (124, 'Áo nỉ dài tay, có mũ trùm đầu. Cổ tay và gấu bo vải gân. Có một túi kangaroo ở phía trước. Thêu chữ trang trí trước ngực và in họa tiết sau lưng.\r\n\r\n', 'https://static.zara.net/photos///2023/I/0/3/p/3854/698/943/2/w/750/3854698943_6_1_1.jpg?ts=1695634465366', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n55% vải cotton\r\n45% vải pôliexte\r\nVẢI PHỤ\r\n58% vải cotton\r\n39% vải pôliexte\r\n3% elastane\r\nLỚP LÓT\r\n55% vải cotton\r\n45% vải pôliexte', 'ÁO NỈ THÊU CHỮ', 629000, 22, 5),
 (125, 'Áo polo dáng rộng, cổ ve lật, cài khuy phía trước. Dài tay. Gấu xẻ hai bên.', 'https://static.zara.net/photos///2023/I/0/2/p/3992/341/982/2/w/750/3992341982_6_1_1.jpg?ts=1696319323937', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n100% vải cotton', 'ÁO NỈ POLO', 1199000, 5, 2),
 (126, 'Áo măng tô oversize chất liệu chống thấm nước. Cổ ve lật, dài tay, may con đỉa ở vai và đai cài ở cổ tay. Có hai túi cài khóa kéo phía trước. Kèm thắt lưng cùng chất liệu. Gấu xẻ ở phía sau.', 'https://static.zara.net/photos///2023/I/0/1/p/4341/723/990/2/w/750/4341723990_6_1_1.jpg?ts=1695714735535', 'Để giữ cho áo khoác của bạn sạch sẽ, bạn chỉ cần phơi chúng ở nơi thông thoáng và lau sạch bằng khăn vải hoặc bàn chải chuyên dụng. Quá trình này có lợi hơn cho vải và cũng tránh việc tiêu thụ nước và năng lượng trong quá trình giặt.', 'LỚP NGOÀI\r\n100% pôliurêtan', 'ÁO MĂNG TÔ OVERSIZE VẢI MỎNG XUYÊN THẤU NHẸ', 2699000, 24, 1),
-(127, 'Áo nỉ hoodie dài tay, cổ may liền mũ trùm đầu. Vải hiệu ứng bạc màu, trang trí các chi tiết rách. Gấu có viền cắt lệch.\r\n\r\n', 'https://static.zara.net/photos///2023/I/0/2/p/4729/306/922/2/w/750/4729306922_6_1_1.jpg?ts=1693380537042', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n90% vải cotton\r\n10% vải pôliexte\r\nLỚP LÓT\r\n90% vải cotton\r\n10% vải pôliexte', 'ÁO NỈ DÁNG BOXY FIT CÓ MŨ', 1499000, 5, 11),
+(127, 'Áo nỉ hoodie dài tay, cổ may liền mũ trùm đầu. Vải hiệu ứng bạc màu, trang trí các chi tiết rách. Gấu có viền cắt lệch.\r\n\r\n', 'https://static.zara.net/photos///2023/I/0/2/p/4729/306/922/2/w/750/4729306922_6_1_1.jpg?ts=1693380537042', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n90% vải cotton\r\n10% vải pôliexte\r\nLỚP LÓT\r\n90% vải cotton\r\n10% vải pôliexte', 'ÁO NỈ DÁNG BOXY FIT CÓ MŨ', 1499000, 5, 1),
 (128, 'Đầm yếm giả da, cổ tròn, không tay. Cài khóa kéo sau lưng. Eo bo thun co giãn, có dây rút kèm khóa chỉnh dây.', 'https://static.zara.net/photos///2023/I/0/3/p/4786/701/800/2/w/750/4786701800_6_1_1.jpg?ts=1691592100165', 'Chỉ giặt quần áo khi cần thiết, đôi khi chỉ cần phơi quần áo tại nơi thoáng khí là đủ. Quá trình giặt làm hao mòn dần các loại vải. Bằng cách giảm số lần giặt, chúng ta sẽ kéo dài tuổi thọ của quần áo và giảm lượng nước và năng lượng tiêu thụ trong các quá trình chăm sóc.', 'LỚP NGOÀI\r\nVẢI NỀN\r\n100% vải pôliexte\r\nLỚP PHỦ\r\n100% pôliurêtan\r\nLỚP LÓT\r\n100% vải pôliexte', 'ĐẦM YẾM GIẢ DA', 849000, 18, 1),
 (129, 'Áo len cổ tròn, dài tay. Bo viền bằng len gân.', 'https://static.zara.net/photos///2023/I/0/2/p/4938/330/800/2/w/750/4938330800_6_1_1.jpg?ts=1695717311340', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n100% vải pôliexte', 'ÁO LEN CHENILLE', 1299000, 12, 1),
 (130, 'Quần vải xuyên thấu nhẹ, cạp cao co giãn.\r\nKhông có vải lót bên trong.', 'https://static.zara.net/photos///2023/I/0/1/p/5039/419/112/2/w/750/5039419112_6_1_1.jpg?ts=1696490388961', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n95% vải pôliexte\r\n5% elastane', 'QUẦN VẢI TULLE IN HỌA TIẾT', 729000, 4, 6),
@@ -332,8 +334,8 @@ INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`,
 (132, 'Áo nỉ cổ tròn, dài tay. Thêu họa tiết trang trí.', 'https://static.zara.net/photos///2023/I/0/3/p/5350/778/933/2/w/750/5350778933_6_1_1.jpg?ts=1691757028659', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n83% vải cotton\r\n17% vải pôliexte\r\nVẢI PHỤ\r\n97% vải cotton\r\n3% elastane', 'ÁO NỈ HỌA TIẾT HÌNH BỨC ẢNH', 629000, 22, 3),
 (133, 'Áo nỉ vải pha sợi cotton. Cổ tròn, dài tay. Bo viền bằng len gân.', 'https://static.zara.net/photos///2023/I/0/1/p/5388/453/612/2/w/750/5388453612_6_1_1.jpg?ts=1692341218408', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n65% vải cotton\r\n35% vải pôliexte\r\nVẢI PHỤ\r\n97% vải cotton\r\n3% elastane', 'ÁO NỈ VẢI PHA COTTON PHONG CÁCH MINIMALISM', 629000, 6, 9),
 (134, 'Đầm nhung lông có mũ trùm đầu, dài tay. Cổ tay và gấu bo vải gân. In họa tiết BARBIE MATTEL và đính đá trang trí.', 'https://static.zara.net/photos///2023/I/0/3/p/5431/816/712/2/w/750/5431816712_6_1_1.jpg?ts=1696426519566', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n65% vải cotton\r\n35% vải pôliexte\r\nVẢI PHỤ\r\n97% vải cotton\r\n3% elastane\r\nLỚP LÓT\r\n65% vải cotton\r\n35% vải pôliexte', 'ĐẦM NHUNG LÔNG BARBIE MATTEL', 999000, 18, 2),
-(135, 'Áo khoác không khóa cài, chất liệu 95% là sợi len. Dài tay. Có hai túi phía trước, túi may viền. Bo viền bằng len gân.', 'https://static.zara.net/photos///2023/I/0/1/p/5755/108/807/2/w/750/5755108807_6_1_1.jpg?ts=1695048050747', 'Để giữ cho áo khoác của bạn sạch sẽ, bạn chỉ cần phơi chúng ở nơi thông thoáng và lau sạch bằng khăn vải hoặc bàn chải chuyên dụng. Quá trình này có lợi hơn cho vải và cũng tránh việc tiêu thụ nước và năng lượng trong quá trình giặt.', 'LỚP NGOÀI\r\n95% len\r\n5% vải poliamit', 'ÁO KHOÁC LEN DÁNG NGẮN', 2999000, 24, 11),
-(136, 'Áo nỉ vải kỹ thuật, dáng rộng. Cổ tròn, dài tay, cổ tay có dây rút co giãn để điều chỉnh. Gấu áo điều chỉnh bằng dây rút co giãn hai bên.', 'https://static.zara.net/photos///2023/I/0/2/p/6085/360/105/2/w/750/6085360105_6_1_1.jpg?ts=1689753315883', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n100% vải pôliexte\r\nVẢI PHỤ\r\n95% vải pôliexte\r\n5% elastane', 'ÁO NỈ VẢI KỸ THUẬT HỌA TIẾT KẺ', 1699000, 5, 11),
+(135, 'Áo khoác không khóa cài, chất liệu 95% là sợi len. Dài tay. Có hai túi phía trước, túi may viền. Bo viền bằng len gân.', 'https://static.zara.net/photos///2023/I/0/1/p/5755/108/807/2/w/750/5755108807_6_1_1.jpg?ts=1695048050747', 'Để giữ cho áo khoác của bạn sạch sẽ, bạn chỉ cần phơi chúng ở nơi thông thoáng và lau sạch bằng khăn vải hoặc bàn chải chuyên dụng. Quá trình này có lợi hơn cho vải và cũng tránh việc tiêu thụ nước và năng lượng trong quá trình giặt.', 'LỚP NGOÀI\r\n95% len\r\n5% vải poliamit', 'ÁO KHOÁC LEN DÁNG NGẮN', 2999000, 24, 1),
+(136, 'Áo nỉ vải kỹ thuật, dáng rộng. Cổ tròn, dài tay, cổ tay có dây rút co giãn để điều chỉnh. Gấu áo điều chỉnh bằng dây rút co giãn hai bên.', 'https://static.zara.net/photos///2023/I/0/2/p/6085/360/105/2/w/750/6085360105_6_1_1.jpg?ts=1689753315883', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n100% vải pôliexte\r\nVẢI PHỤ\r\n95% vải pôliexte\r\n5% elastane', 'ÁO NỈ VẢI KỸ THUẬT HỌA TIẾT KẺ', 1699000, 5, 1),
 (137, 'Quần short bermuda vải cotton. Cạp co giãn, điều chỉnh bằng dây rút. Có túi hai bên và một túi đáp phía sau.', 'https://static.zara.net/photos///2023/I/0/2/p/6103/330/505/2/w/750/6103330505_6_1_1.jpg?ts=1689087336022', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n100% vải cotton\r\nLỚP LÓT\r\n100% vải cotton', 'QUẦN SHORT BERMUDA VẢI HIỆU ỨNG NHĂN', 529000, 3, 3),
 (138, 'Áo nỉ dáng rộng, cổ may liền mũ trùm đầu, dài tay. Có một túi kangaroo phía trước. Toàn thân in họa tiết khác màu. Cổ tay và gấu bo vải gân.', 'https://static.zara.net/photos///2023/I/0/2/p/6224/295/420/2/w/750/6224295420_6_1_1.jpg?ts=1696319325917', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n89% vải cotton\r\n11% vải pôliexte\r\nVẢI PHỤ\r\n98% vải cotton\r\n2% elastane\r\nLỚP LÓT\r\n89% vải cotton\r\n11% vải pôliexte', 'ÁO NỈ IN HỌA TIẾT KHÁC MÀU', 1499000, 5, 6),
 (139, 'Đầm yếm cổ ngang, có hai dây đeo vai cài khuy bấm. Có túi đáp có nắp ở hai bên.', 'https://static.zara.net/photos///2023/I/0/3/p/6738/597/070/2/w/750/6738597070_6_1_1.jpg?ts=1695653507418', 'Chỉ giặt quần áo khi cần thiết, đôi khi chỉ cần phơi quần áo tại nơi thoáng khí là đủ. Quá trình giặt làm hao mòn dần các loại vải. Bằng cách giảm số lần giặt, chúng ta sẽ kéo dài tuổi thọ của quần áo và giảm lượng nước và năng lượng tiêu thụ trong các quá trình chăm sóc.', 'LỚP NGOÀI\r\n63% vải cotton\r\n34% vải pôliexte\r\n2% len\r\n1% vải thun vitcô\r\nLỚP LÓT\r\n100% vải cotton', 'ĐẦM YẾM VẢI DỆT', 999000, 18, 2),
@@ -344,7 +346,7 @@ INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`,
 (144, 'Áo nỉ vải denim sợi cotton, dáng relaxed fit.  Cổ tròn, cộc tay.  Gấu điều chỉnh bằng khóa kéo bên.  Tay và gấu bo viền bằng vải gân.', 'https://static.zara.net/photos///2023/I/0/2/p/7627/404/406/2/w/750/7627404406_6_1_1.jpg?ts=1687859881539', 'Để kéo dài tuổi thọ cho quần áo denim của bạn, hãy luôn lộn trái chúng từ trong ra ngoài và giặt chúng ở nhiệt độ thấp. Cách làm như vậy giúp bảo quản màu sắc và cấu trúc vải, đồng thời giúp làm giảm lượng năng lượng tiêu thụ.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n100% vải cotton\r\nVẢI PHỤ\r\n69% vải cotton\r\n29% vải pôliexte\r\n2% elastane', 'ÁO NỈ DENIM', 1299000, 7, 6),
 (145, 'Quần cạp cao, có hai túi phía trước và hai túi giả may viền phía sau. Ống vẩy. Cài phía trước bằng khóa kéo, khuy ẩn và móc kim loại.', 'https://static.zara.net/photos///2023/I/0/1/p/8162/786/942/2/w/750/8162786942_6_1_1.jpg?ts=1691595879580', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'Quần cạp cao, có hai túi phía trước và hai túi giả may viền phía sau. Ống vẩy. Cài phía trước bằng khóa kéo, khuy ẩn và móc kim loại.', 'QUẦN FULL LENGTH ỐNG LOE', 1299000, 4, 10),
 (146, 'Quần 27% là sợi viscose, cạp lỡ. Cạp tua rua. Có túi hai bên. Có các chi tiết xếp li phía trước. Ống rộng. Cài bằng khóa kéo.', 'https://static.zara.net/photos///2023/I/0/1/p/8312/333/802/2/w/750/8312333802_6_1_1.jpg?ts=1696496768188', 'Phơi ở nơi thông thoáng và chải quần áo là cách tự nhiên để chăm sóc quần áo mỏng manh của bạn. Nếu cần thiết phải giặt khô, hãy cố gắng tìm những tiệm giặt ủi sử dụng các công nghệ thân thiện với môi trường.', 'LỚP NGOÀI\r\n72% vải pôliexte\r\n27% vải thun vitcô\r\n1% elastane', 'QUẦN MAY LI PHONG CÁCH MINIMALISM ZW COLLECTION', 1999000, 4, 1),
-(147, 'Quần cạp cao co giãn. Có hai túi phía trước và hai túi giả có nắp phía sau. Cài phía trước bằng khóa kéo và khuy.', 'https://static.zara.net/photos///2023/I/0/1/p/8372/475/922/2/w/750/8372475922_6_1_1.jpg?ts=1695214652563', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'Quần cạp cao co giãn. Có hai túi phía trước và hai túi giả có nắp phía sau. Cài phía trước bằng khóa kéo và khuy.', 'QUẦN PAPERBAG DÀI ĐẾN MẮT CÁ CHÂN', 999000, 4, 11),
+(147, 'Quần cạp cao co giãn. Có hai túi phía trước và hai túi giả có nắp phía sau. Cài phía trước bằng khóa kéo và khuy.', 'https://static.zara.net/photos///2023/I/0/1/p/8372/475/922/2/w/750/8372475922_6_1_1.jpg?ts=1695214652563', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'Quần cạp cao co giãn. Có hai túi phía trước và hai túi giả có nắp phía sau. Cài phía trước bằng khóa kéo và khuy.', 'QUẦN PAPERBAG DÀI ĐẾN MẮT CÁ CHÂN', 999000, 4, 1),
 (148, 'Áo nỉ bằng vải cotton hiệu ứng bạc màu. Cổ tròn, dài tay, vai may thấp. Gấu không may viền.', 'https://static.zara.net/photos///2023/I/0/1/p/8417/801/629/2/w/750/8417801629_6_1_1.jpg?ts=1692718546035', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n100% vải cotton\r\nVẢI PHỤ\r\n97% vải cotton\r\n3% elastane', 'ÁO NỈ VẢI NHUNG LÔNG HIỆU ỨNG BẠC MÀU', 729000, 6, 9),
 (149, 'Quần short bermuda vải cotton, dáng regular fit. Có hai túi phía trước và hai túi may viền phía sau. Cài khóa kéo và khuy phía trước.', 'https://static.zara.net/photos///2023/I/0/2/p/8727/306/710/2/w/750/8727306710_6_1_1.jpg?ts=1689087339137', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n98% vải cotton\r\n2% elastane', 'QUẦN SHORT CHINO VẢI COTTON', 999000, 3, 4),
 (150, 'Quần short bermuda dáng regular fit, chất liệu vải cotton co giãn. Có hai túi phía trước và hai túi may viền phía sau. Cài khóa kéo và khuy phía trước.', 'https://static.zara.net/photos///2023/I/0/2/p/9252/355/445/2/w/750/9252355445_6_1_1.jpg?ts=1689087329717', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\n98% vải cotton\r\n2% elastane', 'QUẦN SHORT BERMUDA DÁNG CHINO VẢI DỆT', 999000, 3, 2),
@@ -411,25 +413,25 @@ INSERT INTO `product_size` (`product_id`, `size_id`) VALUES
 (15, 2),
 (15, 3),
 (15, 4),
-(16, 11),
-(16, 12),
-(16, 13),
-(16, 14),
-(16, 15),
-(17, 11),
-(17, 12),
-(17, 13),
-(17, 14),
-(17, 15),
+(16, 1),
+(16, 2),
+(16, 3),
+(16, 4),
+(16, 5),
+(17, 1),
+(17, 2),
+(17, 3),
+(17, 4),
+(17, 5),
 (18, 2),
 (18, 3),
 (18, 4),
 (18, 5),
 (18, 6),
-(19, 12),
-(19, 13),
-(19, 14),
-(19, 15),
+(19, 2),
+(19, 3),
+(19, 4),
+(19, 5),
 (20, 21),
 (20, 22),
 (20, 24),
@@ -521,10 +523,10 @@ INSERT INTO `product_size` (`product_id`, `size_id`) VALUES
 (43, 3),
 (43, 4),
 (43, 5),
-(44, 11),
-(44, 12),
-(44, 14),
-(44, 17),
+(44, 1),
+(44, 2),
+(44, 4),
+(44, 7),
 (45, 3),
 (45, 4),
 (45, 5),
@@ -541,9 +543,9 @@ INSERT INTO `product_size` (`product_id`, `size_id`) VALUES
 (49, 2),
 (49, 3),
 (49, 4),
-(50, 12),
-(50, 13),
-(50, 15),
+(50, 2),
+(50, 3),
+(50, 5),
 (51, 1),
 (51, 2),
 (51, 3),
@@ -557,9 +559,9 @@ INSERT INTO `product_size` (`product_id`, `size_id`) VALUES
 (53, 2),
 (53, 4),
 (53, 5),
-(54, 14),
-(54, 15),
-(54, 16),
+(54, 4),
+(54, 5),
+(54, 6),
 (55, 1),
 (55, 4),
 (56, 2),
@@ -898,21 +900,12 @@ INSERT INTO `size` (`size_id`, `name`) VALUES
 (5, 'XL'),
 (6, '2XL'),
 (7, '3XL'),
-(11, '27inch'),
-(12, '28inch'),
-(13, '29inch'),
-(14, '30inch'),
-(15, '31inch'),
-(16, '32inch'),
-(17, '33inch'),
-(18, '34inch'),
-(19, '35inch'),
-(21, '4-5Y'),
-(22, '6-7Y'),
-(23, '8-9Y'),
-(24, '10-11Y'),
-(25, '12-13Y'),
-(26, '14Y');
+(21, '90cm'),
+(22, '100cm'),
+(23, '110cm'),
+(24, '120cm'),
+(25, '130cm'),
+(26, '140cm');
 
 -- --------------------------------------------------------
 
@@ -927,17 +920,16 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `user_status` bit(1) DEFAULT NULL,
-  `username` varchar(255) NOT NULL,
-  `address` varchar(255) DEFAULT NULL
+  `username` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `created`, `email`, `password`, `phone`, `user_status`, `username`, `address`) VALUES
-(1, '2023-10-24 00:00:00.000000', 'trung@gmail.com', '$2a$10$5M7HgGn2Q1qbu1FkIJvJ1eo8MfMK5mhPO6MsbthON6KIcVYNR4WGm', '0326496229', b'1', 'admin', NULL),
-(2, '2023-11-13 00:00:00.000000', 'anhtrung@gmail.com', '$2a$10$N5tarJPcirbuVSXPGKhkn.sXRLG/oCybIKlMbGac/n93pG6vw5jCm', '0326496229', b'1', 'trung', NULL);
+INSERT INTO `user` (`id`, `created`, `email`, `password`, `phone`, `user_status`, `username`) VALUES
+(1, '2023-10-24 00:00:00.000000', 'trung@gmail.com', '$2a$10$5M7HgGn2Q1qbu1FkIJvJ1eo8MfMK5mhPO6MsbthON6KIcVYNR4WGm', '0326496229', b'1', 'admin'),
+(2, '2023-11-13 00:00:00.000000', 'anhtrung@gmail.com', '$2a$10$N5tarJPcirbuVSXPGKhkn.sXRLG/oCybIKlMbGac/n93pG6vw5jCm', '0326496229', b'1', 'trung');
 
 -- --------------------------------------------------------
 
@@ -972,7 +964,8 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 ALTER TABLE `cart_item`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKjcyd5wv4igqnw413rgxbfu4nv` (`product_id`),
-  ADD KEY `FKjnaj4sjyqjkr4ivemf9gb25w` (`user_id`);
+  ADD KEY `FKjnaj4sjyqjkr4ivemf9gb25w` (`user_id`),
+  ADD KEY `FK27btch34nojjlgacglak3yyap` (`size_id`);
 
 --
 -- Indexes for table `category`
@@ -1001,7 +994,8 @@ ALTER TABLE `order`
 ALTER TABLE `order_item`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKs234mi6jususbx4b37k44cipy` (`order_id`),
-  ADD KEY `FK551losx9j75ss5d6bfsqvijna` (`product_id`);
+  ADD KEY `FK551losx9j75ss5d6bfsqvijna` (`product_id`),
+  ADD KEY `FK8klnbu469mgjnuybpa6lbkljo` (`size_id`);
 
 --
 -- Indexes for table `order_status`
@@ -1123,6 +1117,7 @@ ALTER TABLE `user`
 -- Constraints for table `cart_item`
 --
 ALTER TABLE `cart_item`
+  ADD CONSTRAINT `FK27btch34nojjlgacglak3yyap` FOREIGN KEY (`size_id`) REFERENCES `size` (`size_id`),
   ADD CONSTRAINT `FKjcyd5wv4igqnw413rgxbfu4nv` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `FKjnaj4sjyqjkr4ivemf9gb25w` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
@@ -1144,6 +1139,7 @@ ALTER TABLE `order`
 --
 ALTER TABLE `order_item`
   ADD CONSTRAINT `FK551losx9j75ss5d6bfsqvijna` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `FK8klnbu469mgjnuybpa6lbkljo` FOREIGN KEY (`size_id`) REFERENCES `size` (`size_id`),
   ADD CONSTRAINT `FKs234mi6jususbx4b37k44cipy` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`);
 
 --

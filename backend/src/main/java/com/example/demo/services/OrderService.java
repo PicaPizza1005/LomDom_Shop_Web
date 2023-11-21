@@ -11,6 +11,7 @@ import com.example.demo.entities.OrderItem;
 import com.example.demo.entities.OrderStatus;
 import com.example.demo.entities.User;
 import com.example.demo.entities.CartItem;
+import com.example.demo.services.SizeService;
 
 
 import org.modelmapper.ModelMapper;
@@ -44,6 +45,9 @@ public class OrderService {
     private CartItemService cartItemService;
 
     @Autowired
+    private SizeService sizeService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     public OrderService(OrderRepository orderRepository, OrderStatusRepository orderStatusRepository, UserRepository userRepository) {
@@ -67,18 +71,19 @@ public class OrderService {
     }
 
     @Transactional
-    public Order makeOrder() {
+    public Long createOrderFromCart(OrderDTO orderDTO) {
         Order order = new Order();
-        order.setAddress(authService.getCurrentUser().getAddress    ());
         order.setPhone(authService.getCurrentUser().getPhone());
         order.setUser(authService.getCurrentUser());
         Long totalPrice = 0L;
         order.setTotal(totalPrice);
+        order.setFirstName(orderDTO.getFirstName());
+        order.setLastName(orderDTO.getLastName());
+        order.setAddress(orderDTO.getAddress());
+        order.setStatus(orderStatusRepository.findById(orderDTO.getStatus()).orElseThrow(() -> new RuntimeException("Can't find orderStatus with id: " + orderDTO.getStatus() + " to update")));
         Order updateOrder = orderRepository.save(order);
-
         List<OrderItem> orderItems = new ArrayList<>();
         List<CartItem> cartItems = cartItemService.findAllByUserId();
-
         for (CartItem c : cartItems) {
             OrderItem o = new OrderItem();
             o.setName(c.getProduct().getName());
@@ -86,6 +91,7 @@ public class OrderService {
             o.setQuantity(c.getQuantity());
             o.setOrder(updateOrder);
             o.setProduct(c.getProduct());
+            o.setSize(c.getSize());
             OrderItem orderItemSave = orderItemRepository.save(o);
             orderItems.add(orderItemSave);
             totalPrice += o.getPrice() * o.getQuantity();
@@ -94,8 +100,7 @@ public class OrderService {
         Set<OrderItem> os = new HashSet<>(orderItems);
         updateOrder.setOrderItems(os);
         cartItemService.deleteAllByUserId();
-
-        return orderRepository.save(updateOrder);
+        return updateOrder.getId();
     }
 
     public void update(final Long id, final OrderDTO orderDTO) {
@@ -111,8 +116,9 @@ public class OrderService {
 
 
     private Order mapToEntity(final OrderDTO orderDTO, Order order) {
-        orderDTO.setId(order.getId());
-        order = modelMapper.map(orderDTO, Order.class);
+        order.setAddress(orderDTO.getAddress());
+        order.setFirstName(orderDTO.getFirstName());
+        order.setLastName(orderDTO.getLastName());
         order.setStatus(orderStatusRepository.findById(orderDTO.getStatus()).orElseThrow(() -> new RuntimeException("Can't find orderStatus with id: " + orderDTO.getStatus() + " to update")));
         order.setUser(userRepository.findById(orderDTO.getUser()).orElseThrow(() -> new RuntimeException("Can't find user with id: " + orderDTO.getUser() + " to update")));
         return order;
