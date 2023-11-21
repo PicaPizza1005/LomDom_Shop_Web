@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2023 at 04:12 PM
+-- Generation Time: Nov 21, 2023 at 05:53 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -31,16 +31,9 @@ CREATE TABLE `cart_item` (
   `id` bigint(20) NOT NULL,
   `quantity` bigint(20) NOT NULL,
   `product_id` bigint(20) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL
+  `user_id` bigint(20) DEFAULT NULL,
+  `size_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cart_item`
---
-
-INSERT INTO `cart_item` (`id`, `quantity`, `product_id`, `user_id`) VALUES
-(3, 4, 100, 1),
-(4, 5, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -130,15 +123,10 @@ CREATE TABLE `order` (
   `total` bigint(20) NOT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `status_id` bigint(20) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL
+  `user_id` bigint(20) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `order`
---
-
-INSERT INTO `order` (`id`, `address`, `created_at`, `phone`, `total`, `updated_at`, `status_id`, `user_id`) VALUES
-(1, 'Thanh Hoa', '2023-11-14 16:05:24.000000', NULL, 1000, '2023-11-14 16:05:24.000000', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -152,7 +140,8 @@ CREATE TABLE `order_item` (
   `price` bigint(20) DEFAULT NULL,
   `quantity` int(11) NOT NULL,
   `order_id` bigint(20) NOT NULL,
-  `product_id` bigint(20) DEFAULT NULL
+  `product_id` bigint(20) DEFAULT NULL,
+  `size_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -927,17 +916,16 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `user_status` bit(1) DEFAULT NULL,
-  `username` varchar(255) NOT NULL,
-  `address` varchar(255) DEFAULT NULL
+  `username` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `created`, `email`, `password`, `phone`, `user_status`, `username`, `address`) VALUES
-(1, '2023-10-24 00:00:00.000000', 'trung@gmail.com', '$2a$10$5M7HgGn2Q1qbu1FkIJvJ1eo8MfMK5mhPO6MsbthON6KIcVYNR4WGm', '0326496229', b'1', 'admin', NULL),
-(2, '2023-11-13 00:00:00.000000', 'anhtrung@gmail.com', '$2a$10$N5tarJPcirbuVSXPGKhkn.sXRLG/oCybIKlMbGac/n93pG6vw5jCm', '0326496229', b'1', 'trung', NULL);
+INSERT INTO `user` (`id`, `created`, `email`, `password`, `phone`, `user_status`, `username`) VALUES
+(1, '2023-10-24 00:00:00.000000', 'trung@gmail.com', '$2a$10$5M7HgGn2Q1qbu1FkIJvJ1eo8MfMK5mhPO6MsbthON6KIcVYNR4WGm', '0326496229', b'1', 'admin'),
+(2, '2023-11-13 00:00:00.000000', 'anhtrung@gmail.com', '$2a$10$N5tarJPcirbuVSXPGKhkn.sXRLG/oCybIKlMbGac/n93pG6vw5jCm', '0326496229', b'1', 'trung');
 
 -- --------------------------------------------------------
 
@@ -972,7 +960,8 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 ALTER TABLE `cart_item`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKjcyd5wv4igqnw413rgxbfu4nv` (`product_id`),
-  ADD KEY `FKjnaj4sjyqjkr4ivemf9gb25w` (`user_id`);
+  ADD KEY `FKjnaj4sjyqjkr4ivemf9gb25w` (`user_id`),
+  ADD KEY `FK27btch34nojjlgacglak3yyap` (`size_id`);
 
 --
 -- Indexes for table `category`
@@ -1001,7 +990,8 @@ ALTER TABLE `order`
 ALTER TABLE `order_item`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKs234mi6jususbx4b37k44cipy` (`order_id`),
-  ADD KEY `FK551losx9j75ss5d6bfsqvijna` (`product_id`);
+  ADD KEY `FK551losx9j75ss5d6bfsqvijna` (`product_id`),
+  ADD KEY `FK8klnbu469mgjnuybpa6lbkljo` (`size_id`);
 
 --
 -- Indexes for table `order_status`
@@ -1059,7 +1049,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -1077,13 +1067,13 @@ ALTER TABLE `color`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `order_status`
@@ -1123,6 +1113,7 @@ ALTER TABLE `user`
 -- Constraints for table `cart_item`
 --
 ALTER TABLE `cart_item`
+  ADD CONSTRAINT `FK27btch34nojjlgacglak3yyap` FOREIGN KEY (`size_id`) REFERENCES `size` (`size_id`),
   ADD CONSTRAINT `FKjcyd5wv4igqnw413rgxbfu4nv` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `FKjnaj4sjyqjkr4ivemf9gb25w` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
@@ -1144,6 +1135,7 @@ ALTER TABLE `order`
 --
 ALTER TABLE `order_item`
   ADD CONSTRAINT `FK551losx9j75ss5d6bfsqvijna` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `FK8klnbu469mgjnuybpa6lbkljo` FOREIGN KEY (`size_id`) REFERENCES `size` (`size_id`),
   ADD CONSTRAINT `FKs234mi6jususbx4b37k44cipy` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`);
 
 --

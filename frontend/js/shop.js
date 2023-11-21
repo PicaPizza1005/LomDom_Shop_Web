@@ -1,4 +1,4 @@
-const api = "http://localhost:8080";
+const api = "http://localhost:8081";
 async function getAllCategories() {
     const categories = await fetch(`${api}/v1/categories`, {
         method: "GET",

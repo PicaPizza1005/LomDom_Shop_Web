@@ -39,6 +39,12 @@ public class Order {
     @Column
     private String phone;
 
+    @Column
+    private String firstName;
+
+    @Column
+    private String lastName;
+
     @ManyToOne
     @JoinColumn(name = "status_id")
     private OrderStatus status;

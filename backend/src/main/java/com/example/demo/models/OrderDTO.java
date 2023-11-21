@@ -11,10 +11,12 @@ public class OrderDTO {
 
     private Long id;
 
-    private Long total;
-
     @Size(max = 255)
     private String address;
+
+    private String firstName;
+
+    private String lastName;
 
     private Long status;
 

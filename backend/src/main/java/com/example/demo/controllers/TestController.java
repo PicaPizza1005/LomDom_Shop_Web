@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @GetMapping(value="/all")
     public String cart(String s){
-        return "dang binh 1770";
+        return "S0nBu1 9848";
     }
 }
