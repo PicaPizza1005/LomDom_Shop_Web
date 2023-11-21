@@ -3,9 +3,7 @@ import com.example.demo.entities.CartItem;
 import com.example.demo.services.CartItemService;
 import com.example.demo.models.CartItemDTO;
 
-
-import java.util.List;
-
+import java.util.List;  
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

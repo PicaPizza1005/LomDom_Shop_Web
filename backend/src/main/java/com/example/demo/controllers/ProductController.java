@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -40,6 +41,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.get(id));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam("query") String query) {
+        return ResponseEntity.ok(productService.search(query));
+    }
+
     @PostMapping
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createProduct(@RequestBody @Valid final ProductDTO productDTO) {
@@ -47,8 +53,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id,
-            @RequestBody @Valid final ProductDTO productDTO) {
+    public ResponseEntity<Product> updateProduct(@PathVariable final Long id, @RequestBody @Valid final ProductDTO productDTO) {
         return ResponseEntity.ok(productService.update(id, productDTO));
     }
 

@@ -55,6 +55,14 @@ public class ProductService {
         return productRepository.save(product).getId();
     }
     
+    public List<Product> search(final String query) {
+        List<Product> products = productRepository.searchProducts(query);
+        if (products.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No products found with query: " + query);
+        }
+        return products;
+    }
+
     public Product update(Long id, final ProductDTO productDTO) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot find product with id: " + id));
@@ -62,7 +70,6 @@ public class ProductService {
         productRepository.save(product);
         return product;
     }
-    
     public void delete(final Long id) {
         productRepository.deleteById(id);
     }

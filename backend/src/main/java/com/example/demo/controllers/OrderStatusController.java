@@ -59,5 +59,4 @@ public class OrderStatusController {
         orderStatusService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }
