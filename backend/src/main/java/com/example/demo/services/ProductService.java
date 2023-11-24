@@ -9,10 +9,8 @@ import com.example.demo.repositories.OrderItemRepository;
 import com.example.demo.repositories.ProductRepository;
 import com.example.demo.repositories.ColorRepository;
 import com.example.demo.repositories.SizeRepository;
+
 import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,6 +52,18 @@ public class ProductService {
         final Product product = mapToEntity(productDTO, new Product());
         return productRepository.save(product).getId();
     }
+
+    public List<Product> findByCategory(final Long categoryId) {
+        return productRepository.findAllByCategoryId(categoryId);
+    }
+
+    public List<Product> findByColor(final Long colorId) {
+        return productRepository.findAllByColorId(colorId);
+    }
+
+    // public List<Product> findBySize(final Long sizeId) {
+    //     return productRepository.findAllBySizeId(sizeId);
+    // }
     
     public List<Product> search(final String query) {
         List<Product> products = productRepository.searchProducts(query);

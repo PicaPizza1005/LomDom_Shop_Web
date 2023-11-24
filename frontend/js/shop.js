@@ -1,147 +1,38 @@
 const api = "http://localhost:8081";
-async function getAllCategories() {
-    const categories = await fetch(`${api}/v1/categories`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    }).then((res) => res.json());
-    return categories;
-}
-async function showCategories() {
-    const categories = await getAllCategories();
-    let html = "";
-    categories.forEach((category) => {
-        html += `
-        <li class="nav-item">
-            <a class="nav-link" href="category.html?id=${category.id}">${category.name}</a>
-        </li>
-        `;
+const shop=document.getElementById("product");
+async function getProduct() {
+    try {
+        const response = await fetch(`${api}/api/v1/products`);
+        const data = await response.json();
+        console.log(data);
+        shop.innerHTML="";
+        data.forEach((element) => {
+            shop.innerHTML += `
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="product__item">
+                    <div data-setbg="${element.image}" class="product__item__pic set-bg" data width="260" height="260">
+                        <ul class="product__hover">
+                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6>${element.name}</h6>
+                        <a href="#" class="add-cart">+ Add To Cart</a>
+                        <h5>${element.price}</h5>
+                    </div>
+                </div>
+            </div>
+            
+            `;
+        });
+    }
+    catch (error) {
+        console.error("Error fetching product data:", error);
+    }
+    $('.set-bg').each(function() {
+        var bg = $(this).data('setbg');
+        $(this).css('background-image', 'url(' + bg + ')');
     });
 }
+getProduct();
 
-async function getAllProducts() {
-    const products = await fetch(`${api}/v1/products`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    }).then((res) => res.json());
-    return products;
-}
-async function getAllProductsByCategory(id) {
-    const products = await fetch(`${api}/v1/categories/${id}/products`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    }).then((res) => res.json());
-    return products;
-}
-async function getAllProductsBySearch(search) {
-    const products = await fetch(`${api}/v1/products?search=${search}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    }).then((res) => res.json());
-    return products;
-}
-async function getProductById(id) {
-    const product = await fetch(`${api}/v1/products/${id}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    }).then((res) => res.json());
-    return product;
-}
-async function getCart() {
-    const cart = await fetch(`${api}/v1/cart`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-    }).then((res) => res.json());
-    return cart;
-}
-async function addToCart(id) {
-    const cart = await fetch(`${api}/v1/cart`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-            productId: id,
-        }),
-    }).then((res) => res.json());
-    return cart;
-}
-async function deleteCart(id) {
-    const cart = await fetch(`${api}/v1/cart/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-    }).then((res) => res.json());
-    return cart;
-}
-async function updateCart(id, quantity) {
-    const cart = await fetch(`${api}/v1/cart/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-            quantity: quantity,
-        }),
-    }).then((res) => res.json());
-    return cart;
-}
-async function getOrders() {
-    const orders = await fetch(`${api}/v1/orders`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-    }).then((res) => res.json());
-    return orders;
-}
-async function createOrder() {
-    const order = await fetch(`${api}/v1/orders`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-    }).then((res) => res.json());
-    return order;
-}
-async function deleteOrder(id) {
-    const order = await fetch(`${api}/v1/orders/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-    }).then((res) => res.json());
-    return order;
-}
-async function updateOrder(id, status) {
-    const order = await fetch(`${api}/v1/orders/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-            status: status,
-        }),
-    }).then((res) => res.json());
-    return order;
-}
