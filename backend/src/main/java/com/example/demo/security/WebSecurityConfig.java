@@ -43,6 +43,10 @@ public class WebSecurityConfig {
                 .and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/**").permitAll()
+                .antMatchers("/api/v1/products/**").permitAll()
+                .antMatchers("/api/v1/categories/**").permitAll()
+                .antMatchers("/api/v1/colors/**").permitAll()
+                .antMatchers("/api/v1/sizes/**").permitAll()
                 .anyRequest().authenticated();
         return http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class).build();
     }

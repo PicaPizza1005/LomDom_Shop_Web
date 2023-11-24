@@ -46,6 +46,21 @@ public class ProductController {
         return ResponseEntity.ok(productService.search(query));
     }
 
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable final Long categoryId) {
+        return ResponseEntity.ok(productService.findByCategory(categoryId));
+    }
+
+    @GetMapping("/color/{colorId}")
+    public ResponseEntity<List<Product>> getProductsByColor(@PathVariable final Long colorId) {
+        return ResponseEntity.ok(productService.findByColor(colorId));
+    }
+
+    // @GetMapping("/size/{sizeId}")
+    // public ResponseEntity<List<Product>> getProductsBySize(@PathVariable final Long sizeId) {
+    //     return ResponseEntity.ok(productService.findBySize(sizeId));
+    // }
+
     @PostMapping
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createProduct(@RequestBody @Valid final ProductDTO productDTO) {

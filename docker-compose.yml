@@ -35,5 +35,7 @@ services:
       - 8008:80
     volumes:
       - ./frontend:/usr/share/nginx/html
+    depends_on:
+      - backend
 volumes:
   db:
