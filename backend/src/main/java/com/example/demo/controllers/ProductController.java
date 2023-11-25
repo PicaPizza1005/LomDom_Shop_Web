@@ -40,7 +40,7 @@ public class ProductController {
     public ResponseEntity<Product> getProduct(@PathVariable final Long id) {
         return ResponseEntity.ok(productService.get(id));
     }
-
+    
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam("query") String query) {
         return ResponseEntity.ok(productService.search(query));
