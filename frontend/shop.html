@@ -167,8 +167,8 @@
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
                                                 <ul class="nice-scroll" > 
-                                                    <li><a href="#">Nam</a></li>
-                                                    <li><a href="#">Nữ</a></li>
+                                                    <li><a href="#" onclick="loadProductByCategory(1)">Nam</a></li>
+                                                    <li><a href="#" onclick="loadProductByCategory(2)">Nữ</a></li>
                                                     <li><a href="#">Trẻ em</a></li>
                                                 </ul>
                                             </div>
@@ -311,12 +311,7 @@
                     <div id="product" class="row"></div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="product__pagination">
-                                <a class="active" href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <span>...</span>
-                                <a href="#">21</a>
+                            <div id="product__pagination" class="product__pagination">
                             </div>
                         </div>
                     </div>
