@@ -44,7 +44,6 @@ public class UserController {
     public ResponseEntity<User> getUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.get(id));
     }
-
     @GetMapping("/me")
     public ResponseEntity<User> me() {
         return ResponseEntity.ok(authService.getCurrentUser());

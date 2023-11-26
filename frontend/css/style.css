@@ -399,7 +399,7 @@ ol {
 	list-style: none;
 	font-size: 13px;
 	color: #111111;
-	padding: 2px 15px;
+	padding: -1px 15px;
 	cursor: pointer;
 }
 

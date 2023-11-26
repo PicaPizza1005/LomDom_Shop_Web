@@ -1,4 +1,3 @@
-const api = "http://localhost:8081";
 const shop=document.getElementById("product");
 async function getProduct() {
     try {
