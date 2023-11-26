@@ -17,7 +17,8 @@ async function getProduct() {
                     <div class="product__item__text">
                         <h6>${element.name}</h6>
                         <a href="#" class="add-cart">+ Add To Cart</a>
-                        <h5>${element.price}</h5>
+                        <h5>${element.price}<i class="fa fa-money"></i></h5>
+                        
                     </div>
                 </div>
             </div>
