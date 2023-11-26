@@ -155,7 +155,7 @@ async function removeItem(id) {
   updateTotal();
 }
 
-const refreshButton = document.querySelector('.update-Cart');
+const refreshButton = document.querySelector('.update-cart');
 
 const refreshPage = () => {
   location.reload();
