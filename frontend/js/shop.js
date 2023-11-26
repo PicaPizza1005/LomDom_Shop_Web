@@ -5,12 +5,11 @@ const product__pagination = document.getElementById("product__pagination");
 let pageNo = 1;
 let pageSize = 18;
 let totalPages = 0;
-let categories = [];
 
 getProduct().then(() => {
     loadProduct(products);
 });
-
+getCategory()
 async function getProduct() {
     try {
         const response = await fetch(`${api}/api/v1/products`);
@@ -44,6 +43,7 @@ async function loadProductByCategory(category) {
 
 function loadProduct(products) {
     try {
+        console.log(products);
         for (let i = pageNo*pageSize-pageSize; i<pageNo*pageSize; i++) {
             if (!products[i]) 
                 break; 
