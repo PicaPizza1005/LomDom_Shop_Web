@@ -161,15 +161,15 @@
                             <div class="accordion" id="accordionExample">
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                        <a data-toggle="collapse" data-target="#collapseOne">Phân loại</a>
                                     </div>
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
                                                 <ul class="nice-scroll" > 
-                                                    <li><a href="#" onclick="loadProductByCategory(1)">Nam</a></li>
-                                                    <li><a href="#" onclick="loadProductByCategory(2)">Nữ</a></li>
-                                                    <li><a href="#">Trẻ em</a></li>
+                                                    <li><a href="#" id="category__black" onclick="getProductByCategory(1)">Nam</a></li>
+                                                    <li><a href="#" id="category__black" onclick="getProductByCategory(2)">Nữ</a></li>
+                                                    <li><a href="#" id="category__black" onclick="getProductByCategory(3)">Trẻ em</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -183,11 +183,11 @@
                                         <div class="card-body">
                                             <div class="shop__sidebar__price">
                                                 <ul>
-                                                    <li><a href="#">Dưới 100.000đ</a></li>
-                                                    <li><a href="#">100.000đ - 200.000đ</a></li>
-                                                    <li><a href="#">200.000đ - 300.000đ</a></li>
-                                                    <li><a href="#">300.000đ - 400.000đ</a></li>
-                                                    <li><a href="#">Trên 400.000đ</a></li>
+                                                    <li><a href="#" onclick="getProductByPrice(0,200000)">Dưới 200.000đ</a></li>
+                                                    <li><a href="#" onclick="getProductByPrice(200000,400000)">200.000đ - 400.000đ</a></li>
+                                                    <li><a href="#" onclick="getProductByPrice(400000,600000)">400.000đ - 600.000đ</a></li>
+                                                    <li><a href="#" onclick="getProductByPrice(600000,800000)">600.000đ - 800.000đ</a></li>
+                                                    <li><a href="#" onclick="getProductByPrice(800000,10000000)">Trên 800.000đ</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -201,29 +201,27 @@
                                         <div class="card-body">
                                             <div class="shop__sidebar__size">
                                                 <label for="xs">xs
-                                                    <input type="radio" id="xs">
+                                                    <input type="radio" id="xs" onclick="getProductBySize(1)">
                                                 </label>
                                                 <label for="sm">s
-                                                    <input type="radio" id="sm">
+                                                    <input type="radio" id="sm" onclick="getProductBySize(2)">
                                                 </label>
                                                 <label for="md">m
-                                                    <input type="radio" id="md">
+                                                    <input type="radio" id="md" onclick="getProductBySize(3)">
                                                 </label>
                                                 <label for="xl">xl
-                                                    <input type="radio" id="xl">
+                                                    <input type="radio" id="xl" onclick="getProductBySize(4)">
                                                 </label>
                                                 <label for="2xl">2xl
-                                                    <input type="radio" id="2xl">
+                                                    <input type="radio" id="2xl" onclick="getProductBySize(5)">
                                                 </label>
                                                 <label for="xxl">xxl
-                                                    <input type="radio" id="xxl">
+                                                    <input type="radio" id="xxl" onclick="getProductBySize(6)">
                                                 </label>
                                                 <label for="3xl">3xl
-                                                    <input type="radio" id="3xl">
+                                                    <input type="radio" id="3xl" onclick="getProductBySize(7)">
                                                 </label>
-                                                <label for="4xl">4xl
-                                                    <input type="radio" id="4xl">
-                                                </label>
+
                                             </div>
                                         </div>
                                     </div>
@@ -236,38 +234,44 @@
                                         <div class="card-body">
                                             <div class="shop__sidebar__color">
                                                 <label class="c-1" for="sp-1">
-                                                    <input type="radio" id="sp-1">
+                                                    <input type="radio" id="sp-1" onclick="getProductByColor(1)">
                                                 </label>
                                                 <label class="c-2" for="sp-2">
-                                                    <input type="radio" id="sp-2">
+                                                    <input type="radio" id="sp-2" onclick="getProductByColor(2)">
                                                 </label>
                                                 <label class="c-3" for="sp-3">
-                                                    <input type="radio" id="sp-3">
+                                                    <input type="radio" id="sp-3" onclick="getProductByColor(3)">
                                                 </label>
                                                 <label class="c-4" for="sp-4">
-                                                    <input type="radio" id="sp-4">
+                                                    <input type="radio" id="sp-4" onclick="getProductByColor(4)">
                                                 </label>
                                                 <label class="c-5" for="sp-5">
-                                                    <input type="radio" id="sp-5">
+                                                    <input type="radio" id="sp-5" onclick="getProductByColor(5)">
                                                 </label>
                                                 <label class="c-6" for="sp-6">
-                                                    <input type="radio" id="sp-6">
+                                                    <input type="radio" id="sp-6" onclick="getProductByColor(6)">
                                                 </label>
                                                 <label class="c-7" for="sp-7">
-                                                    <input type="radio" id="sp-7">
+                                                    <input type="radio" id="sp-7" onclick="getProductByColor(7)">
                                                 </label>
                                                 <label class="c-8" for="sp-8">
-                                                    <input type="radio" id="sp-8">
+                                                    <input type="radio" id="sp-8" onclick="getProductByColor(8)">
                                                 </label>
                                                 <label class="c-9" for="sp-9">
-                                                    <input type="radio" id="sp-9">
+                                                    <input type="radio" id="sp-9" onclick="getProductByColor(9)">
+                                                </label>
+                                                <label class="c-10" for="sp-10">
+                                                    <input type="radio" id="sp-10" onclick="getProductByColor(10)">
+                                                </label>
+                                                <label class="c-11" for="sp-11">
+                                                    <input type="radio" id="sp-11" onclick="getProductByColor(11)">
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
-                                    <div class="card-heading">
+                                    <!-- <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
                                     </div>
                                     <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
@@ -282,7 +286,7 @@
                                                 <a href="#">Accessories</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -292,17 +296,15 @@
                     <div class="shop__product__option">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="shop__product__option__left">
-                                    <p>Showing 1–12 of 126 results</p>
+                                <div id="shop__option__left" class="shop__product__option__left">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="shop__product__option__right">
+                                <div id="shop__option__right" class="shop__product__option__right">
                                     <p>Sort by Price:</p>
                                     <select>
-                                        <option value="">Low To High</option>
-                                        <option value="">$0 - $55</option>
-                                        <option value="">$55 - $100</option>
+                                        <option value="">Thấp đến cao</option>
+                                        <option value="">Cao đến thấp</option>
                                     </select>
                                 </div>
                             </div>

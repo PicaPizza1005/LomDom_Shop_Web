@@ -1,44 +1,84 @@
 const api = "http://localhost:8081";
 const product_div = document.getElementById("product");
 const product__pagination = document.getElementById("product__pagination");
+const shop__product__option__left = document.getElementById("shop__option__left");
+const shop__product__option__right = document.getElementById("shop__option__right");
 
 let pageNo = 1;
 let pageSize = 18;
 let totalPages = 0;
+let products = [];
 
-getProduct().then(() => {
-    loadProduct(products);
-});
-getCategory()
 async function getProduct() {
     try {
         const response = await fetch(`${api}/api/v1/products`);
         products = await response.json();
+        loadProduct(products);
+        loadPageList(products);
     }
     catch (error) {
         console.error("Error fetching product:", error);
     }
 }
+getProduct();
 
-async function getCategory() {
-    try {
-        const response = await fetch(`${api}/api/v1/categories`);
-        categories = await response.json();
-    }
-    catch (error) {
-        console.error("Error fetching category:", error);
-    }
+function getProductByCategory(category) {
+    productByCategory = products.filter(product => product.category.id == category);
+    product_div.innerHTML = "";
+    $('.shop__sidebar__categories ul li a').on('click', function(e) {
+        e.preventDefault();
+        $('.shop__sidebar__categories ul li a').removeClass('active');
+        $(this).addClass('active');
+    });
+    loadProduct(productByCategory);
+    loadPageList(productByCategory);
 }
 
-async function loadProductByCategory(category) {
-    try {
-        const response = await fetch(`${api}/api/v1/products/category/${category}`);
-        productByCategory = await response.json();
-        loadProduct(productByCategory);
+function getProductByPrice(pricelow, pricehigh) {
+    productByPrice = products.filter(product => product.price >= pricelow && product.price <= pricehigh);
+    product_div.innerHTML = "";
+    $('.shop__sidebar__price ul li a').on('click', function(e) {
+        e.preventDefault();
+        $('.shop__sidebar__price ul li a').removeClass('active');
+        $(this).addClass('active');
+    });
+    loadProduct(productByPrice);
+    loadPageList(productByPrice);
+}
+
+function getProductBySize(size) {
+    productBySize = products.filter(product => (product.listSizes).some(listSize => listSize.sizeId == size));
+    product_div.innerHTML = "";
+    loadProduct(productBySize);
+    loadPageList(productBySize);
+}
+
+function getProductByColor(color) {
+    productByColor = products.filter(product => product.color.id == color);
+    product_div.innerHTML = "";
+    loadProduct(productByColor);
+    loadPageList(productByColor);
+}
+
+
+
+
+function sortProduct(sort) {
+    if (sort == "asc") {
+        products.sort((a, b) => (a.price > b.price) ? 1 : -1);
     }
-    catch (error) {
-        console.error("Error fetching product by category:", error);
+    else if (sort == "desc") {
+        products.sort((a, b) => (a.price < b.price) ? 1 : -1);
     }
+    else if (sort == "new") {
+        products.sort((a, b) => (a.id < b.id) ? 1 : -1);
+    }
+    else if (sort == "old") {
+        products.sort((a, b) => (a.id > b.id) ? 1 : -1);
+    }
+    product_div.innerHTML = "";
+    loadProduct(products);
+    loadPageList(products);
 }
 
 function loadProduct(products) {
@@ -65,7 +105,6 @@ function loadProduct(products) {
             
             `;
         }
-        loadPageList(products);
     }
     catch (error) {
         console.error("Error rendering product products:", error);
@@ -75,15 +114,27 @@ function loadProduct(products) {
         $(this).css('background-image', 'url(' + bg + ')');
     });
 }
+
 function changePage(page) {
-    pageNo = page;
-    product_div.innerHTML = "";
-    loadProduct(products);
+    if (page<1)
+        page = 1;
+    if (page>totalPages+1)
+        page = totalPages+1;
+    if(pageNo === page) {
+    }
+    else {
+        pageNo = page;
+        product_div.innerHTML = "";
+        loadProduct(products);
+    }
 }
 function loadPageList(products) {
     product__pagination.innerHTML = "";
     console.log(products);
-    totalPages = products.length/pageSize;
+    totalPages = Math.ceil(products.length/pageSize - 1);
+    shop__product__option__left.innerHTML = `
+        <p>Showing ${products.totalPages} of ${products.length} results</p>
+    `;
     for (let i=1; i<=totalPages+1; i++) {
         if (i==pageNo) {
             product__pagination.innerHTML += `

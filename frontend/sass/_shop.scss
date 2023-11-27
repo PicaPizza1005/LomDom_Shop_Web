@@ -92,7 +92,12 @@
                 &:hover {
                     color: $heading-color;
                 }
+
+                &.active {
+                    color: $heading-color;
+                }
             }
+
         }
     }
 }
@@ -158,35 +163,43 @@
         }
         
         &.c-2 {
-            background: #20315f;
+            background: #ffffff;
         }
         
         &.c-3 {
-            background: #f1af4d;
+            background: #0e5214;
         }
         
         &.c-4 {
-            background: #636068;
+            background: #38282a;
         }
 
         &.c-5 {
-            background: #57594d;
+            background: #f40a0a;
         }
         
         &.c-6 {
-            background: #e8bac4;
+            background: #1c0ee5;
         }
         
         &.c-7 {
-            background: #d6c1d7;
+            background: #d82d4d;
         }
         
         &.c-8 {
-            background: #ed1c24;
+            background: #ede91c;
         }
         
         &.c-9 {
-            background: #ffffff;
+            background: #7b66ff;
+        }
+
+        &.c-10 {
+            background: #ff66b3;
+        }
+
+        &.c-11 {
+            background: #67729d;
         }
 
         &:after {

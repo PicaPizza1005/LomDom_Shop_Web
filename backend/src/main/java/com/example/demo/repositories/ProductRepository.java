@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>{
-    List<Product> findAllByCategoryId(Long categoryId);
-    List<Product> findAllByColorId(Long colorId);
     @Query("SELECT p FROM Product p WHERE " +
             "p.name LIKE CONCAT('%',:query, '%')" +
             "Or p.description LIKE CONCAT('%', :query, '%')")
