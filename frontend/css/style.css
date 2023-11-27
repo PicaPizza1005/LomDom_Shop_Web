@@ -243,6 +243,20 @@ ol {
 	}
 }
 
+#success-message {
+	font-size: 2em;
+	text-align: center;
+}
+
+.xacnhan {
+	display: block;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    margin: 0;
+    font-family: "Nunito Sans", sans-serif;
+}
+
 .spacial-controls {
 	position: fixed;
 	width: 111px;
