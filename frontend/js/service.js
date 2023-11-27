@@ -45,3 +45,13 @@ async function search(event) {
   localStorage.setItem('query', document.getElementById("search-input").value.trim());
   window.location.href = "search.html";
 }
+
+// Cart
+
+function numberToVnd(number) {
+  var formatter = new Intl.NumberFormat("vn-VN", {
+    style: "currency",
+    currency: "VND",
+  });
+  return formatter.format(number);
+}
