@@ -14,15 +14,38 @@ async function getCartItemsService() {
 
 function mathang(c) {
     return `
-        <li>${c.product?.name}<span>${numberToVnd(c?.quantity * c?.product?.price)}/span></li>
+        <li>${c.product?.name}</li>
+        <span>${numberToVnd(c?.quantity * c?.product?.price)}/span>
     `;
 }
 
+function cartItem(cart){
+    return `
+        <li>${cart?.product?.name}<span>${numberToVnd(cart?.quantity * cart?.product?.price)}</span></li>
+    `
+}
+
+// let listCart = getCartItem();
+let listCart;
+
+async function initializeCart() {
+    listCart = await getCartItem();
+}
+
+async function getCartItem() {
+    const carts = await getCartItemsService();
+    listCart = carts;
+    return carts;
+}
+
+getCartItem();
+
+//tính toán giá tiền + tải thông tin đơn hàng lên khung thanh toán
 async function loadCart() {
     const carts = await getCartItemsService();
     console.log(carts);
     let total = 0;
-  
+    console.log('cartitem');
     if (Array.isArray(carts)) {
         carts.forEach((c) => {
           $("#total_checkout").append(cartItem(c));
@@ -34,21 +57,12 @@ async function loadCart() {
 }
 loadCart();
 
-let listCart = getCartItem();
-
-async function getCartItem() {
-    const carts = await getCartItemsService();
-    listCart = carts;
-    return carts;
-}
-
-function checkCoHang(){
-    if(listCart == null) {
-        alert("Đơn hàng không có sản phẩm nào");
-        console.log("Đơn hàng không có bất cứ sản phẩm nào");
+async function checkCoHang(event){
+    await initializeCart();
+    if(listCart === null || listCart.length === 0) {
+        return false;
     }
     else {
-        dathang();
         return true;
     }
 }
@@ -69,11 +83,12 @@ const kiemTraSdt = (sdt) => {
     );
 };
 
-
+//check không được để trống thông tin 
 function checkIfEmpty() {
     var ho = document.getElementById('ho'); // ô họ đệm
     var giatriho = document.getElementById('ho').value.trim(); //giá trị trong ô họ đệm
     // kiểm tra nếu ô nhập bị bỏ trống
+    // ô họ
     if (giatriho == '') {
         ho.style.border = '1px solid red'; // nếu bỏ trống sẽ hiện 1 viền đỏ
         loi('loi_ho', 'Họ đệm không được phép bỏ trống');
@@ -87,6 +102,7 @@ function checkIfEmpty() {
         loi('loi_ho', '');
     }
 
+    //ô tên
     var ten = document.getElementById('ten'); 
     var giatriten = document.getElementById('ten').value.trim();
     if(giatriten == '') {
@@ -102,6 +118,7 @@ function checkIfEmpty() {
         loi('loi_ten', '');
     }
 
+    //ô địa chỉ
     var diachi = document.getElementById('diachi');
     var giatridiachi = document.getElementById('diachi').value.trim();
     if(giatridiachi == '') {
@@ -113,6 +130,7 @@ function checkIfEmpty() {
         loi('loi_diachi', '');
     }
 
+    //ô số điện thoại
     var sdt = document.getElementById('sdt');
     var giatrisdt = document.getElementById('sdt').value.trim();
     if(giatrisdt == '') {
@@ -194,19 +212,55 @@ function kiemTraDaDienDu(event) {
         !kiemTraTenHo(giatriho) ||
         !kiemTraTenHo(giatriten) 
     ) {
-        console.log('Chưa thể cập nhật đơn hàng');
+        return false;
+    }
+    return true;
+}
+
+//kiểm tra đã điền đủ thông tin và có hàng thì mới thanh toán được
+async function chotdon(event){
+    if(token === '') {
+        alert('Yêu cầu đăng nhập trước khi mua hàng');
+        console.log('phai dang nhap');
         return false;
     }
     else{
-        dathang();
-        return true;
+        const carts = await getCartItemsService();
+        console.log(carts);
+        let total = 0;
+        console.log('cartitem');
+        if (Array.isArray(carts)) {
+            carts.forEach((c) => {
+            total += parseInt(c?.quantity || 0) * parseInt(c?.product?.price || 0);
+            });
+        }
+        console.log(total);
+        document.getElementById("total").innerHTML = numberToVnd(total);  
+        if(!kiemTraDaDienDu(event)) {
+            event.preventDefault();
+            alert('Thông tin không được để trống');
+            console.log('chưa điền đủ các ô trống');
+            return false;
+        }
+        if(total === 0) {
+            alert('Đơn hàng không được không có sản phẩm');
+            console.log('không có sản phẩm đặt');
+            return false;
+        }
+        else {
+            console.log('thành công');
+            dathang();
+            return true;
+        }
     }
-}
+ }
 
+//về trang chủ
 function veTrangChu(){
     window.href.location = "index.html";
 }
 
+//đặt hàng, gửi data lên server
 async function dathang() {
     if(token !== ''){
         const res = await fetch('http://localhost:8081/api/v1/orders', {
