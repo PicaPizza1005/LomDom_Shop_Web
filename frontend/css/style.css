@@ -1343,9 +1343,6 @@ ol {
 	cursor: pointer;
 }
 
-.shop__sidebar__color label.active {
-	border-color: #111111;
-}
 .shop__sidebar__color label.c-1 {
 	background: #0b090c;
 }
