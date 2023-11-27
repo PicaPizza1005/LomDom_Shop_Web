@@ -270,6 +270,7 @@ async function dathang() {
             },
             body: JSON.stringify({
                 address: document.getElementById('diachi').value,
+                phoneNumber: document.getElementById('sdt').value,
                 firstName: document.getElementById("ho").value,
                 lastName: document.getElementById('ten').value,
                 status: 1
