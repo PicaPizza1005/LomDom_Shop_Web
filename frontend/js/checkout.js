@@ -1,3 +1,58 @@
+// xử lý khung tính toán giá tiền
+async function getCartItemsService() {
+    const response = await fetch(`${api}/api/v1/cart-items`, {
+      method: "GET",
+      headers: { 
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    const cartItems = response.json();
+    return cartItems;
+  }
+
+function mathang(c) {
+    return `
+        <li>${c.product?.name}<span>${numberToVnd(c?.quantity * c?.product?.price)}/span></li>
+    `;
+}
+
+async function loadCart() {
+    const carts = await getCartItemsService();
+    console.log(carts);
+    let total = 0;
+  
+    if (Array.isArray(carts)) {
+        carts.forEach((c) => {
+          $("#total_checkout").append(cartItem(c));
+          total += parseInt(c?.quantity || 0) * parseInt(c?.product?.price || 0);
+        });
+    }
+    console.log(total);
+    document.getElementById("total").innerHTML = numberToVnd(total);  
+}
+loadCart();
+
+let listCart = getCartItem();
+
+async function getCartItem() {
+    const carts = await getCartItemsService();
+    listCart = carts;
+    return carts;
+}
+
+function checkCoHang(){
+    if(listCart == null) {
+        alert("Đơn hàng không có sản phẩm nào");
+        console.log("Đơn hàng không có bất cứ sản phẩm nào");
+    }
+    else {
+        dathang();
+        return true;
+    }
+}
+
 function loi(id, message) {
     document.getElementById(id).innerHTML = message;
 }

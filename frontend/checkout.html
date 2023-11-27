@@ -114,14 +114,11 @@
                             <div class="checkout__order">
                                 <h4 class="order__title">Đơn hàng của bạn</h4>
                                 <div class="checkout__order__products">Sản phẩm<span>Tổng tiền</span></div>
-                                <ul class="checkout__total__products">
-                                    <li>01. Vanilla salted caramel <span>$ 300.0</span></li>
-                                    <li>02. German chocolate <span>$ 170.0</span></li>
-                                    <li>03. Sweet autumn <span>$ 170.0</span></li>
-                                    <li>04. Cluten free mini dozen <span>$ 110.0</span></li>
+                                <ul class="checkout__total__products" id ='total_checkout'>
+                                    <!-- danh sách mặt hàng -->
                                 </ul>
                                 <ul class="checkout__total__all">
-                                    <li>Thành tiền<span>$750.99</span></li>
+                                    <li>Thành tiền<span id = 'total'>$750.99</span></li>
                                 </ul>
                                 
                                 
@@ -129,7 +126,7 @@
                                     <span>*</span>Khách hàng thanh toán sau khi nhận hàng.
                                 </div>
                                 <!-- nút xác nhận đơn và thanh toán -->
-                                <button type="submit" class="site-btn" value="Đặt hàng">Đặt hàng</button>
+                                <button type="submit" class="site-btn" value="Đặt hàng" onclick="checkCoHang()">Đặt hàng</button>
                             </div>
                         </div>
                     </div>
