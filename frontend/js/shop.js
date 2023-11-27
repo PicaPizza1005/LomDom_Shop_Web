@@ -1,4 +1,3 @@
-const api = "http://localhost:8081";
 const product_div = document.getElementById("product");
 const product__pagination = document.getElementById("product__pagination");
 const shop__product__option__left = document.getElementById("shop__option__left");
@@ -13,8 +12,7 @@ async function getProduct() {
     try {
         const response = await fetch(`${api}/api/v1/products`);
         products = await response.json();
-        loadProduct(products);
-        loadPageList(products);
+        sortProduct("asc");
     }
     catch (error) {
         console.error("Error fetching product:", error);
@@ -23,13 +21,10 @@ async function getProduct() {
 getProduct();
 
 function getProductByCategory(category) {
+    console.log(products);
     productByCategory = products.filter(product => product.category.id == category);
     product_div.innerHTML = "";
-    $('.shop__sidebar__categories ul li a').on('click', function(e) {
-        e.preventDefault();
-        $('.shop__sidebar__categories ul li a').removeClass('active');
-        $(this).addClass('active');
-    });
+    console.log(productByCategory);
     loadProduct(productByCategory);
     loadPageList(productByCategory);
 }
@@ -37,11 +32,6 @@ function getProductByCategory(category) {
 function getProductByPrice(pricelow, pricehigh) {
     productByPrice = products.filter(product => product.price >= pricelow && product.price <= pricehigh);
     product_div.innerHTML = "";
-    $('.shop__sidebar__price ul li a').on('click', function(e) {
-        e.preventDefault();
-        $('.shop__sidebar__price ul li a').removeClass('active');
-        $(this).addClass('active');
-    });
     loadProduct(productByPrice);
     loadPageList(productByPrice);
 }
@@ -60,21 +50,12 @@ function getProductByColor(color) {
     loadPageList(productByColor);
 }
 
-
-
-
 function sortProduct(sort) {
     if (sort == "asc") {
         products.sort((a, b) => (a.price > b.price) ? 1 : -1);
     }
     else if (sort == "desc") {
         products.sort((a, b) => (a.price < b.price) ? 1 : -1);
-    }
-    else if (sort == "new") {
-        products.sort((a, b) => (a.id < b.id) ? 1 : -1);
-    }
-    else if (sort == "old") {
-        products.sort((a, b) => (a.id > b.id) ? 1 : -1);
     }
     product_div.innerHTML = "";
     loadProduct(products);
@@ -133,7 +114,7 @@ function loadPageList(products) {
     console.log(products);
     totalPages = Math.ceil(products.length/pageSize - 1);
     shop__product__option__left.innerHTML = `
-        <p>Showing ${products.totalPages} of ${products.length} results</p>
+        <p>Hiển thị ${pageSize} trên ${products.length} kết quả</p>
     `;
     for (let i=1; i<=totalPages+1; i++) {
         if (i==pageNo) {

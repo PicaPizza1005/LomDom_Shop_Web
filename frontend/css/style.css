@@ -399,7 +399,7 @@ ol {
 	list-style: none;
 	font-size: 13px;
 	color: #111111;
-	padding: 2px 15px;
+	padding: -1px 15px;
 	cursor: pointer;
 }
 
@@ -1235,19 +1235,16 @@ ol {
 	display: block;
 }
 
-.shop__sidebar__categories ul,
 .shop__sidebar__price ul,
 .shop__sidebar__brand ul {
 	height: 225px;
 }
 
-.shop__sidebar__categories ul li,
 .shop__sidebar__price ul li,
 .shop__sidebar__brand ul li {
 	list-style: none;
 }
 
-.shop__sidebar__categories ul li a,
 .shop__sidebar__price ul li a,
 .shop__sidebar__brand ul li a {
 	color: #b7b7b7;
@@ -1258,13 +1255,8 @@ ol {
 	transition: all, 0.3s;
 }
 
-.shop__sidebar__categories ul li a:hover,
 .shop__sidebar__price ul li a:hover,
 .shop__sidebar__brand ul li a:hover {
-	color: #111111;
-}
-
-.shop__sidebar__categories ul li a.active{
 	color: #111111;
 }
 
@@ -1304,6 +1296,34 @@ ol {
 }
 
 .shop__sidebar__size label input {
+	position: absolute;
+	visibility: hidden;
+}
+
+.shop__sidebar__categories {
+	padding-top: 15px;
+}
+
+.shop__sidebar__categories label {
+	color: #111111;
+	font-size: 15px;
+	font-weight: 700;
+	text-transform: uppercase;
+	display: inline-block;
+	border: 1px solid #e5e5e5;
+	padding: 6px 25px;
+	margin-bottom: 10px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.shop__sidebar__categories label.active {
+	background: #111111;
+	color: #ffffff;
+	border-color: #111111;
+}
+
+.shop__sidebar__categories label input {
 	position: absolute;
 	visibility: hidden;
 }
