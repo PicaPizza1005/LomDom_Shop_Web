@@ -29,7 +29,7 @@ function Products_ao(product){
     <div class="product__item">
         <div class="product__item__pic set-bg" data-setbg="${product.image}">
             <ul class="product__hover">
-                <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                <li><a href="#"><img src="img/icon/search.png" alt="" onclick="showProductDetail(${product.id})"></a></li>
             </ul>
         </div>
         <div class="product__item__text">
@@ -45,7 +45,7 @@ function Products_quan(product){
     <div class="product__item">
         <div class="product__item__pic set-bg" data-setbg="${product.image}">
             <ul class="product__hover">
-                <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                <li><a href="#"><img src="img/icon/search.png" alt="" onclick="showProductDetail(${product.id})"></a></li>
             </ul>
         </div>
         <div class="product__item__text">
@@ -56,5 +56,6 @@ function Products_quan(product){
     </div>
 </div>`
 };
+
 loadProduct();
 

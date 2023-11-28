@@ -136,6 +136,7 @@ function addToCart(productId) {
         }
     }
     );
+    window.location.reload();
 }   
 
 function showProductDetail(productId) {

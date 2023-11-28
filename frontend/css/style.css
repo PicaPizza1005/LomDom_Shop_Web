@@ -1303,14 +1303,11 @@ ol {
 	cursor: pointer;
 }
 
-.shop__sidebar__size label input.active {
-	border: #000000;
-}
 
-/* .shop__sidebar__size label input {
+.shop__sidebar__size label input {
 	position: absolute;
 	visibility: hidden;
-} */
+}
 
 .shop__sidebar__categories {
 	padding-top: 15px;
