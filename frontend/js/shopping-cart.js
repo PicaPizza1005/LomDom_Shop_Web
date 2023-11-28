@@ -39,6 +39,23 @@ async function updateCartItemService(cartItemId, quantity) {
   return cartItems;
 }
 
+async function addCartItemService(productId) {
+  const cartItems = await fetch(`${api}/api/v1/cart-items`, {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: JSON.stringify({
+      productId: productId,
+      quantity: 1,
+      size: 4
+    }),
+  }).then((res) => res.json());
+  return cartItems;
+}
+
 let listCart = getCartItem();
 
 async function getCartItem() {

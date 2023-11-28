@@ -1442,7 +1442,6 @@ ol {
 	color: #ffffff;
 }
 
-.shop__sidebar__accordion .card-heading a:after,
 .shop__sidebar__accordion .card-heading>a.active[aria-expanded=false]:after {
 	content: "";
 	font-family: "FontAwesome";
@@ -1770,19 +1769,43 @@ ol {
 }
 
 .product__details__option__color label.c-2 {
-	background: #20315f;
+    background: #ffffff;
 }
 
 .product__details__option__color label.c-3 {
-	background: #f1af4d;
+	background: #0e5214;
 }
 
 .product__details__option__color label.c-4 {
-	background: #ed1c24;
+	background: #38282a;
+}
+
+.product__details__option__color label.c-5 {
+	background: #f40a0a;
+}
+
+.product__details__option__color label.c-6 {
+	background: #1c0ee5;
+}
+
+.product__details__option__color label.c-7 {
+	background: #d82d4d;
+}
+
+.product__details__option__color label.c-8 {
+	background: #ede91c;
 }
 
 .product__details__option__color label.c-9 {
-	background: #ffffff;
+	background: #7b66ff;
+}
+
+.product__details__option__color label.c-10 {
+	background: #ff66b3;
+}
+
+.product__details__option__color label.c-11 {
+	background: #67729d;
 }
 
 .product__details__option__color label:after {

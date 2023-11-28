@@ -243,12 +243,12 @@ async function chotdon(event){
             return false;
         }
         if(total === 0) {
-            alert('Đơn hàng không được không có sản phẩm');
+            alert('Đơn hàng phải có sản phẩm');
             console.log('không có sản phẩm đặt');
             return false;
         }
         else {
-            console.log('thành công');
+            console.log('Thành công');
             dathang();
             return true;
         }
@@ -272,7 +272,8 @@ async function dathang() {
                 address: document.getElementById('diachi').value,
                 firstName: document.getElementById("ho").value,
                 lastName: document.getElementById('ten').value,
-                status: 1
+                status: 1,
+                phoneNumber: document.getElementById('sdt').value
             })
         })
         console.log(res);

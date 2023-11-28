@@ -54,29 +54,11 @@ function getProductByColor(colorRq) {
     pageNo = 1;
     sortProduct();
 }
+
 function changeDirectionSort() {
     directionSort = select_sort.value;
     sortProduct();
 }
-
-// sort.forEach((sort) => {
-//     sort.addEventListener("click", () => {
-//         sortProduct(sort.value);
-//     });
-// });
-
-// function sortProduct(sort) {
-//     console.log(sort);
-//     if (sort == "asc") {
-//         products.sort((a, b) => (a.price > b.price) ? 1 : -1);
-//     }
-//     else if (sort == "desc") {
-//         products.sort((a, b) => (a.price < b.price) ? 1 : -1);
-//     }
-//     product_div.innerHTML = "";
-//     loadProduct(products);
-//     loadPageList(products);
-// }
 
 function sortProduct(){
     let productAfterSort = products;
@@ -86,11 +68,46 @@ function sortProduct(){
     if(size!==null){
         productAfterSort = productAfterSort.filter(product => (product.listSizes).some(listSize => listSize.sizeId == size));
     }
-    if(color!==null){
+    if(color!==null){   
         productAfterSort = productAfterSort.filter(product => product.color.id == color);
     }
     loadProduct(productAfterSort);
     loadPageList(productAfterSort);
+}
+
+async function addCartItemService(productId) {
+    const cartItems = await fetch(`${api}/api/v1/cart-items`, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        productId: productId,
+        quantity: 1,
+        size: 4
+      }),
+    }).then((res) => res.json());
+    return cartItems;
+}
+
+function addToCart(productId) {
+    const cartItems = addCartItemService(productId);
+    cartItems.then((data) => {
+        if(data === null) {
+            alert("Đã có lỗi xảy ra");
+        }
+        else {
+            alert("Thêm vào giỏ hàng thành công");
+        }
+    }
+    );
+}   
+
+function showProductDetail(productId) {
+    localStorage.setItem("product_id", productId.toString());
+    window.location.href = "shop-details.html";
 }
 
 function loadProduct(product) {
@@ -105,12 +122,12 @@ function loadProduct(product) {
             <div class="product__item">
                 <div products-setbg="${product.image}" class="product__item__pic set-bg" products width="260" height="260">
                     <ul class="product__hover">
-                        <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                        <li><a href="#"><img src="img/icon/search.png" alt="" onclick="showProductDetail(${product.id})"></a></li>
                     </ul>
                 </div>
                 <div class="product__item__text">
                     <h6>${product.name}</h6>
-                    <a href="#" class="add-cart">+ Add To Cart</a>
+                    <a href="#" class="add-cart" onclick="addToCart(${product.id})">+ Add To Cart</a>
                     <h5>${product.price}<i class="fa fa-money"></i></h5>
                 </div>
             </div>
