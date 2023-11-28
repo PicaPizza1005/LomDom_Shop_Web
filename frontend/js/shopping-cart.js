@@ -23,7 +23,7 @@ async function removeCartItemService(cartItemId) {
   return cartItems;
 }
 
-async function updateCartItemService(cartItemId, quantity) {
+async function updateCartItemService(cartItemId, quantity, size) {
   const cartItems = await fetch(`${api}/api/v1/cart-items/${cartItemId}`, {
     method: "PUT",
     headers: { 
@@ -34,6 +34,7 @@ async function updateCartItemService(cartItemId, quantity) {
     },
     body: JSON.stringify({
       quantity: quantity,
+      size: size
     }),
   }).then((res) => res.json());
   return cartItems;
@@ -58,6 +59,9 @@ function cartItem(cart) {
         </div>
         <div class="product__cart__item__text">
             <h6>${cart?.product?.name}</h6>
+            <div id="size__product">
+              ${generateSizeButtons(cart)}
+            </div>
         </div>
     </td>
     <td class="quantity__item">
@@ -70,13 +74,32 @@ function cartItem(cart) {
         </div>
     </td>
     <td class="cart__price">
-    <span class="text-xs font-medium cart__price${cart.id}">
-    ${numberToVnd(cart?.quantity * cart?.product?.price)}
-    </span>
+      <span class="text-xs font-medium cart__price${cart.id}">
+      ${numberToVnd(cart?.quantity * cart?.product?.price)}
+      </span>
     </td>
     <td class="cart__close"><button onclick="removeItem(${cart.id})" class="fa fa-close"></button></td>
   </tr>
     `;
+}
+
+function SizeItem(size) {
+  return `
+  <label for="${size.sizeId}">
+        ${size.name}
+        <input type="text" id="${size.sizeId}" name="${size.name}">
+  </label>
+  `;
+}
+
+async function generateSizeButtons(cart) {
+  let sizeButtons = "";
+  const sizes = cart?.product?.listSizes;
+  sizes.forEach(size => {
+    sizeButtons += SizeItem(size);
+  });
+  console.log(sizeButtons);
+  return sizeButtons;
 }
 
 async function loadCart() {
@@ -106,38 +129,38 @@ async function updateTotal() {
 }
 
 
-async function updateSL(id,dau) {
+async function updateSL(id,dau,size) {
   let quantity = Number($(`.${id}`).val());
   if (quantity > 1 && dau <0)
   {
     quantity = quantity+dau;
-    const res = await updateCartItemService(id, quantity);
+    const res = await updateCartItemService(id, quantity, size);
     console.log(res);
     $(`.${id}`).val(quantity);
     $(`.${id}`).html(quantity);
-  
+    loadCart();
   }
   else 
   if (quantity<999 && dau >0)
   {
     quantity = quantity +dau;
-    const res = await updateCartItemService(id, quantity);
+    const res = await updateCartItemService(id, quantity, size);
     console.log(res);
     $(`.${id}`).val(quantity);
     $(`.${id}`).html(quantity);
     
-    // loadCart();
+    loadCart();
   }
   else if (dau ==0)
   {
-    const res = await updateCartItemService(id, quantity);
+    const res = await updateCartItemService(id, quantity, size);
     console.log(res);
     $(`.${id}`).val(quantity);
     $(`.${id}`).html(quantity);
   }
 
   for (let i =0;i<listCart.length;i++)
-    if (listCart[i].id == id) listCart[i].quantity = quantity;
+    if (listCart[i].id == id && listCart[i].size == size) listCart[i].quantity = quantity;
     updateTotal();
     
 }
@@ -152,6 +175,7 @@ async function textChange(id) {
 
 async function removeItem(id) {
   const res = await removeCartItemService(id);
+  loadCart();
   updateTotal();
 }
 

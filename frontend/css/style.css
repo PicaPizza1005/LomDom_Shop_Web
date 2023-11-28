@@ -1295,10 +1295,10 @@ ol {
 	border-color: #111111;
 }
 
-.shop__sidebar__size label input {
+/* .shop__sidebar__size label input {
 	position: absolute;
 	visibility: hidden;
-}
+} */
 
 .shop__sidebar__color {
 	padding-top: 15px;
@@ -2349,9 +2349,18 @@ ol {
 	margin-bottom: 10px;
 }
 
-.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text h5 {
-	color: #0d0d0d;
-	font-weight: 700;
+.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text 
+
+.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text .product__size input {
+	width: 50px;
+	border: none;
+	text-align: center;
+	color: #111111;
+	font-size: 16px;
+}
+
+.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text .product__size input:hover {
+	background-color: #ccc;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item {
@@ -2417,6 +2426,12 @@ ol {
 	border: 1px solid #e1e1e1;
 	padding: 14px 35px;
 	display: inline-block;
+}
+
+.continue__btn a:hover {
+	background-color: #000;
+	color: #fff;
+	transition: 0.25s;
 }
 
 .cart__discount {
