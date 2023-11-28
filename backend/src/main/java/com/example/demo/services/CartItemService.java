@@ -69,6 +69,7 @@ public class CartItemService {
     public CartItem update(Long id, CartItemDTO cartItemDTO) {
         CartItem cartItem = cartItemRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't find cartItem with id: " + id + " to update", null));
         cartItem.setQuantity(cartItemDTO.getQuantity());
+        cartItem.setSize(sizeService.get(cartItemDTO.getSize()));
         cartItemRepository.save(cartItem);
         return cartItem;
     }
