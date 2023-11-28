@@ -68,33 +68,130 @@
                             <div class="accordion" id="accordionExample">
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                        <a data-toggle="collapse">Phân loại</a>
                                     </div>
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
-                                                <ul class="nice-scroll">
-                                                    <li><a href="#">Nam</a></li>
-                                                    <li><a href="#">Nữ</a></li>
-                                                    <li><a href="#">Trẻ em</a></li>
-                                                </ul>
+                                                <li>Nam</li>
+                                                <br>
+                                                    <label for="Áo sơ mi" class="category__black" onclick="getProductByCategory(1)">Áo sơ mi
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>    
+                                                    <label for="Quần" class="category__black" onclick="getProductByCategory(3)">Quần
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo nỉ" class="category__black" onclick="getProductByCategory(5)">Áo nỉ
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo thun" class="category__black" onclick="getProductByCategory(7)">Áo thun
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo phao" class="category__black" onclick="getProductByCategory(10)">Áo phao
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo len" class="category__black" onclick="getProductByCategory(12)">Áo len
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Đồ lót" class="category__black" onclick="getProductByCategory(14)">Đồ lót
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo khoác" class="category__black" onclick="getProductByCategory(23)">Áo khoác
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                <li>Nữ</li>
+                                                <br>
+                                                    <label for="Áo sơ mi" class="category__black" onclick="getProductByCategory(2)">Áo sơ mi
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>    
+                                                    <label for="Quần" class="category__black" onclick="getProductByCategory(4)">Quần
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo nỉ" class="category__black" onclick="getProductByCategory(6)">Áo nỉ
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo thun" class="category__black" onclick="getProductByCategory(8)">Áo thun
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Đầm" class="category__black" onclick="getProductByCategory(10)">Đầm
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo phao" class="category__black" onclick="getProductByCategory(11)">Áo phao
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo len" class="category__black" onclick="getProductByCategory(13)">Áo len
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Đồ lót" class="category__black" onclick="getProductByCategory(15)">Đồ lót
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo khoác" class="category__black" onclick="getProductByCategory(24)">Áo khoác
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                <li>Trẻ em</li>
+                                                <br>
+                                                    <label for="Áo thun nam" class="category__black" onclick="getProductByCategory(16)">Áo thun nam
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>    
+                                                    <label for="Áo thun nữ" class="category__black" onclick="getProductByCategory(17)">Áo thun nữ
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>    
+                                                    <label for="Đầm" class="category__black" onclick="getProductByCategory(18)">Đầm
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Quần" class="category__black" onclick="getProductByCategory(19)">Quần
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo khoác nam" class="category__black" onclick="getProductByCategory(20)">Áo khoác nam
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo khoác nữ" class="category__black" onclick="getProductByCategory(21)">Áo khoác nữ
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
+                                                    <label for="Áo nỉ" class="category__black" onclick="getProductByCategory(22)">Áo nỉ
+                                                        <input type="radio">
+                                                    </label>
+                                                    <br>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
+                                        <a data-toggle="collapse">Giá sản phẩm</a>
                                     </div>
-                                    <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                                    <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__price">
                                                 <ul>
-                                                    <li><a href="#">Dưới 100.000đ</a></li>
-                                                    <li><a href="#">100.000đ - 200.000đ</a></li>
-                                                    <li><a href="#">200.000đ - 300.000đ</a></li>
-                                                    <li><a href="#">300.000đ - 400.000đ</a></li>
-                                                    <li><a href="#">Trên 400.000đ</a></li>
+                                                    <li><a href="javascript:void(0)" onclick="getProductByPrice(0,200000)">Dưới 200.000đ</a></li>
+                                                    <li><a href="javascript:void(0)" onclick="getProductByPrice(200000,400000)">200.000đ - 400.000đ</a></li>
+                                                    <li><a href="javascript:void(0)" onclick="getProductByPrice(400000,600000)">400.000đ - 600.000đ</a></li>
+                                                    <li><a href="javascript:void(0)" onclick="getProductByPrice(600000,800000)">600.000đ - 800.000đ</a></li>
+                                                    <li><a href="javascript:void(0)" onclick="getProductByPrice(800000,10000000)">Trên 800.000đ</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -102,91 +199,77 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseFour">Size</a>
+                                        <a>Size</a>
                                     </div>
-                                    <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
+                                    <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__size">
                                                 <label for="xs">xs
-                                                    <input type="radio" id="xs">
+                                                    <input type="radio" id="xs" onclick="getProductBySize(1)">
                                                 </label>
                                                 <label for="sm">s
-                                                    <input type="radio" id="sm">
+                                                    <input type="radio" id="sm" onclick="getProductBySize(2)">
                                                 </label>
                                                 <label for="md">m
-                                                    <input type="radio" id="md">
+                                                    <input type="radio" id="md" onclick="getProductBySize(3)">
                                                 </label>
                                                 <label for="xl">xl
-                                                    <input type="radio" id="xl">
+                                                    <input type="radio" id="xl" onclick="getProductBySize(4)">
                                                 </label>
                                                 <label for="2xl">2xl
-                                                    <input type="radio" id="2xl">
+                                                    <input type="radio" id="2xl" onclick="getProductBySize(5)">
                                                 </label>
                                                 <label for="xxl">xxl
-                                                    <input type="radio" id="xxl">
+                                                    <input type="radio" id="xxl" onclick="getProductBySize(6)">
                                                 </label>
                                                 <label for="3xl">3xl
-                                                    <input type="radio" id="3xl">
+                                                    <input type="radio" id="3xl" onclick="getProductBySize(7)">
                                                 </label>
-                                                <label for="4xl">4xl
-                                                    <input type="radio" id="4xl">
-                                                </label>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseFive">Colors</a>
+                                        <a data-toggle="collapse">Colors</a>
                                     </div>
-                                    <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
+                                    <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__color">
-                                                <label class="c-1" for="sp-1">
+                                                <label class="c-1" for="sp-1" onclick="getProductByColor(1)">
                                                     <input type="radio" id="sp-1">
                                                 </label>
-                                                <label class="c-2" for="sp-2">
+                                                <label class="c-2" for="sp-2" onclick="getProductByColor(2)">
                                                     <input type="radio" id="sp-2">
                                                 </label>
-                                                <label class="c-3" for="sp-3">
+                                                <label class="c-3" for="sp-3" onclick="getProductByColor(3)">
                                                     <input type="radio" id="sp-3">
                                                 </label>
-                                                <label class="c-4" for="sp-4">
+                                                <label class="c-4" for="sp-4" onclick="getProductByColor(4)">
                                                     <input type="radio" id="sp-4">
                                                 </label>
-                                                <label class="c-5" for="sp-5">
+                                                <label class="c-5" for="sp-5" onclick="getProductByColor(5)">
                                                     <input type="radio" id="sp-5">
                                                 </label>
-                                                <label class="c-6" for="sp-6">
+                                                <label class="c-6" for="sp-6" onclick="getProductByColor(6)">
                                                     <input type="radio" id="sp-6">
                                                 </label>
-                                                <label class="c-7" for="sp-7">
+                                                <label class="c-7" for="sp-7" onclick="getProductByColor(7)">
                                                     <input type="radio" id="sp-7">
                                                 </label>
-                                                <label class="c-8" for="sp-8">
+                                                <label class="c-8" for="sp-8" onclick="getProductByColor(8)">
                                                     <input type="radio" id="sp-8">
                                                 </label>
-                                                <label class="c-9" for="sp-9">
+                                                <label class="c-9" for="sp-9" onclick="getProductByColor(9)">
                                                     <input type="radio" id="sp-9">
                                                 </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
-                                    </div>
-                                    <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__tags">
-                                                <a href="#">Product</a>
-                                                <a href="#">Bags</a>
-                                                <a href="#">Shoes</a>
-                                                <a href="#">Fashio</a>
-                                                <a href="#">Clothing</a>
-                                                <a href="#">Hats</a>
-                                                <a href="#">Accessories</a>
+                                                <label class="c-10" for="sp-10" onclick="getProductByColor(10)">
+                                                    <input type="radio" id="sp-10">
+                                                </label>
+                                                <label class="c-11" for="sp-11" onclick="getProductByColor(11)">
+                                                    <input type="radio" id="sp-11">
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
@@ -199,23 +282,26 @@
                     <div class="shop__product__option">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="shop__product__option__left">
-                                    <p>Showing 1–12 of 126 results</p>
+                                <div id="shop__option__left" class="shop__product__option__left">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="shop__product__option__right">
-                                    <p>Sort by Price:</p>
-                                    <select>
-                                        <option value="">Low To High</option>
-                                        <option value="">$0 - $55</option>
-                                        <option value="">$55 - $100</option>
+                                <div id="shop__option__right" class="shop__product__option__right">
+                                    <p>Sắp xếp theo giá:</p>
+                                    <select class="shop__product__option__select" onchange="changeDirectionSort()">
+                                        <option value="asc" class="sort__product">Thấp đến cao</option>
+                                        <option value="desc" class="sort__product">Cao đến thấp</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="product" class="row"></div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="product__pagination" class="product__pagination">
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

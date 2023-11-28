@@ -19,6 +19,7 @@ import java.util.List;
 
 @Service
 public class CartItemService {
+    
     private final CartItemRepository cartItemRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
@@ -56,15 +57,11 @@ public class CartItemService {
     @Transactional
     public CartItem create(CartItemDTO cartItemDTO) {
         CartItem cartItem = cartItemRepository.findByUserIdAndProductId(authService.getCurrentUserId(), cartItemDTO.getProductId());
-        if (cartItem == null) {
-            cartItem = new CartItem();
-            cartItem.setQuantity(cartItemDTO.getQuantity());
-            cartItem.setUser(authService.getCurrentUser());
-            cartItem.setProduct(productService.get(cartItemDTO.getProductId()));
-            cartItem.setSize(sizeService.get(cartItemDTO.getSize()));
-        } else {
-            cartItem.setQuantity(cartItem.getQuantity() + 1);
-        }
+        cartItem = new CartItem();
+        cartItem.setQuantity(cartItemDTO.getQuantity());
+        cartItem.setUser(authService.getCurrentUser());
+        cartItem.setProduct(productService.get(cartItemDTO.getProductId()));
+        cartItem.setSize(sizeService.get(cartItemDTO.getSize()));
         cartItemRepository.save(cartItem);
         return cartItem;
     }

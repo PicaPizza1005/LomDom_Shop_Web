@@ -30,8 +30,8 @@ public class CartItemController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<CartItem>> findById(@PathVariable final Long id) {
-        return ResponseEntity.ok(cartItemService.findAllByUserId());
+    public ResponseEntity<CartItem> findById(@PathVariable final Long id) {
+        return ResponseEntity.ok(cartItemService.get(id));
     }
 
     @PostMapping

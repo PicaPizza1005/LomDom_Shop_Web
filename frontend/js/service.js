@@ -15,6 +15,13 @@ async function logout() {
   localStorage.removeItem("token");
   window.location.href = "index.html";
 }
+function kiemtra(event) {
+  if(token === ""){
+    event.preventDefault();
+    alert("Vui lòng đăng nhập để mua hàng");
+    window.location.href = "signIn.html";
+  }
+}
 if (token !== "") {
   async function load() {
     let user = await fetchUser();

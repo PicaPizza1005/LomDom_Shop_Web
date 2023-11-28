@@ -73,7 +73,7 @@ public class OrderService {
     @Transactional
     public Long createOrderFromCart(OrderDTO orderDTO) {
         Order order = new Order();
-        order.setPhone(authService.getCurrentUser().getPhone());
+        order.setPhone(orderDTO.getPhoneNumber());
         order.setUser(authService.getCurrentUser());
         Long totalPrice = 0L;
         order.setTotal(totalPrice);
@@ -116,11 +116,11 @@ public class OrderService {
 
 
     private Order mapToEntity(final OrderDTO orderDTO, Order order) {
+        order.setPhone(orderDTO.getPhoneNumber());
         order.setAddress(orderDTO.getAddress());
         order.setFirstName(orderDTO.getFirstName());
         order.setLastName(orderDTO.getLastName());
         order.setStatus(orderStatusRepository.findById(orderDTO.getStatus()).orElseThrow(() -> new RuntimeException("Can't find orderStatus with id: " + orderDTO.getStatus() + " to update")));
-        order.setUser(userRepository.findById(orderDTO.getUser()).orElseThrow(() -> new RuntimeException("Can't find user with id: " + orderDTO.getUser() + " to update")));
         return order;
     }
 
