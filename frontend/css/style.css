@@ -1346,6 +1346,10 @@ ol {
 	padding-top: 15px;
 }
 
+.shop__sidebar__color label.active {
+	border:#000
+}
+
 .shop__sidebar__color label {
 	height: 30px;
 	width: 30px;

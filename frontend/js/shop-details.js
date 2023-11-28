@@ -24,6 +24,11 @@ function insertProductDetail() {
             `
         }
     );
+    document.getElementById("product__materials").innerHTML = `
+        <span>Materials:</span>
+        <p>${product_detail.materials}</p>`;
+    document.getElementById("product__instruction").innerHTML = `
+        <p>${product_detail.instruction}</p>`;
     document.getElementById("product__color").innerHTML = `
         <span>Color:</span>
         <label class="c-${product_detail.color.id}" for="sp-${product_detail.color.id}">
