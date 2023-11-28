@@ -20,7 +20,6 @@ async function getProduct() {
     try {
         const response = await fetch(`${api}/api/v1/products`);
         products = await response.json();
-        // sortProduct("asc");
         loadProduct(products);
         loadPageList(products);
     }
@@ -30,49 +29,83 @@ async function getProduct() {
 }
 getProduct();
 
-function getProductByCategory(category) {
-    let productByCategory = products.filter(product => product.category.id == category);
-    loadProduct(productByCategory);
-    loadPageList(productByCategory);
+function getProductByChoose() {
+    const categoryId = document.getElementsByClassName("category__checkbox");
+    const categoryTick =[];
+    for(let i=0; i<categoryId.length; i++) {
+        if(categoryId[i].checked) categoryTick.push(categoryId[i].value);
+    }
+    const priceId = document.getElementsByClassName("price__checkbox");
+    const priceTick =[];
+    for(let i=0; i<priceId.length; i++) {
+        if(priceId[i].checked) priceTick.push(priceId[i].value);
+    }
+    const sizeId = document.getElementsByClassName("size__checkbox");
+    const sizeTick =[];
+    for(let i=0; i<sizeId.length; i++) {
+        if(sizeId[i].checked) sizeTick.push(sizeId[i].value);
+    }
+    const colorId = document.getElementsByClassName("color__checkbox");
+    const colorTick =[];
+    for(let i=0; i<colorId.length; i++) {
+        if(colorId[i].checked) colorTick.push(colorId[i].value);
+    }
+    $(".shop__sidebar__color label").on('click', function () {
+        $(".shop__sidebar__color label").removeClass('active');
+        $(this).addClass('active');
+    });
+    FilterProduct(categoryTick, priceTick, sizeTick, colorTick);
 }
 
-function getProductByPrice(pricelowRq, pricehighRq) {
-    priceLow = pricelowRq;
-    priceHigh = pricehighRq;
-    pageNo = 1;
-    sortProduct();
+function FilterProduct(categoryTick=[], priceTick=[], sizeTick=[], colorTick=[]) {
+    let productAfterFilter = [];
+    for(let i=0; i< products.length; i++) {
+        if(categoryTick.length>0) {
+            if(categoryTick.includes(products[i].category.id.toString()) == false) {
+                continue;
+            }
+        }
+        if(priceTick.length>0) {
+            if(priceTick.includes("1") == false && products[i].price < 200000) {
+                continue;
+            }
+            if(priceTick.includes("2") == false && products[i].price >= 200000 && products[i].price < 400000) {
+                continue;
+            }
+            if(priceTick.includes("3") == false && products[i].price >= 400000 && products[i].price < 600000) {
+                continue;
+            }
+            if(priceTick.includes("4") == false && products[i].price >= 600000 && products[i].price < 800000) {
+                continue;
+            }
+            if(priceTick.includes("5") == false && products[i].price >= 800000) {
+                continue;
+            }
+        }
+        if(sizeTick.length>0) {
+            if((products[i].listSizes).some(listSize => sizeTick.includes(listSize.sizeId.toString())) == false) {
+                continue;
+            }
+        }
+        if(colorTick.length>0) {
+            if(colorTick.includes(products[i].color.id.toString()) == false) {
+                continue;
+            }
+        }
+        productAfterFilter.push(products[i]);
+    }
+    // sortProduct(productAfterFilter);
+    loadProduct(productAfterFilter);
 }
 
-function getProductBySize(sizeRq) {
-    size = sizeRq;
-    pageNo = 1;
-    sortProduct();
-}
-
-function getProductByColor(colorRq) {
-    color = colorRq;
-    pageNo = 1;
-    sortProduct();
-}
-
-function changeDirectionSort() {
+function changeDirectionSort() {    
     directionSort = select_sort.value;
     sortProduct();
 }
 
-function sortProduct(){
-    let productAfterSort = products;
-    if(priceLow!==null && priceHigh!==null){
-        productAfterSort = productAfterSort.filter(product => product.price >= priceLow && product.price <= priceHigh);
-    }
-    if(size!==null){
-        productAfterSort = productAfterSort.filter(product => (product.listSizes).some(listSize => listSize.sizeId == size));
-    }
-    if(color!==null){   
-        productAfterSort = productAfterSort.filter(product => product.color.id == color);
-    }
-    loadProduct(productAfterSort);
-    loadPageList(productAfterSort);
+function sortProduct(product){
+    loadProduct(product);
+    loadPageList(product);
 }
 
 async function addCartItemService(productId) {
@@ -147,7 +180,7 @@ function changePage(page) {
     if(pageNo === page) return;
     else{
         pageNo = page;
-        sortProduct();
+        loadProduct(products);
         console.log(pageNo);
     }
 }

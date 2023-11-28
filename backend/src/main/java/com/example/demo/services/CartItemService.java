@@ -54,7 +54,7 @@ public class CartItemService {
         return cartItemRepository.findById(id).orElseThrow(() -> new RuntimeException("Can't find cartItem with id: " + id));
     }
 
-    // @Transactional
+    @Transactional
     public CartItem create(CartItemDTO cartItemDTO) {
         CartItem cartItem = cartItemRepository.findByUserIdAndProductId(authService.getCurrentUserId(), cartItemDTO.getProductId());
         cartItem = new CartItem();

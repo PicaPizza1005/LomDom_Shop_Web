@@ -1303,10 +1303,8 @@ ol {
 	cursor: pointer;
 }
 
-.shop__sidebar__size label.active {
-	background: #111111;
-	color: #ffffff;
-	border-color: #111111;
+.shop__sidebar__size label input.active {
+	border: #000000;
 }
 
 .shop__sidebar__size label input {
@@ -1319,35 +1317,25 @@ ol {
 }
 
 .shop__sidebar__categories label {
-	color: #111111;
-	font-size: 15px;
-	font-weight: 700;
-	text-transform: uppercase;
-	display: inline-block;
-	border: 1px solid #e5e5e5;
-	padding: 6px 25px;
-	margin-bottom: 10px;
-	margin-right: 5px;
-	cursor: pointer;
+    display: block;
+    padding-left: 30px;
+    text-indent: -10px;
 }
 
-.shop__sidebar__categories label.active {
-	background: #111111;
-	color: #ffffff;
-	border-color: #111111;
-}
 
 .shop__sidebar__categories label input {
-	position: absolute;
-	visibility: hidden;
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    position: relative;
+	vertical-align: middle;
+    top: -1px;
 }
 
 .shop__sidebar__color {
 	padding-top: 15px;
-}
-
-.shop__sidebar__color label.active {
-	border:#000
+	box-sizing: border-box;
 }
 
 .shop__sidebar__color label {
@@ -1420,6 +1408,10 @@ ol {
 .shop__sidebar__color label input {
 	position: absolute;
 	visibility: hidden;
+}
+
+.shop__sidebar__color label.active {
+	border: 5px solid #111111;
 }
 
 .shop__sidebar__tags {

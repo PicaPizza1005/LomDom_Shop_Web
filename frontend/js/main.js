@@ -105,13 +105,8 @@
     /*-------------------
 		Radio Btn
 	--------------------- */
-    $(".product__color__select label, .shop__sidebar__size label, .product__details__option__size label").on('click', function () {
-        $(".product__color__select label, .shop__sidebar__size label, .product__details__option__size label").removeClass('active');
-        $(this).addClass('active');
-    });
-
-    $(".product__color__select label, .shop__sidebar__categories label, .product__details__option__size label").on('click', function () {
-        $(".product__color__select label, .shop__sidebar__categories label, .product__details__option__size label").removeClass('active');
+    $(".shop__sidebar__size label").on('click', function () {
+        $(".shop__sidebar__size label").removeClass('active');
         $(this).addClass('active');
     });
 
