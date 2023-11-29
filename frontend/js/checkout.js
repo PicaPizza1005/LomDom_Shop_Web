@@ -10,12 +10,33 @@ async function getCartItemsService() {
     });
     const cartItems = response.json();
     return cartItems;
-  }
+}
+
+async function createOrderService() {
+    const resOrder = await fetch(`${api}/api/v1/orders`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+            address: document.getElementById('diachi').value,
+            phoneNumber: document.getElementById('sdt').value,
+            firstName: document.getElementById("ho").value,
+            lastName: document.getElementById('ten').value,
+            status: 1,
+            phoneNumber: document.getElementById('sdt').value
+        })
+    }).then((res) => res.json());
+    return resOrder;
+}
+
 
 function mathang(c) {
     return `
-        <li>${c.product?.name}</li>
-        <span>${numberToVnd(c?.quantity * c?.product?.price)}/span>
+    <li>${c.product?.name}</li>
+    <span>${numberToVnd(c?.quantity * c?.product?.price)}/span>
     `;
 }
 
@@ -80,11 +101,11 @@ const kiemTraTenHo = (str) => {
 const kiemTraSdt = (sdt) => {
     return sdt.match(
         /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/
-    );
-};
+        );
+    };
 
-//check không được để trống thông tin 
-function checkIfEmpty() {
+    //check không được để trống thông tin 
+    function checkIfEmpty() {
     var ho = document.getElementById('ho'); // ô họ đệm
     var giatriho = document.getElementById('ho').value.trim(); //giá trị trong ô họ đệm
     // kiểm tra nếu ô nhập bị bỏ trống
@@ -240,17 +261,14 @@ async function chotdon(event){
             event.preventDefault();
             alert('Thông tin không được để trống');
             console.log('chưa điền đủ các ô trống');
-            return false;
         }
         if(total === 0) {
             alert('Đơn hàng phải có sản phẩm');
             console.log('không có sản phẩm đặt');
-            return false;
         }
         else {
             console.log('Thành công');
             dathang();
-            return true;
         }
     }
  }
@@ -263,27 +281,14 @@ function veTrangChu(){
 //đặt hàng, gửi data lên server
 async function dathang() {
     if(token !== ''){
-        const res = await fetch('http://localhost:8081/api/v1/orders', {
-            method: "POST",
-            headers: {
-                ...defaultHeader
-            },
-            body: JSON.stringify({
-                address: document.getElementById('diachi').value,
-                phoneNumber: document.getElementById('sdt').value,
-                firstName: document.getElementById("ho").value,
-                lastName: document.getElementById('ten').value,
-                status: 1,
-                phoneNumber: document.getElementById('sdt').value
-            })
-        })
+        const res = await createOrderService();
         console.log(res);
         console.log("Đặt hàng thành công");
         alert("Đơn hàng đã được đặt thành công");
-        window.location.href = "order.html";
     }
     else {
         alert("Vui lòng đăng nhập trước khi đặt hàng");
         console.error("người dùng chưa đăng nhập, yêu cầu đăng nhập trước khi đặt hàng");
     }
 }
+console.log(createOrderService());
