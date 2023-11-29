@@ -15,6 +15,13 @@ async function logout() {
   localStorage.removeItem("token");
   window.location.href = "index.html";
 }
+function kiemtra(event) {
+  if(token === ""){
+    event.preventDefault();
+    alert("Vui lòng đăng nhập để mua hàng");
+    window.location.href = "signIn.html";
+  }
+}
 if (token !== "") {
   async function load() {
     let user = await fetchUser();
@@ -37,4 +44,14 @@ async function search(event) {
   event.preventDefault();
   localStorage.setItem('query', document.getElementById("search-input").value.trim());
   window.location.href = "search.html";
+}
+
+// Cart
+
+function numberToVnd(number) {
+  var formatter = new Intl.NumberFormat("vn-VN", {
+    style: "currency",
+    currency: "VND",
+  });
+  return formatter.format(number);
 }

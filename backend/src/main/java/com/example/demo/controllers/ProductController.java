@@ -21,6 +21,7 @@ import com.example.demo.models.ProductDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
 @RequestMapping(value = "/api/v1/products", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,38 +41,26 @@ public class ProductController {
     public ResponseEntity<Product> getProduct(@PathVariable final Long id) {
         return ResponseEntity.ok(productService.get(id));
     }
-
+    
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam("query") String query) {
         return ResponseEntity.ok(productService.search(query));
     }
 
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable final Long categoryId) {
-        return ResponseEntity.ok(productService.findByCategory(categoryId));
-    }
-
-    @GetMapping("/color/{colorId}")
-    public ResponseEntity<List<Product>> getProductsByColor(@PathVariable final Long colorId) {
-        return ResponseEntity.ok(productService.findByColor(colorId));
-    }
-
-    // @GetMapping("/size/{sizeId}")
-    // public ResponseEntity<List<Product>> getProductsBySize(@PathVariable final Long sizeId) {
-    //     return ResponseEntity.ok(productService.findBySize(sizeId));
-    // }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')" )
     @PostMapping
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createProduct(@RequestBody @Valid final ProductDTO productDTO) {
         return new ResponseEntity<>(productService.create(productDTO), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')" )
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable final Long id, @RequestBody @Valid final ProductDTO productDTO) {
         return ResponseEntity.ok(productService.update(id, productDTO));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')" )
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
     public ResponseEntity<Void> deleteProduct(@PathVariable final Long id) {

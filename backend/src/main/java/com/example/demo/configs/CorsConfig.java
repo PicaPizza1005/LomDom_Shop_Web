@@ -13,17 +13,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EntityScan("com.example.demo.entities")
 @EnableJpaRepositories("com.example.demo.repositories")
 public class CorsConfig {
-
     @Bean
     public WebMvcConfigurer corsConfigure() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOriginPatterns("*")
-                        .allowedMethods("GET", "PUT", "POST", "DELETE")
-                        .exposedHeaders("Authorization")
-                        .maxAge(3600);
+                .allowedOriginPatterns("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .exposedHeaders("Authorization")
+                .maxAge(3600);
             }
         };
     }

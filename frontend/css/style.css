@@ -243,6 +243,20 @@ ol {
 	}
 }
 
+#success-message {
+	font-size: 2em;
+	text-align: center;
+}
+
+.xacnhan {
+	display: block;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    margin: 0;
+    font-family: "Nunito Sans", sans-serif;
+}
+
 .spacial-controls {
 	position: fixed;
 	width: 111px;
@@ -1235,19 +1249,16 @@ ol {
 	display: block;
 }
 
-.shop__sidebar__categories ul,
 .shop__sidebar__price ul,
 .shop__sidebar__brand ul {
 	height: 225px;
 }
 
-.shop__sidebar__categories ul li,
 .shop__sidebar__price ul li,
 .shop__sidebar__brand ul li {
 	list-style: none;
 }
 
-.shop__sidebar__categories ul li a,
 .shop__sidebar__price ul li a,
 .shop__sidebar__brand ul li a {
 	color: #b7b7b7;
@@ -1258,9 +1269,12 @@ ol {
 	transition: all, 0.3s;
 }
 
-.shop__sidebar__categories ul li a:hover,
 .shop__sidebar__price ul li a:hover,
 .shop__sidebar__brand ul li a:hover {
+	color: #111111;
+}
+
+.shop__sidebar__price ul li a.active{
 	color: #111111;
 }
 
@@ -1289,19 +1303,42 @@ ol {
 	cursor: pointer;
 }
 
-.shop__sidebar__size label.active {
-	background: #111111;
-	color: #ffffff;
-	border-color: #111111;
-}
 
 .shop__sidebar__size label input {
 	position: absolute;
 	visibility: hidden;
 }
 
+.shop__sidebar__size label.active {
+    background: #111111;
+    color: #ffffff;
+    border-color: #111111;
+}
+
+.shop__sidebar__categories {
+	padding-top: 15px;
+}
+
+.shop__sidebar__categories label {
+    display: block;
+    padding-left: 30px;
+    text-indent: -10px;
+}
+
+
+.shop__sidebar__categories label input {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    position: relative;
+	vertical-align: middle;
+    top: -1px;
+}
+
 .shop__sidebar__color {
 	padding-top: 15px;
+	box-sizing: border-box;
 }
 
 .shop__sidebar__color label {
@@ -1320,36 +1357,45 @@ ol {
 }
 
 .shop__sidebar__color label.c-2 {
-	background: #20315f;
+    background: #ffffff;
 }
 
 .shop__sidebar__color label.c-3 {
-	background: #f1af4d;
+	background: #0e5214;
 }
 
 .shop__sidebar__color label.c-4 {
-	background: #636068;
+	background: #38282a;
 }
 
 .shop__sidebar__color label.c-5 {
-	background: #57594d;
+	background: #f40a0a;
 }
 
 .shop__sidebar__color label.c-6 {
-	background: #e8bac4;
+	background: #1c0ee5;
 }
 
 .shop__sidebar__color label.c-7 {
-	background: #d6c1d7;
+	background: #d82d4d;
 }
 
 .shop__sidebar__color label.c-8 {
-	background: #ed1c24;
+	background: #ede91c;
 }
 
 .shop__sidebar__color label.c-9 {
-	background: #ffffff;
+	background: #7b66ff;
 }
+
+.shop__sidebar__color label.c-10 {
+	background: #ff66b3;
+}
+
+.shop__sidebar__color label.c-11 {
+	background: #67729d;
+}
+
 
 .shop__sidebar__color label:after {
 	position: absolute;
@@ -1365,6 +1411,10 @@ ol {
 .shop__sidebar__color label input {
 	position: absolute;
 	visibility: hidden;
+}
+
+.shop__sidebar__color label.active {
+	border: 5px solid #111111;
 }
 
 .shop__sidebar__tags {
@@ -1391,7 +1441,6 @@ ol {
 	color: #ffffff;
 }
 
-.shop__sidebar__accordion .card-heading a:after,
 .shop__sidebar__accordion .card-heading>a.active[aria-expanded=false]:after {
 	content: "";
 	font-family: "FontAwesome";
@@ -1719,19 +1768,43 @@ ol {
 }
 
 .product__details__option__color label.c-2 {
-	background: #20315f;
+    background: #ffffff;
 }
 
 .product__details__option__color label.c-3 {
-	background: #f1af4d;
+	background: #0e5214;
 }
 
 .product__details__option__color label.c-4 {
-	background: #ed1c24;
+	background: #38282a;
+}
+
+.product__details__option__color label.c-5 {
+	background: #f40a0a;
+}
+
+.product__details__option__color label.c-6 {
+	background: #1c0ee5;
+}
+
+.product__details__option__color label.c-7 {
+	background: #d82d4d;
+}
+
+.product__details__option__color label.c-8 {
+	background: #ede91c;
 }
 
 .product__details__option__color label.c-9 {
-	background: #ffffff;
+	background: #7b66ff;
+}
+
+.product__details__option__color label.c-10 {
+	background: #ff66b3;
+}
+
+.product__details__option__color label.c-11 {
+	background: #67729d;
 }
 
 .product__details__option__color label:after {
@@ -2349,9 +2422,18 @@ ol {
 	margin-bottom: 10px;
 }
 
-.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text h5 {
-	color: #0d0d0d;
-	font-weight: 700;
+.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text 
+
+.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text .product__size input {
+	width: 50px;
+	border: none;
+	text-align: center;
+	color: #111111;
+	font-size: 16px;
+}
+
+.shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text .product__size input:hover {
+	background-color: #ccc;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item {
@@ -2359,7 +2441,9 @@ ol {
 }
 
 .shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 {
+	display: flex;
 	width: 80px;
+	justify-content: space-between;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 input {
@@ -2370,11 +2454,8 @@ ol {
 	font-size: 16px;
 }
 
-.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 .qtybtn {
-	font-size: 16px;
-	color: #888888;
-	width: 10px;
-	cursor: pointer;
+.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 > button:hover {
+	background-color: #ccc;
 }
 
 .shopping__cart__table table tbody tr td.cart__price {
@@ -2418,6 +2499,12 @@ ol {
 	border: 1px solid #e1e1e1;
 	padding: 14px 35px;
 	display: inline-block;
+}
+
+.continue__btn a:hover {
+	background-color: #000;
+	color: #fff;
+	transition: 0.25s;
 }
 
 .cart__discount {

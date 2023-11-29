@@ -172,10 +172,10 @@ INSERT INTO `order_status` (`id`, `description`, `name`) VALUES
 
 CREATE TABLE `product` (
   `id` bigint(20) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` varchar(1000) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `instruction` text NOT NULL,
-  `materials` text NOT NULL,
+  `instruction` varchar(1000) NOT NULL,
+  `materials` varchar(1000) NOT NULL,
   `name` varchar(255) NOT NULL,
   `price` bigint(20) NOT NULL,
   `category_id` bigint(20) DEFAULT NULL,
