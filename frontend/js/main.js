@@ -105,11 +105,22 @@
     /*-------------------
 		Radio Btn
 	--------------------- */
-    $(".shop__sidebar__size label").on('click', function () {
-        $(".shop__sidebar__size label").removeClass('active');
-        $(this).addClass('active');
+    $(".shop__sidebar__size label").on('change', function () {
+        console.log(this);
+        if ($(this).hasClass("active")) {
+            $(this).removeClass("active");
+        } else {
+            $(this).addClass("active");
+        }
     });
-
+    $(".shop__sidebar__color label").on('change', function () {
+        if($(this).hasClass("active")) {
+            $(this).removeClass("active");
+        }
+        else {
+            $(this).addClass("active");
+        }
+    });
     /*-------------------
 		Scroll
 	--------------------- */

@@ -10,10 +10,6 @@ let pageSize = 18;
 let totalPages = 0;
 let products = [];
 
-let priceLow = null;
-let priceHigh = null;
-let size = null;
-let color = null;
 let directionSort = "asc";
 
 async function getProduct() {
@@ -21,7 +17,6 @@ async function getProduct() {
         const response = await fetch(`${api}/api/v1/products`);
         products = await response.json();
         loadProduct(products);
-        loadPageList(products);
     }
     catch (error) {
         console.error("Error fetching product:", error);
@@ -30,6 +25,7 @@ async function getProduct() {
 getProduct();
 
 function getProductByChoose() {
+    console.log(123);
     const categoryId = document.getElementsByClassName("category__checkbox");
     const categoryTick =[];
     for(let i=0; i<categoryId.length; i++) {
@@ -50,10 +46,6 @@ function getProductByChoose() {
     for(let i=0; i<colorId.length; i++) {
         if(colorId[i].checked) colorTick.push(colorId[i].value);
     }
-    $(".shop__sidebar__color label").on('click', function () {
-        $(".shop__sidebar__color label").removeClass('active');
-        $(this).addClass('active');
-    });
     FilterProduct(categoryTick, priceTick, sizeTick, colorTick);
 }
 
@@ -94,19 +86,14 @@ function FilterProduct(categoryTick=[], priceTick=[], sizeTick=[], colorTick=[])
         }
         productAfterFilter.push(products[i]);
     }
-    // sortProduct(productAfterFilter);
     loadProduct(productAfterFilter);
 }
 
 function changeDirectionSort() {    
     directionSort = select_sort.value;
-    sortProduct();
+    loadProduct(products);
 }
 
-function sortProduct(product){
-    loadProduct(product);
-    loadPageList(product);
-}
 
 async function addCartItemService(productId) {
     const cartItems = await fetch(`${api}/api/v1/cart-items`, {
@@ -133,10 +120,9 @@ function addToCart(productId) {
         }
         else {
             alert("Thêm vào giỏ hàng thành công");
+            window.location.reload();
         }
-    }
-    );
-    window.location.reload();
+    });
 }   
 
 function showProductDetail(productId) {
@@ -144,13 +130,12 @@ function showProductDetail(productId) {
     window.location.href = "shop-details.html";
 }
 
-function loadProduct(product) {
-    console.log(product);
+function loadProduct(products) {
+    console.log(products);
     product_div.innerHTML = "";
-    productAfterSlice = product.slice(pageNo*pageSize-pageSize, pageNo*pageSize);
-    if(directionSort == "asc") productAfterSlice.sort((a, b) => (a.price > b.price) ? 1 : -1);
-    else productAfterSlice.sort((a, b) => (a.price < b.price) ? 1 : -1);
-    productAfterSlice.forEach((product) => { 
+    if(directionSort == "asc") products.sort((a, b) => (a.price > b.price) ? 1 : -1);
+    else products.sort((a, b) => (a.price < b.price) ? 1 : -1);
+    products.forEach((product) => { 
         product_div.innerHTML += `
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="product__item">
@@ -162,52 +147,16 @@ function loadProduct(product) {
                 <div class="product__item__text">
                     <h6>${product.name}</h6>
                     <a href="#" class="add-cart" onclick="addToCart(${product.id})">+ Add To Cart</a>
-                    <h5>${product.price}<i class="fa fa-money"></i></h5>
+                    <h5>${numberToVnd(product.price)}</h5>
                 </div>
             </div>
         </div>
         `;
     });
-   
     $('.set-bg').each(function() {
         var bg = $(this).attr('products-setbg');
         $(this).css('background-image', 'url(' + bg + ')');
     });
 }
 
-function changePage(page) {
-    if (page<1) page = 1;
-    if (page>totalPages+1) page = totalPages+1;
-    if(pageNo === page) return;
-    else{
-        pageNo = page;
-        loadProduct(products);
-        console.log(pageNo);
-    }
-}
-
-function loadPageList(product) {
-    product__pagination.innerHTML = "";
-   
-    totalPages = Math.ceil(product.length/pageSize - 1);
-    shop__product__option__left.innerHTML = `
-        <p>Hiển thị ${pageSize<product.length?pageSize:product.length} trên ${product.length} kết quả</p>
-    `;
-    for (let i=1; i<=totalPages+1; i++) {
-        if (i==pageNo) {
-            product__pagination.innerHTML += `
-            <a href="#" onclick="changePage(${i})" class="active">${i}</a>
-            `;
-            continue;
-        }
-        product__pagination.innerHTML += `
-        <a href="#" onclick="changePage(${i})">${i}</a>
-        `;
-    }
-    $('.product__pagination a').on('click', function(e) {
-        e.preventDefault();
-        $('.product__pagination a').removeClass('active');
-        $(this).addClass('active');
-    });
-}
 

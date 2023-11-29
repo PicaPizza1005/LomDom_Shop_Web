@@ -1309,6 +1309,12 @@ ol {
 	visibility: hidden;
 }
 
+.shop__sidebar__size label.active {
+    background: #111111;
+    color: #ffffff;
+    border-color: #111111;
+}
+
 .shop__sidebar__categories {
 	padding-top: 15px;
 }
