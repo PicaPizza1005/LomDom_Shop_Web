@@ -12,27 +12,6 @@ async function getCartItemsService() {
     return cartItems;
 }
 
-async function createOrderService() {
-    const resOrder = await fetch(`${api}/api/v1/orders`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-            address: document.getElementById('diachi').value,
-            phoneNumber: document.getElementById('sdt').value,
-            firstName: document.getElementById("ho").value,
-            lastName: document.getElementById('ten').value,
-            status: 1,
-            phoneNumber: document.getElementById('sdt').value
-        })
-    }).then((res) => res.json());
-    return resOrder;
-}
-
-
 function mathang(c) {
     return `
     <li>${c.product?.name}</li>
@@ -281,7 +260,22 @@ function veTrangChu(){
 //đặt hàng, gửi data lên server
 async function dathang() {
     if(token !== ''){
-        const res = await createOrderService();
+        const res = await fetch(`${api}/api/v1/orders`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            body: JSON.stringify({
+                address: document.getElementById('diachi').value,
+                phoneNumber: document.getElementById('sdt').value,
+                firstName: document.getElementById("ho").value,
+                lastName: document.getElementById('ten').value,
+                status: 1,
+                phoneNumber: document.getElementById('sdt').value
+            })
+        });
         console.log(res);
         console.log("Đặt hàng thành công");
         alert("Đơn hàng đã được đặt thành công");
@@ -291,4 +285,3 @@ async function dathang() {
         console.error("người dùng chưa đăng nhập, yêu cầu đăng nhập trước khi đặt hàng");
     }
 }
-console.log(createOrderService());
