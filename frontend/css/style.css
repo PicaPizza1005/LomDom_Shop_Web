@@ -2151,6 +2151,7 @@ ol {
 	top: 0;
 	content: "";
 	font-family: "FontAwesome";
+	content: ">";
 }
 
 .breadcrumb__links span {

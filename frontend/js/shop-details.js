@@ -12,7 +12,7 @@ function insertProductDetail() {
     document.getElementById("product__name").innerHTML = `
         <h4>${product_detail.name}</h4>`;
     document.getElementById("product__price").innerHTML = `
-        <h3>${product_detail.price}</h3>`;
+        <h3>${numberToVnd(product_detail.price)}</h3>`;
     document.getElementById("product__description").innerHTML = `
         <p>${product_detail.description}</p>`;
     document.getElementById("product__image").innerHTML = `

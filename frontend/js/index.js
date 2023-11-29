@@ -35,7 +35,7 @@ function Products_ao(product){
         <div class="product__item__text">
             <h6>${product.name}</h6>
             <a href="" class="add-cart" onclick="addToCart(${product.id})">+ Add To Cart</a>
-            <h5>${product.price}</h5>
+            <h5>${numberToVnd(product.price)}</h5>
         </div>
     </div>
 </div>`
@@ -51,7 +51,7 @@ function Products_quan(product){
         <div class="product__item__text">
             <h6>${product.name}</h6>
             <a href="" class="add-cart" onclick="addToCart(${product.id})">+ Add To Cart</a>
-            <h5>${product.price}</h5>
+            <h5>${numberToVnd(product.price)}</h5>
         </div>
     </div>
 </div>`
