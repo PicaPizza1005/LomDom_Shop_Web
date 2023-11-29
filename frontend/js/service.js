@@ -16,7 +16,9 @@ async function logout() {
   window.location.href = "index.html";
 }
 function kiemtra(event) {
+  console.log(123);
   if(token === ""){
+    console.log(456);
     event.preventDefault();
     alert("Vui lòng đăng nhập để mua hàng");
     window.location.href = "signIn.html";
