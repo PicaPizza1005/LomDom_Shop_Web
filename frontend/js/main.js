@@ -106,7 +106,6 @@
 		Radio Btn
 	--------------------- */
     $(".shop__sidebar__size label").on('change', function () {
-        console.log(this);
         if ($(this).hasClass("active")) {
             $(this).removeClass("active");
         } else {
