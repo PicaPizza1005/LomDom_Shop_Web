@@ -17,7 +17,7 @@ Trang web bán quần áo
 Môi trường yêu cầu để chạy backend:
 
 * Java 11
-* mysql:5.7
+* mysql 5.7
 * maven 3.8.6
 
 ### Cài đặt frontend
