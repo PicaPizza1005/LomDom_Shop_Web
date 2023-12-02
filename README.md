@@ -1,4 +1,4 @@
-# Lập trình web
+# Lập trình hướng đối tượng
 
 Trang web bán quần áo
 
@@ -22,7 +22,7 @@ Môi trường yêu cầu để chạy backend:
 
 ### Cài đặt frontend
 
-Frontend là web tĩnh nên có thể dùng các công cụ chạy file index.html lên
+Frontend là web tĩnh nên có thể dùng các công cụ chạy file html lên
 
 ## Cấu trúc thư mục
 
@@ -43,7 +43,7 @@ Trần Quang Vinh - B21DCCN793: Frontend
 
 ## Triển khai sử dụng docker-compose
 
-Để chạy ta sử dụng lênh
+Để chạy ta sử dụng lệnh
 
 ```bash
   docker-compose up
