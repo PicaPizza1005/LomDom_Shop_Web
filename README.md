@@ -1,6 +1,6 @@
 # Lập trình web
 
-Trang web bán hàng thực phẩm
+Trang web bán quần áo
 
 ## Công nghệ sử dụng
 
@@ -22,7 +22,7 @@ Môi trường yêu cầu để chạy backend:
 
 ### Cài đặt frontend
 
-Frontend là web tĩnh nên có thể dùng các công cụ chạy file index.html lên
+Frontend là web tĩnh nên có thể dùng các công cụ chạy file html
 
 ## Cấu trúc thư mục
 
